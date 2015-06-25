@@ -2,13 +2,14 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\BaseController;
+use Yii;
+use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\models\User;
 use yeesoft\usermanagement\UserManagementModule;
 use yii\web\NotFoundHttpException;
-use Yii;
+
 
 class UserPermissionController extends BaseController {
 

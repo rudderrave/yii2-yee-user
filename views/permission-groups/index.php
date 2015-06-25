@@ -4,31 +4,28 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yeesoft\grid\GridView;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\UserManagementModule;
 use yeesoft\usermanagement\components\GhostHtml;
+use yeesoft\usermanagement\UserManagementModule;
 use webvimark\extensions\GridPageSize\GridPageSize;
 
 /**
- * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\usermanagement\models\search\RoleSearch $searchModel
  * @var yii\web\View $this
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\usermanagement\models\search\AuthItemGroupSearch $searchModel
  */
-$this->title                   = UserManagementModule::t('back', 'Roles');
+$this->title                   = UserManagementModule::t('back', 'Permission groups');
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-<div class="role-index">
+<div class="permission-groups-index">
 
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?=
-            GhostHtml::a('Add New', ['create'],
-                ['class' => 'btn btn-sm btn-primary'])
-            ?>
+<?=
+GhostHtml::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary'])
+?>
         </div>
     </div>
 
@@ -37,37 +34,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="row">
                 <div class="col-sm-12 text-right">
-                    <?= GridPageSize::widget(['pjaxId' => 'role-grid-pjax']) ?>
+<?= GridPageSize::widget(['pjaxId' => 'permission-groups-grid-pjax']) ?>
                 </div>
             </div>
 
-            <?php
-            Pjax::begin([
-                'id' => 'role-grid-pjax',
-            ])
-            ?>
+<?php
+Pjax::begin([
+    'id' => 'permission-groups-grid-pjax',
+])
+?>
 
             <?=
             GridView::widget([
-                'id' => 'role-grid',
+                'id' => 'permission-groups-grid',
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'bulkActionOptions' => [
-                    'gridId' => 'role-grid',
-                    'actions' => [ Url::to(['bulk-delete']) => 'Delete']
+                    'gridId' => 'permission-grid',
+                    'actions' => [Url::to(['bulk-delete']) => 'Delete']
                 ],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
                     [
-                        'attribute' => 'description',
+                        'attribute' => 'name',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                        'title' => function(Role $model) {
-                        return Html::a($model->description,
-                                ['view', 'id' => $model->name],
-                                ['data-pjax' => 0]);
+                        'title' => function($model) {
+                        return Html::a(
+                                $model->name, ['update', 'id' => $model->code],
+                                ['data-pjax' => 0]
+                        );
                     },
                     ],
-                    'name',
+                    'code',
                 ],
             ]);
             ?>
@@ -76,6 +74,19 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

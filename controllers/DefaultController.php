@@ -3,15 +3,14 @@
 namespace yeesoft\user\controllers;
 
 use Yii;
-use yeesoft\base\controllers\AdminDefaultController;
+use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\models\search\UserSearch;
 use yii\web\NotFoundHttpException;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * DefaultController implements the CRUD actions for User model.
  */
-class UserController extends AdminDefaultController
+class DefaultController extends BaseController
 {
     /**
      * @var User
@@ -21,7 +20,7 @@ class UserController extends AdminDefaultController
     /**
      * @var UserSearch
      */
-    public $modelSearchClass = 'yeesoft\usermanagement\models\search\UserSearch';
+    public $modelSearchClass = 'yeesoft\user\models\search\UserSearch';
 
     /**
      * @return mixed|string|\yii\web\Response

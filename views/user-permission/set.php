@@ -5,21 +5,20 @@
  * @var yeesoft\usermanagement\models\User $user
  */
 
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\bootstrap\BootstrapPluginAsset;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\UserManagementModule;
-use yii\bootstrap\BootstrapPluginAsset;
-use yii\helpers\ArrayHelper;
-use yeesoft\usermanagement\models\Permission;
-use yii\helpers\Html;
 
 BootstrapPluginAsset::register($this);
 $this->title = UserManagementModule::t('back', 'Roles and permissions for user:') . ' ' . $user->username;
-
+$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h2 class="lte-hide-title"><?= $this->title ?></h2>
+<h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 <?php if ( Yii::$app->session->hasFlash('success') ): ?>
 	<div class="alert alert-success text-center">

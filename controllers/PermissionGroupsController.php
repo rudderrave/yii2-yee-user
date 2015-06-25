@@ -2,15 +2,15 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\AdminDefaultController;
+use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\models\AuthItemGroup;
 use yeesoft\usermanagement\models\search\AuthItemGroupSearch;
 
 /**
  * AuthItemGroupController implements the CRUD actions for AuthItemGroup model.
  */
-class AuthItemGroupController extends AdminDefaultController {
-
+class PermissionGroupsController extends BaseController
+{
     /**
      * @var AuthItemGroup
      */
@@ -19,7 +19,7 @@ class AuthItemGroupController extends AdminDefaultController {
     /**
      * @var AuthItemGroupSearch
      */
-    public $modelSearchClass = 'yeesoft\usermanagement\models\search\AuthItemGroupSearch';
+    public $modelSearchClass = 'yeesoft\user\models\search\AuthItemGroupSearch';
 
     /**
      * Define redirect page after update, create, delete, etc
@@ -29,7 +29,8 @@ class AuthItemGroupController extends AdminDefaultController {
      *
      * @return string|array
      */
-    protected function getRedirectPage($action, $model = null) {
+    protected function getRedirectPage($action, $model = null)
+    {
         switch ($action) {
             case 'delete':
                 return ['index'];
@@ -44,5 +45,4 @@ class AuthItemGroupController extends AdminDefaultController {
                 return ['index'];
         }
     }
-
 }

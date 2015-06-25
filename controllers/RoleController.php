@@ -4,15 +4,15 @@ namespace yeesoft\user\controllers;
 
 use Yii;
 use yii\rbac\DbManager;
-use yeesoft\base\controllers\AdminDefaultController;
+use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\components\AuthHelper;
 use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\models\search\RoleSearch;
 use yeesoft\usermanagement\UserManagementModule;
 
-class RoleController extends AdminDefaultController {
-
+class RoleController extends BaseController
+{
     /**
      * @var Role
      */
@@ -21,27 +21,29 @@ class RoleController extends AdminDefaultController {
     /**
      * @var RoleSearch
      */
-    public $modelSearchClass = 'yeesoft\usermanagement\models\search\RoleSearch';
+    public $modelSearchClass = 'yeesoft\user\models\search\RoleSearch';
 
     /**
      * @param string $id
      *
      * @return string
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         $role = $this->findModel($id);
 
         $authManager = new DbManager();
 
         $allRoles = Role::find()
-                ->asArray()
-                ->andWhere('name != :current_name', [':current_name' => $id])
-                ->all();
+            ->asArray()
+            ->andWhere('name != :current_name', [':current_name' => $id])
+            ->all();
 
         $permissions = Permission::find()
-                ->andWhere(Yii::$app->getModule('user-management')->auth_item_table . '.name != :commonPermissionName', [':commonPermissionName' => Yii::$app->getModule('user-management')->commonPermissionName])
-                ->joinWith('group')
-                ->all();
+            ->andWhere(Yii::$app->getModule('user-management')->auth_item_table.'.name != :commonPermissionName',
+                [':commonPermissionName' => Yii::$app->getModule('user-management')->commonPermissionName])
+            ->joinWith('group')
+            ->all();
 
         $permissionsByGroup = [];
         foreach ($permissions as $permission) {
@@ -54,7 +56,9 @@ class RoleController extends AdminDefaultController {
 
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
-        return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup'));
+        return $this->renderIsAjax('view',
+                compact('role', 'allRoles', 'childRoles', 'currentPermissions',
+                    'permissionsByGroup'));
     }
 
     /**
@@ -64,7 +68,8 @@ class RoleController extends AdminDefaultController {
      *
      * @return \yii\web\Response
      */
-    public function actionSetChildRoles($id) {
+    public function actionSetChildRoles($id)
+    {
         $role = $this->findModel($id);
 
         $newChildRoles = Yii::$app->request->post('child_roles', []);
@@ -80,12 +85,13 @@ class RoleController extends AdminDefaultController {
         }
 
         $toRemove = array_diff($oldChildRoles, $newChildRoles);
-        $toAdd = array_diff($newChildRoles, $oldChildRoles);
+        $toAdd    = array_diff($newChildRoles, $oldChildRoles);
 
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', UserManagementModule::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success',
+            UserManagementModule::t('back', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -97,7 +103,8 @@ class RoleController extends AdminDefaultController {
      *
      * @return \yii\web\Response
      */
-    public function actionSetChildPermissions($id) {
+    public function actionSetChildPermissions($id)
+    {
         $role = $this->findModel($id);
 
         $newChildPermissions = Yii::$app->request->post('child_permissions', []);
@@ -105,12 +112,13 @@ class RoleController extends AdminDefaultController {
         $oldChildPermissions = array_keys((new DbManager())->getPermissionsByRole($role->name));
 
         $toRemove = array_diff($oldChildPermissions, $newChildPermissions);
-        $toAdd = array_diff($newChildPermissions, $oldChildPermissions);
+        $toAdd    = array_diff($newChildPermissions, $oldChildPermissions);
 
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', UserManagementModule::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success',
+            UserManagementModule::t('back', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -120,8 +128,9 @@ class RoleController extends AdminDefaultController {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
-        $model = new Role;
+    public function actionCreate()
+    {
+        $model           = new Role;
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -139,8 +148,9 @@ class RoleController extends AdminDefaultController {
      *
      * @return mixed
      */
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate($id)
+    {
+        $model           = $this->findModel($id);
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
@@ -149,5 +159,4 @@ class RoleController extends AdminDefaultController {
 
         return $this->renderIsAjax('update', compact('model'));
     }
-
 }

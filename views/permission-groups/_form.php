@@ -1,19 +1,20 @@
 <?php
 
-/**
- * @var yii\widgets\ActiveForm $form
- * @var yeesoft\usermanagement\models\Role $model
- */
 use yii\widgets\ActiveForm;
 use yeesoft\usermanagement\components\GhostHtml;
+
+/**
+ * @var yii\web\View $this
+ * @var yeesoft\usermanagement\models\AuthItemGroup $model
+ * @var yii\bootstrap\ActiveForm $form
+ */
 ?>
 
-
-<div class="role-form">
+<div class="permission-groups-form">
 
     <?php
     $form = ActiveForm::begin([
-            'id' => 'role-form',
+            'id' => 'permission-groups-form',
             'validateOnBlur' => false,
         ])
     ?>
@@ -25,11 +26,11 @@ use yeesoft\usermanagement\components\GhostHtml;
                 <div class="panel-body">
 
                     <?=
-                    $form->field($model, 'description')->textInput(['maxlength' => 255,
+                    $form->field($model, 'name')->textInput(['maxlength' => 255,
                         'autofocus' => $model->isNewRecord ? true : false])
                     ?>
 
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+                    <?= $form->field($model, 'code')->textInput(['maxlength' => 64]) ?>
 
                 </div>
 
@@ -41,6 +42,8 @@ use yeesoft\usermanagement\components\GhostHtml;
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="record-info">
+
+
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
                                 <?=
@@ -49,10 +52,9 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 ?>
                                 <?=
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
-                                    '../post',
-                                    [
-                                    'class' => 'btn btn-default',
-                                ])
+                                    ['permission-groups/'],
+                                    [ 'class' => 'btn btn-default']
+                                )
                                 ?>
                             <?php else: ?>
                                 <?=
@@ -61,7 +63,7 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 ?>
                                 <?=
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
-                                    ['delete', 'id' => $model->name],
+                                    ['delete', 'id' => $model->code],
                                     [
                                     'class' => 'btn btn-default',
                                     'data' => [
@@ -84,3 +86,9 @@ use yeesoft\usermanagement\components\GhostHtml;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+
+
+

@@ -10,13 +10,14 @@
  * @var yii\rbac\Role $role
  */
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\UserManagementModule;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yeesoft\usermanagement\models\Role;
+use yeesoft\usermanagement\components\GhostHtml;
+use yeesoft\usermanagement\UserManagementModule;
 
 $this->title = UserManagementModule::t('back', 'Permissions for role:') . ' '. $role->description;
+$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <p>
 	<?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
-	<?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+	<?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
 </p>
 
 <div class="row">

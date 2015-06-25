@@ -1,8 +1,7 @@
 <?php
 
-use yeesoft\usermanagement\UserManagementModule;
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yeesoft\usermanagement\UserManagementModule;
 
 /**
  * @var yii\web\View $this
@@ -10,6 +9,7 @@ use yii\widgets\DetailView;
  */
 
 $this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

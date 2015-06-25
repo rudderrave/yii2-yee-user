@@ -1,42 +1,95 @@
 <?php
+
 /**
  * @var yii\widgets\ActiveForm $form
  * @var yeesoft\usermanagement\models\Permission $model
  */
 
-use yeesoft\usermanagement\models\AuthItemGroup;
-use yeesoft\usermanagement\UserManagementModule;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yeesoft\usermanagement\models\AuthItemGroup;
+use yeesoft\usermanagement\components\GhostHtml;
 ?>
 
-<?php $form = ActiveForm::begin([
-	'id'      => 'role-form',
-	'layout'=>'horizontal',
-	'validateOnBlur' => false,
-]) ?>
+<div class="permission-form">
 
-	<?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus'=>$model->isNewRecord ? true:false]) ?>
+    <?php
+    $form = ActiveForm::begin([
+            'id' => 'permission-form',
+            'validateOnBlur' => false,
+        ])
+    ?>
 
-	<?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+    <div class="row">
+        <div class="col-md-9">
 
-	<?= $form->field($model, 'group_code')
-		->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'), ['prompt'=>'']) ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
 
-	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-9">
-			<?php if ( $model->isNewRecord ): ?>
-				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-plus-sign"></span> ' . UserManagementModule::t('back', 'Create'),
-					['class' => 'btn btn-success']
-				) ?>
-			<?php else: ?>
-				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
-					['class' => 'btn btn-primary']
-				) ?>
-			<?php endif; ?>
-		</div>
-	</div>
-<?php ActiveForm::end() ?>
+                    <?=
+                    $form->field($model, 'description')->textInput(['maxlength' => 255,
+                        'autofocus' => $model->isNewRecord ? true : false])
+                    ?>
+
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="record-info">
+
+                        <?=
+                            $form->field($model, 'group_code')
+                            ->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(),
+                                    'code', 'name'),
+                                ['prompt' => '', 'class' => ''])
+                        ?>
+
+                        <div class="form-group">
+                            <?php if ($model->isNewRecord): ?>
+                                <?=
+                                GhostHtml::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
+                                    ['class' => 'btn btn-success'])
+                                ?>
+                                <?=
+                                GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
+                                    ['permission/'],
+                                    [ 'class' => 'btn btn-default']
+                                )
+                                ?>
+                            <?php else: ?>
+                                <?=
+                                GhostHtml::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
+                                    ['class' => 'btn btn-primary'])
+                                ?>
+                                <?=
+                                GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
+                                    ['delete', 'id' => $model->name],
+                                    [
+                                    'class' => 'btn btn-default',
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ],
+                                ])
+                                ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
