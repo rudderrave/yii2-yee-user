@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'visible' => User::hasPermission('viewUserEmail'),
                     ],
                     /* [
-                      'class' => 'webvimark\components\StatusColumn',
+                      'class' => 'yeesoft\grid\columns\StatusColumn',
                       'attribute' => 'email_confirmed',
                       'visible' => User::hasPermission('viewUserEmail'),
                       ], */
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'visible' => Yii::$app->user->isSuperadmin,
                     ],
                     [
-                        'class' => 'webvimark\components\StatusColumn',
+                        'class' => 'yeesoft\grid\columns\StatusColumn',
                         'attribute' => 'status',
                         'optionsArray' => [
                             [User::STATUS_ACTIVE, UserManagementModule::t('back',

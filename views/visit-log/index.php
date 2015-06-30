@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   'options' => ['style' => 'width:180px'],
                   ],
                   [
-                  'class' => 'webvimark\components\StatusColumn',
+                  'class' => 'yeesoft\grid\columns\StatusColumn',
                   'attribute' => 'status',
                   'optionsArray' => Post::getStatusOptionsList(),
                   'options' => ['style' => 'width:60px'],
