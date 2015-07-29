@@ -2,16 +2,17 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
 use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\models\User;
 use yeesoft\usermanagement\UserManagementModule;
+use Yii;
 use yii\web\NotFoundHttpException;
 
 
-class UserPermissionController extends BaseController {
+class UserPermissionController extends BaseController
+{
 
     /**
      * @param int $id User ID
@@ -19,7 +20,8 @@ class UserPermissionController extends BaseController {
      * @throws \yii\web\NotFoundHttpException
      * @return string
      */
-    public function actionSet($id) {
+    public function actionSet($id)
+    {
         $user = User::findOne($id);
 
         if (!$user) {
@@ -28,11 +30,11 @@ class UserPermissionController extends BaseController {
 
         $permissionsByGroup = [];
         $permissions = Permission::find()
-                ->andWhere([
-                    Yii::$app->getModule('user-management')->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))
-                ])
-                ->joinWith('group')
-                ->all();
+            ->andWhere([
+                Yii::$app->getModule('user-management')->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))
+            ])
+            ->joinWith('group')
+            ->all();
 
         foreach ($permissions as $permission) {
             $permissionsByGroup[@$permission->group->name][] = $permission;
@@ -46,7 +48,8 @@ class UserPermissionController extends BaseController {
      *
      * @return \yii\web\Response
      */
-    public function actionSetRoles($id) {
+    public function actionSetRoles($id)
+    {
         if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
             Yii::$app->session->setFlash('error', UserManagementModule::t('back', 'You can not change own permissions'));
             return $this->redirect(['set', 'id' => $id]);

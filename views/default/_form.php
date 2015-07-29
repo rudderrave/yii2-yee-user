@@ -1,9 +1,9 @@
 <?php
 
-use yii\widgets\ActiveForm;
+use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\models\User;
 use yeesoft\usermanagement\UserManagementModule;
-use yeesoft\usermanagement\components\GhostHtml;
+use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
@@ -16,8 +16,8 @@ use yeesoft\usermanagement\components\GhostHtml;
 
     <?php
     $form = ActiveForm::begin([
-            'id' => 'user',
-            'validateOnBlur' => false,
+        'id' => 'user',
+        'validateOnBlur' => false,
     ]);
     ?>
 
@@ -49,10 +49,10 @@ use yeesoft\usermanagement\components\GhostHtml;
                     <?php if (User::hasPermission('bindUserToIp')): ?>
 
                         <?=
-                            $form->field($model, 'bind_to_ip')
+                        $form->field($model, 'bind_to_ip')
                             ->textInput(['maxlength' => 255])
                             ->hint(UserManagementModule::t('back',
-                                    'For example: 123.34.56.78, 234.123.89.78'))
+                                'For example: 123.34.56.78, 234.123.89.78'))
                         ?>
 
                     <?php endif; ?>
@@ -69,10 +69,6 @@ use yeesoft\usermanagement\components\GhostHtml;
                     <?php endif; ?>
 
 
-
-
-
-
                 </div>
 
             </div>
@@ -85,7 +81,7 @@ use yeesoft\usermanagement\components\GhostHtml;
 
                     <div class="record-info">
                         <?=
-                            $form->field($model->loadDefaultValues(), 'status')
+                        $form->field($model->loadDefaultValues(), 'status')
                             ->dropDownList(User::getStatusList(),
                                 ['class' => ''])
                         ?>
@@ -97,15 +93,21 @@ use yeesoft\usermanagement\components\GhostHtml;
                 <div class="panel-body">
                     <div class="record-info">
                         <div class="form-group clearfix">
-                            <label class="control-label" style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['registration_ip'] ?>: </label>
+                            <label class="control-label"
+                                   style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['registration_ip'] ?>
+                                : </label>
                             <span><?= $model->registration_ip ?></span>
                         </div>
                         <div class="form-group clearfix">
-                            <label class="control-label" style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['created_at'] ?>: </label>
+                            <label class="control-label"
+                                   style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['created_at'] ?>
+                                : </label>
                             <span><?= $model->created_at ?></span>
                         </div>
                         <div class="form-group clearfix">
-                            <label class="control-label" style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['updated_at'] ?>: </label>
+                            <label class="control-label"
+                                   style="float: left; padding-right: 5px;"><?= $model->attributeLabels()['updated_at'] ?>
+                                : </label>
                             <span><?= $model->updated_at ?></span>
                         </div>
 
@@ -120,8 +122,8 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
                                     '../',
                                     [
-                                    'class' => 'btn btn-default',
-                                ])
+                                        'class' => 'btn btn-default',
+                                    ])
                                 ?>
                             <?php else: ?>
                                 <?=
@@ -132,19 +134,18 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
                                     ['delete', 'id' => $model->id],
                                     [
-                                    'class' => 'btn btn-default',
-                                    'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ],
-                                ])
+                                        'class' => 'btn btn-default',
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to delete this item?',
+                                            'method' => 'post',
+                                        ],
+                                    ])
                                 ?>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
         </div>

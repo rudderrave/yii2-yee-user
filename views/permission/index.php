@@ -1,22 +1,22 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
-use yii\widgets\Pjax;
+use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yii\helpers\ArrayHelper;
-use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\models\AuthItemGroup;
+use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\UserManagementModule;
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /**
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\usermanagement\models\search\PermissionSearch $searchModel
  * @var yii\web\View $this
  */
-$this->title                   = UserManagementModule::t('back', 'Permissions');
+$this->title = UserManagementModule::t('back', 'Permissions');
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -63,28 +63,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'description',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                        'title' => function($model) {
-                        if ($model->name == Yii::$app->getModule('user-management')->commonPermissionName) {
-                            return Html::a(
+                        'title' => function ($model) {
+                            if ($model->name == Yii::$app->getModule('user-management')->commonPermissionName) {
+                                return Html::a(
                                     $model->description,
                                     ['view', 'id' => $model->name],
                                     ['data-pjax' => 0, 'class' => 'label label-primary']
-                            );
-                        } else {
-                            return Html::a($model->description,
+                                );
+                            } else {
+                                return Html::a($model->description,
                                     ['view', 'id' => $model->name],
                                     ['data-pjax' => 0]);
-                        }
-                    },
+                            }
+                        },
                     ],
                     'name',
                     [
                         'attribute' => 'group_code',
                         'filter' => ArrayHelper::map(AuthItemGroup::find()->asArray()->all(),
                             'code', 'name'),
-                        'value' => function(Permission $model) {
-                        return $model->group_code ? $model->group->name : '';
-                    },
+                        'value' => function (Permission $model) {
+                            return $model->group_code ? $model->group->name : '';
+                        },
                         'filterInputOptions' => [],
                     ],
                 ],

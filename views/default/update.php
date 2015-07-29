@@ -1,13 +1,13 @@
 <?php
 
-use yii\helpers\Html;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\usermanagement\models\User $model
  */
-$this->title                   = UserManagementModule::t('back', 'Editing user: ').' '.$model->username;
+$this->title = UserManagementModule::t('back', 'Editing user: ') . ' ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Editing');

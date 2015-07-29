@@ -1,14 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\usermanagement\models\User $model
  */
-$this->title = UserManagementModule::t('back', 'Changing password for user: ').' '.$model->username;
+$this->title = UserManagementModule::t('back', 'Changing password for user: ') . ' ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing password');
@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing passw
 
                 <?php
                 $form = ActiveForm::begin([
-                        'id' => 'user',
-                        'layout' => 'horizontal',
+                    'id' => 'user',
+                    'layout' => 'horizontal',
                 ]);
                 ?>
 
@@ -39,14 +39,14 @@ $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing passw
                         <?php if ($model->isNewRecord): ?>
                             <?=
                             Html::submitButton(
-                                '<span class="glyphicon glyphicon-plus-sign"></span> '.UserManagementModule::t('back',
+                                '<span class="glyphicon glyphicon-plus-sign"></span> ' . UserManagementModule::t('back',
                                     'Create'), ['class' => 'btn btn-success']
                             )
                             ?>
                         <?php else: ?>
                             <?=
                             Html::submitButton(
-                                '<span class="glyphicon glyphicon-ok"></span> '.UserManagementModule::t('back',
+                                '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back',
                                     'Save'), ['class' => 'btn btn-primary']
                             )
                             ?>

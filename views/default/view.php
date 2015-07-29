@@ -1,20 +1,20 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-use yii\helpers\ArrayHelper;
+use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\usermanagement\models\User $model
  */
-$this->title                   = $model->username;
+$this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back',
-        'Users'), 'url' => ['index']];
+    'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -47,12 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=
                 GhostHtml::a('Delete', ['delete', 'id' => $model->id],
                     [
-                    'class' => 'btn btn-sm btn-default',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this user?',
-                        'method' => 'post',
-                    ],
-                ])
+                        'class' => 'btn btn-sm btn-default',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this user?',
+                            'method' => 'post',
+                        ],
+                    ])
                 ?>
                 <?=
                 GhostHtml::a('Add New', ['create'],
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     array(
                         'attribute' => 'registration_ip',
                         'value' => Html::a($model->registration_ip,
-                            "http://ipinfo.io/".$model->registration_ip,
+                            "http://ipinfo.io/" . $model->registration_ip,
                             ["target" => "_blank"]),
                         'format' => 'raw',
                         'visible' => User::hasPermission('viewRegistrationIp'),

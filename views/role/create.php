@@ -5,8 +5,8 @@
  * @var yii\widgets\ActiveForm $form
  * @var yeesoft\usermanagement\models\Role $model
  */
-use yii\helpers\Html;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\Html;
 
 $this->title = UserManagementModule::t('back', 'Role creation');
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];

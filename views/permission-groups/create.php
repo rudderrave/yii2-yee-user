@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this

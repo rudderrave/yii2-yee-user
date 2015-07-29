@@ -2,10 +2,10 @@
 
 namespace yeesoft\user\models\search;
 
+use yeesoft\usermanagement\models\User;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yeesoft\usermanagement\models\User;
 
 /**
  * UserSearch represents the model behind the search form about `yeesoft\usermanagement\models\User`.
@@ -63,7 +63,7 @@ class UserSearch extends User
             'id' => $this->id,
             'superadmin' => $this->superadmin,
             'status' => $this->status,
-            Yii::$app->getModule('user-management')->auth_item_table.'.name' => $this->gridRoleSearch,
+            Yii::$app->getModule('user-management')->auth_item_table . '.name' => $this->gridRoleSearch,
             'registration_ip' => $this->registration_ip,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

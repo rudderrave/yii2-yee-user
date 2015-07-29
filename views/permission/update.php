@@ -4,8 +4,8 @@
  * @var yeesoft\usermanagement\models\Permission $model
  */
 
-use yii\helpers\Html;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\Html;
 
 $this->title = UserManagementModule::t('back', 'Editing permission: ') . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];

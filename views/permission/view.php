@@ -9,10 +9,10 @@
  * @var yii\rbac\Permission $item
  */
 
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 $this->title = UserManagementModule::t('back', 'Settings for permission') . ': ' . $item->description;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
@@ -20,99 +20,101 @@ $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Pe
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h3 class="lte-hide-title"><?= $this->title ?></h3>
+    <h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 
-<?php if ( Yii::$app->session->hasFlash('success') ): ?>
-	<div class="alert alert-success text-center">
-		<?= Yii::$app->session->getFlash('success') ?>
-	</div>
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+    <div class="alert alert-success text-center">
+        <?= Yii::$app->session->getFlash('success') ?>
+    </div>
 <?php endif; ?>
 
-<p>
-	<?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
-	<?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
-</p>
+    <p>
+        <?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+    </p>
 
-<div class="row">
-	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<strong>
-					<span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Child permissions') ?>
-				</strong>
-			</div>
-			<div class="panel-body">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>
+                        <span
+                            class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Child permissions') ?>
+                    </strong>
+                </div>
+                <div class="panel-body">
 
-				<?= Html::beginForm(['set-child-permissions', 'id'=>$item->name]) ?>
+                    <?= Html::beginForm(['set-child-permissions', 'id' => $item->name]) ?>
 
-				<div class="row">
-					<?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
-						<div class="col-sm-6">
-							<fieldset>
-								<legend><?= $groupName ?></legend>
+                    <div class="row">
+                        <?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
+                            <div class="col-sm-6">
+                                <fieldset>
+                                    <legend><?= $groupName ?></legend>
 
-								<?= Html::checkboxList(
-									'child_permissions',
-									ArrayHelper::map($childPermissions, 'name', 'name'),
-									ArrayHelper::map($permissions, 'name', 'description'),
-									['separator'=>'<br>']
-								) ?>
-							</fieldset>
-							<br/>
-						</div>
-
-
-					<?php endforeach ?>
-				</div>
+                                    <?= Html::checkboxList(
+                                        'child_permissions',
+                                        ArrayHelper::map($childPermissions, 'name', 'name'),
+                                        ArrayHelper::map($permissions, 'name', 'description'),
+                                        ['separator' => '<br>']
+                                    ) ?>
+                                </fieldset>
+                                <br/>
+                            </div>
 
 
-				<hr/>
-				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
-					['class'=>'btn btn-primary btn-sm']
-				) ?>
+                        <?php endforeach ?>
+                    </div>
 
-				<?= Html::endForm() ?>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<strong>
-					<span class="glyphicon glyphicon-th"></span> Routes
+                    <hr/>
+                    <?= Html::submitButton(
+                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        ['class' => 'btn btn-primary btn-sm']
+                    ) ?>
 
-					<?= Html::a(
-						'Refresh routes',
-						['refresh-routes', 'id'=>$item->name],
-						[
-							'class' => 'btn btn-default btn-sm pull-right',
-							'style'=>'margin-top:-5px',
-						]
-					) ?>
+                    <?= Html::endForm() ?>
+                </div>
+            </div>
+        </div>
 
-				</strong>
-			</div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>
+                        <span class="glyphicon glyphicon-th"></span> Routes
 
-			<div class="panel-body">
+                        <?= Html::a(
+                            'Refresh routes',
+                            ['refresh-routes', 'id' => $item->name],
+                            [
+                                'class' => 'btn btn-default btn-sm pull-right',
+                                'style' => 'margin-top:-5px',
+                            ]
+                        ) ?>
 
-				<?= Html::beginForm(['set-child-routes', 'id'=>$item->name]) ?>
+                    </strong>
+                </div>
 
-				<div class="row">
-					<div class="col-sm-3">
-						<?= Html::submitButton(
-							'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
-							['class'=>'btn btn-primary btn-sm']
-						) ?>
-					</div>
+                <div class="panel-body">
 
-					<div class="col-sm-6">
-						<input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm" placeholder="Search route">
-					</div>
+                    <?= Html::beginForm(['set-child-routes', 'id' => $item->name]) ?>
 
-					<div class="col-sm-3 text-right">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <?= Html::submitButton(
+                                '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                                ['class' => 'btn btn-primary btn-sm']
+                            ) ?>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm"
+                                   placeholder="Search route">
+                        </div>
+
+                        <div class="col-sm-3 text-right">
 						<span id="show-only-selected-routes" class="btn btn-default btn-sm">
 							<i class="fa fa-minus"></i> Show only selected
 						</span>
@@ -120,41 +122,41 @@ $this->params['breadcrumbs'][] = $this->title;
 							<i class="fa fa-plus"></i> Show all
 						</span>
 
-					</div>
-				</div>
+                        </div>
+                    </div>
 
-				<hr/>
+                    <hr/>
 
-				<?= Html::checkboxList(
-					'child_routes',
-					ArrayHelper::map($childRoutes, 'name', 'name'),
-					ArrayHelper::map($routes, 'name', 'name'),
-					[
-						'id'=>'routes-list',
-						'separator'=>'<div class="separator"></div>',
-						'item'=>function($index, $label, $name, $checked, $value) {
-								return Html::checkbox($name, $checked, [
-									'value' => $value,
-									'label' => '<span class="route-text">' . $label . '</span>',
-									'labelOptions'=>['class'=>'route-label'],
-									'class'=>'route-checkbox',
-								]);
-						},
-					]
-				) ?>
+                    <?= Html::checkboxList(
+                        'child_routes',
+                        ArrayHelper::map($childRoutes, 'name', 'name'),
+                        ArrayHelper::map($routes, 'name', 'name'),
+                        [
+                            'id' => 'routes-list',
+                            'separator' => '<div class="separator"></div>',
+                            'item' => function ($index, $label, $name, $checked, $value) {
+                                return Html::checkbox($name, $checked, [
+                                    'value' => $value,
+                                    'label' => '<span class="route-text">' . $label . '</span>',
+                                    'labelOptions' => ['class' => 'route-label'],
+                                    'class' => 'route-checkbox',
+                                ]);
+                            },
+                        ]
+                    ) ?>
 
-				<hr/>
-				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
-					['class'=>'btn btn-primary btn-sm']
-				) ?>
+                    <hr/>
+                    <?= Html::submitButton(
+                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        ['class' => 'btn btn-primary btn-sm']
+                    ) ?>
 
-				<?= Html::endForm() ?>
+                    <?= Html::endForm() ?>
 
-			</div>
-		</div>
-	</div>
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php
 $js = <<<JS

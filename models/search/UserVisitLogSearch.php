@@ -2,11 +2,11 @@
 
 namespace yeesoft\user\models\search;
 
+use yeesoft\usermanagement\models\User;
+use yeesoft\usermanagement\models\UserVisitLog;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\models\UserVisitLog;
 
 /**
  * UserVisitLogSearch represents the model behind the search form about `yeesoft\usermanagement\models\UserVisitLog`.
@@ -37,7 +37,7 @@ class UserVisitLogSearch extends UserVisitLog
 
         // Don't let non-superadmin view superadmin activity
         if (!Yii::$app->user->isSuperadmin) {
-            $query->andWhere([User::tableName().'.superadmin' => 0]);
+            $query->andWhere([User::tableName() . '.superadmin' => 0]);
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -58,20 +58,20 @@ class UserVisitLogSearch extends UserVisitLog
         if ($this->visit_time) {
             $tmp = explode(' - ', $this->visit_time);
             if (isset($tmp[0], $tmp[1])) {
-                $query->andFilterWhere(['between', static::tableName().'.visit_time',
+                $query->andFilterWhere(['between', static::tableName() . '.visit_time',
                     strtotime($tmp[0]), strtotime($tmp[1])]);
             }
         }
 
         $query->andFilterWhere([
-            $this->tableName().'.id' => $this->id,
+            $this->tableName() . '.id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', User::tableName().'.username', $this->user_id])
-            ->andFilterWhere(['like', static::tableName().'.ip', $this->ip])
-            ->andFilterWhere(['like', static::tableName().'.os', $this->os])
-            ->andFilterWhere(['like', static::tableName().'.browser', $this->browser])
-            ->andFilterWhere(['like', static::tableName().'.language', $this->language]);
+        $query->andFilterWhere(['like', User::tableName() . '.username', $this->user_id])
+            ->andFilterWhere(['like', static::tableName() . '.ip', $this->ip])
+            ->andFilterWhere(['like', static::tableName() . '.os', $this->os])
+            ->andFilterWhere(['like', static::tableName() . '.browser', $this->browser])
+            ->andFilterWhere(['like', static::tableName() . '.language', $this->language]);
 
         return $dataProvider;
     }

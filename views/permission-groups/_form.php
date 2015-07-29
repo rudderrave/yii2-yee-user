@@ -1,7 +1,7 @@
 <?php
 
-use yii\widgets\ActiveForm;
 use yeesoft\usermanagement\components\GhostHtml;
+use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
@@ -14,9 +14,9 @@ use yeesoft\usermanagement\components\GhostHtml;
 
     <?php
     $form = ActiveForm::begin([
-            'id' => 'permission-groups-form',
-            'validateOnBlur' => false,
-        ])
+        'id' => 'permission-groups-form',
+        'validateOnBlur' => false,
+    ])
     ?>
 
     <div class="row">
@@ -53,7 +53,7 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 <?=
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
                                     ['permission-groups/'],
-                                    [ 'class' => 'btn btn-default']
+                                    ['class' => 'btn btn-default']
                                 )
                                 ?>
                             <?php else: ?>
@@ -65,19 +65,18 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
                                     ['delete', 'id' => $model->code],
                                     [
-                                    'class' => 'btn btn-default',
-                                    'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ],
-                                ])
+                                        'class' => 'btn btn-default',
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to delete this item?',
+                                            'method' => 'post',
+                                        ],
+                                    ])
                                 ?>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
         </div>

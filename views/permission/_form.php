@@ -5,19 +5,20 @@
  * @var yeesoft\usermanagement\models\Permission $model
  */
 
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use yeesoft\usermanagement\models\AuthItemGroup;
 use yeesoft\usermanagement\components\GhostHtml;
+use yeesoft\usermanagement\models\AuthItemGroup;
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
+
 ?>
 
 <div class="permission-form">
 
     <?php
     $form = ActiveForm::begin([
-            'id' => 'permission-form',
-            'validateOnBlur' => false,
-        ])
+        'id' => 'permission-form',
+        'validateOnBlur' => false,
+    ])
     ?>
 
     <div class="row">
@@ -45,9 +46,9 @@ use yeesoft\usermanagement\components\GhostHtml;
                     <div class="record-info">
 
                         <?=
-                            $form->field($model, 'group_code')
+                        $form->field($model, 'group_code')
                             ->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(),
-                                    'code', 'name'),
+                                'code', 'name'),
                                 ['prompt' => '', 'class' => ''])
                         ?>
 
@@ -60,7 +61,7 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 <?=
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
                                     ['permission/'],
-                                    [ 'class' => 'btn btn-default']
+                                    ['class' => 'btn btn-default']
                                 )
                                 ?>
                             <?php else: ?>
@@ -72,19 +73,18 @@ use yeesoft\usermanagement\components\GhostHtml;
                                 GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
                                     ['delete', 'id' => $model->name],
                                     [
-                                    'class' => 'btn btn-default',
-                                    'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ],
-                                ])
+                                        'class' => 'btn btn-default',
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to delete this item?',
+                                            'method' => 'post',
+                                        ],
+                                    ])
                                 ?>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
         </div>

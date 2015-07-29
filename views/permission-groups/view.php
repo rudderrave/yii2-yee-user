@@ -1,15 +1,15 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
 use yeesoft\usermanagement\components\GhostHtml;
 use yeesoft\usermanagement\UserManagementModule;
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\usermanagement\models\AuthItemGroup $model
  */
-$this->title                   = $model->name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,19 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
 
             <p>
-<?=
-GhostHtml::a('Edit', ['update', 'id' => $model->code],
-    ['class' => 'btn btn-sm btn-primary'])
-?>
+                <?=
+                GhostHtml::a('Edit', ['update', 'id' => $model->code],
+                    ['class' => 'btn btn-sm btn-primary'])
+                ?>
                 <?=
                 GhostHtml::a('Delete', ['delete', 'id' => $model->code],
                     [
-                    'class' => 'btn btn-sm btn-default',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this user?',
-                        'method' => 'post',
-                    ],
-                ])
+                        'class' => 'btn btn-sm btn-default',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this user?',
+                            'method' => 'post',
+                        ],
+                    ])
                 ?>
                 <?=
                 GhostHtml::a('Add New', ['create'],
@@ -45,21 +45,20 @@ GhostHtml::a('Edit', ['update', 'id' => $model->code],
             </p>
 
 
-<?=
-DetailView::widget([
-    'model' => $model,
-    'attributes' => [
-        'name',
-        'code',
-        'created_at:datetime',
-        'updated_at:datetime',
-    ],
-])
-?>
+            <?=
+            DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'name',
+                    'code',
+                    'created_at:datetime',
+                    'updated_at:datetime',
+                ],
+            ])
+            ?>
 
         </div>
     </div>
-
 
 
 </div>

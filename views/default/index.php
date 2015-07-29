@@ -1,23 +1,23 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
-use yii\widgets\Pjax;
-use yii\helpers\ArrayHelper;
+use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\models\User;
 use yeesoft\gridquicklinks\GridQuickLinks;
 use yeesoft\usermanagement\components\GhostHtml;
+use yeesoft\usermanagement\models\Role;
+use yeesoft\usermanagement\models\User;
 use yeesoft\usermanagement\UserManagementModule;
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\usermanagement\models\search\UserSearch $searchModel
  */
-$this->title                   = UserManagementModule::t('back', 'Users');
+$this->title = UserManagementModule::t('back', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -69,30 +69,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'username',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                        'title' => function(User $model) {
-                        return Html::a($model->username,
+                        'title' => function (User $model) {
+                            return Html::a($model->username,
                                 ['view', 'id' => $model->id], ['data-pjax' => 0]);
-                    },
+                        },
                         'buttonsTemplate' => '{update} {delete} {view} {permissions} {password}',
                         'buttons' => [
                             'permissions' => function ($url, $model, $key) {
-                            return Html::a('Permissions',
+                                return Html::a('Permissions',
                                     Url::to(['user-permission/set', 'id' => $model->id]),
                                     [
-                                    'title' => 'Permissions',
-                                    'data-pjax' => '0'
+                                        'title' => 'Permissions',
+                                        'data-pjax' => '0'
                                     ]
-                            );
-                        },
+                                );
+                            },
                             'password' => function ($url, $model, $key) {
-                            return Html::a('Password',
+                                return Html::a('Password',
                                     Url::to(['default/change-password', 'id' => $model->id]),
                                     [
-                                    'title' => 'Password',
-                                    'data-pjax' => '0'
+                                        'title' => 'Password',
+                                        'data-pjax' => '0'
                                     ]
-                            );
-                        }
+                                );
+                            }
                         ],
                         'options' => ['style' => 'width:300px']
                     ],
@@ -110,11 +110,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'gridRoleSearch',
                         'filter' => ArrayHelper::map(Role::getAvailableRoles(Yii::$app->user->isSuperAdmin),
                             'name', 'description'),
-                        'value' => function(User $model) {
-                        return implode(', ',
-                            ArrayHelper::map($model->roles, 'name',
-                                'description'));
-                    },
+                        'value' => function (User $model) {
+                            return implode(', ',
+                                ArrayHelper::map($model->roles, 'name',
+                                    'description'));
+                        },
                         'format' => 'raw',
                         'visible' => User::hasPermission('viewUserRoles'),
                         'filterInputOptions' => [],
@@ -139,11 +139,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'status',
                         'optionsArray' => [
                             [User::STATUS_ACTIVE, UserManagementModule::t('back',
-                                    'Active'), 'primary'],
+                                'Active'), 'primary'],
                             [User::STATUS_INACTIVE, UserManagementModule::t('back',
-                                    'Inactive'), 'info'],
+                                'Inactive'), 'info'],
                             [User::STATUS_BANNED, UserManagementModule::t('back',
-                                    'Banned'), 'default'],
+                                'Banned'), 'default'],
                         ],
                     ],
                 ],

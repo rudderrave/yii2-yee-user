@@ -24,7 +24,7 @@ class PermissionGroupsController extends BaseController
     /**
      * Define redirect page after update, create, delete, etc
      *
-     * @param string       $action
+     * @param string $action
      * @param AuthItemGroup $model
      *
      * @return string|array

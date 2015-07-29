@@ -2,9 +2,9 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
 use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\models\User;
+use Yii;
 use yii\web\NotFoundHttpException;
 
 /**

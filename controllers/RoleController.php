@@ -2,14 +2,14 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
-use yii\rbac\DbManager;
 use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\components\AuthHelper;
 use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\models\Role;
 use yeesoft\usermanagement\models\search\RoleSearch;
 use yeesoft\usermanagement\UserManagementModule;
+use Yii;
+use yii\rbac\DbManager;
 
 class RoleController extends BaseController
 {
@@ -40,7 +40,7 @@ class RoleController extends BaseController
             ->all();
 
         $permissions = Permission::find()
-            ->andWhere(Yii::$app->getModule('user-management')->auth_item_table.'.name != :commonPermissionName',
+            ->andWhere(Yii::$app->getModule('user-management')->auth_item_table . '.name != :commonPermissionName',
                 [':commonPermissionName' => Yii::$app->getModule('user-management')->commonPermissionName])
             ->joinWith('group')
             ->all();
@@ -57,8 +57,8 @@ class RoleController extends BaseController
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
         return $this->renderIsAjax('view',
-                compact('role', 'allRoles', 'childRoles', 'currentPermissions',
-                    'permissionsByGroup'));
+            compact('role', 'allRoles', 'childRoles', 'currentPermissions',
+                'permissionsByGroup'));
     }
 
     /**
@@ -85,7 +85,7 @@ class RoleController extends BaseController
         }
 
         $toRemove = array_diff($oldChildRoles, $newChildRoles);
-        $toAdd    = array_diff($newChildRoles, $oldChildRoles);
+        $toAdd = array_diff($newChildRoles, $oldChildRoles);
 
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
@@ -112,7 +112,7 @@ class RoleController extends BaseController
         $oldChildPermissions = array_keys((new DbManager())->getPermissionsByRole($role->name));
 
         $toRemove = array_diff($oldChildPermissions, $newChildPermissions);
-        $toAdd    = array_diff($newChildPermissions, $oldChildPermissions);
+        $toAdd = array_diff($newChildPermissions, $oldChildPermissions);
 
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
@@ -130,7 +130,7 @@ class RoleController extends BaseController
      */
     public function actionCreate()
     {
-        $model           = new Role;
+        $model = new Role;
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -150,7 +150,7 @@ class RoleController extends BaseController
      */
     public function actionUpdate($id)
     {
-        $model           = $this->findModel($id);
+        $model = $this->findModel($id);
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {

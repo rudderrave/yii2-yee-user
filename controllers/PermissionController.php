@@ -2,13 +2,13 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
 use yeesoft\base\controllers\admin\BaseController;
 use yeesoft\usermanagement\components\AuthHelper;
 use yeesoft\usermanagement\models\AbstractItem;
 use yeesoft\usermanagement\models\Permission;
 use yeesoft\usermanagement\models\Route;
 use yeesoft\usermanagement\models\search\PermissionSearch;
+use Yii;
 
 class PermissionController extends BaseController
 {
@@ -34,7 +34,7 @@ class PermissionController extends BaseController
         $routes = Route::find()->asArray()->all();
 
         $permissions = Permission::find()
-            ->andWhere(['not in', Yii::$app->getModule('user-management')->auth_item_table.'.name',
+            ->andWhere(['not in', Yii::$app->getModule('user-management')->auth_item_table . '.name',
                 [Yii::$app->getModule('user-management')->commonPermissionName, $id]])
             ->joinWith('group')
             ->all();
@@ -44,14 +44,14 @@ class PermissionController extends BaseController
             $permissionsByGroup[@$permission->group->name][] = $permission;
         }
 
-        $childRoutes      = AuthHelper::getChildrenByType($item->name,
-                AbstractItem::TYPE_ROUTE);
+        $childRoutes = AuthHelper::getChildrenByType($item->name,
+            AbstractItem::TYPE_ROUTE);
         $childPermissions = AuthHelper::getChildrenByType($item->name,
-                AbstractItem::TYPE_PERMISSION);
+            AbstractItem::TYPE_PERMISSION);
 
         return $this->renderIsAjax('view',
-                compact('item', 'childPermissions', 'routes',
-                    'permissionsByGroup', 'childRoutes'));
+            compact('item', 'childPermissions', 'routes',
+                'permissionsByGroup', 'childRoutes'));
     }
 
     /**
@@ -68,10 +68,10 @@ class PermissionController extends BaseController
         $newChildPermissions = Yii::$app->request->post('child_permissions', []);
 
         $oldChildPermissions = array_keys(AuthHelper::getChildrenByType($item->name,
-                AbstractItem::TYPE_PERMISSION));
+            AbstractItem::TYPE_PERMISSION));
 
         $toRemove = array_diff($oldChildPermissions, $newChildPermissions);
-        $toAdd    = array_diff($newChildPermissions, $oldChildPermissions);
+        $toAdd = array_diff($newChildPermissions, $oldChildPermissions);
 
         Permission::addChildren($item->name, $toAdd);
         Permission::removeChildren($item->name, $toRemove);
@@ -96,15 +96,15 @@ class PermissionController extends BaseController
         $newRoutes = Yii::$app->request->post('child_routes', []);
 
         $oldRoutes = array_keys(AuthHelper::getChildrenByType($item->name,
-                AbstractItem::TYPE_ROUTE));
+            AbstractItem::TYPE_ROUTE));
 
-        $toAdd    = array_diff($newRoutes, $oldRoutes);
+        $toAdd = array_diff($newRoutes, $oldRoutes);
         $toRemove = array_diff($oldRoutes, $newRoutes);
 
         Permission::addChildren($id, $toAdd);
         Permission::removeChildren($id, $toRemove);
 
-        if (( $toAdd OR $toRemove ) AND ( $id == Yii::$app->getModule('user-management')->commonPermissionName )) {
+        if (($toAdd OR $toRemove) AND ($id == Yii::$app->getModule('user-management')->commonPermissionName)) {
             Yii::$app->cache->delete('__commonRoutes');
         }
 
@@ -137,7 +137,7 @@ class PermissionController extends BaseController
      */
     public function actionCreate()
     {
-        $model           = new Permission();
+        $model = new Permission();
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -157,7 +157,7 @@ class PermissionController extends BaseController
      */
     public function actionUpdate($id)
     {
-        $model           = $this->findModel($id);
+        $model = $this->findModel($id);
         $model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
