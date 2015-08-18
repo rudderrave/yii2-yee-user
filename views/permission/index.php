@@ -2,7 +2,6 @@
 
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\helpers\Html;
 use yeesoft\models\AuthItemGroup;
 use yeesoft\models\Permission;
 use yeesoft\Yee;

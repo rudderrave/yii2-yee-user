@@ -1,6 +1,5 @@
 <?php
 
-use yeesoft\helpers\Html;
 use yeesoft\Yee;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -36,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ])
                 ?>
-                
+
                 <?= Html::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary pull-right']) ?>
             </p>
 

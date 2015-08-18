@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', [ 'role' => $label ]),
+                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', ['role' => $label]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',

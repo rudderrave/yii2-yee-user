@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permissions'), 'url
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h3 class="lte-hide-title"><?= $this->title ?></h3>
+    <h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
