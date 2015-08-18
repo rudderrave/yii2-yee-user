@@ -2,12 +2,12 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\admin\BaseController;
-use yeesoft\usermanagement\components\AuthHelper;
-use yeesoft\usermanagement\models\Permission;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\models\search\RoleSearch;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\controllers\admin\BaseController;
+use yeesoft\helpers\AuthHelper;
+use yeesoft\models\Permission;
+use yeesoft\models\Role;
+use yeesoft\user\models\search\RoleSearch;
+use yeesoft\Yee;
 use Yii;
 use yii\rbac\DbManager;
 
@@ -16,7 +16,7 @@ class RoleController extends BaseController
     /**
      * @var Role
      */
-    public $modelClass = 'yeesoft\usermanagement\models\Role';
+    public $modelClass = 'yeesoft\models\Role';
 
     /**
      * @var RoleSearch
@@ -40,8 +40,8 @@ class RoleController extends BaseController
             ->all();
 
         $permissions = Permission::find()
-            ->andWhere(Yii::$app->getModule('user-management')->auth_item_table . '.name != :commonPermissionName',
-                [':commonPermissionName' => Yii::$app->getModule('user-management')->commonPermissionName])
+            ->andWhere(Yii::$app->getModule('yee')->auth_item_table . '.name != :commonPermissionName',
+                [':commonPermissionName' => Yii::$app->getModule('yee')->commonPermissionName])
             ->joinWith('group')
             ->all();
 
@@ -57,8 +57,7 @@ class RoleController extends BaseController
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
         return $this->renderIsAjax('view',
-            compact('role', 'allRoles', 'childRoles', 'currentPermissions',
-                'permissionsByGroup'));
+            compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup'));
     }
 
     /**
@@ -90,8 +89,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success',
-            UserManagementModule::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -117,8 +115,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success',
-            UserManagementModule::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

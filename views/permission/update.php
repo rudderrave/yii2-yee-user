@@ -1,15 +1,15 @@
 <?php
 /**
  * @var yii\widgets\ActiveForm $form
- * @var yeesoft\usermanagement\models\Permission $model
+ * @var yeesoft\models\Permission $model
  */
 
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\helpers\Html;
 
-$this->title = UserManagementModule::t('back', 'Editing permission: ') . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Editing permission: ') . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permissions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

@@ -9,19 +9,17 @@
  * @var yii\rbac\Permission $item
  */
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\helpers\Html;
+use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
-$this->title = UserManagementModule::t('back', 'Settings for permission') . ': ' . $item->description;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Settings for permission') . ': ' . $item->description;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permissions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <h3 class="lte-hide-title"><?= $this->title ?></h3>
-
+<h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -30,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('back', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
     </p>
 
     <div class="row">
@@ -39,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span
-                            class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Child permissions') ?>
+                        <span class="glyphicon glyphicon-th"></span>
+                        <?= Yee::t('back', 'Child permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -67,10 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endforeach ?>
                     </div>
 
-
                     <hr/>
                     <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                         ['class' => 'btn btn-primary btn-sm']
                     ) ?>
 
@@ -104,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-sm-3">
                             <?= Html::submitButton(
-                                '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                                '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                                 ['class' => 'btn btn-primary btn-sm']
                             ) ?>
                         </div>
@@ -147,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                         ['class' => 'btn btn-primary btn-sm']
                     ) ?>
 

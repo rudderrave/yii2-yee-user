@@ -2,10 +2,10 @@
 
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\AuthItemGroup;
-use yeesoft\usermanagement\models\Permission;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\helpers\Html;
+use yeesoft\models\AuthItemGroup;
+use yeesoft\models\Permission;
+use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -13,11 +13,11 @@ use yii\widgets\Pjax;
 
 /**
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\usermanagement\models\search\PermissionSearch $searchModel
+ * @var yeesoft\user\models\search\PermissionSearch $searchModel
  * @var yii\web\View $this
  */
-$this->title = UserManagementModule::t('back', 'Permissions');
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
+$this->title = Yee::t('back', 'Permissions');
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,10 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?=
-            GhostHtml::a('Add New', ['create'],
-                ['class' => 'btn btn-sm btn-primary'])
-            ?>
+            <?= Html::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -64,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'description',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'title' => function ($model) {
-                            if ($model->name == Yii::$app->getModule('user-management')->commonPermissionName) {
+                            if ($model->name == Yii::$app->getModule('yee')->commonPermissionName) {
                                 return Html::a(
                                     $model->description,
                                     ['view', 'id' => $model->name],

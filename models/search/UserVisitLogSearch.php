@@ -2,14 +2,14 @@
 
 namespace yeesoft\user\models\search;
 
-use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\models\UserVisitLog;
+use yeesoft\models\User;
+use yeesoft\models\UserVisitLog;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * UserVisitLogSearch represents the model behind the search form about `yeesoft\usermanagement\models\UserVisitLog`.
+ * UserVisitLogSearch represents the model behind the search form about `yeesoft\models\UserVisitLog`.
  */
 class UserVisitLogSearch extends UserVisitLog
 {
@@ -18,8 +18,7 @@ class UserVisitLogSearch extends UserVisitLog
     {
         return [
             [['id'], 'integer'],
-            [['token', 'ip', 'language', 'user_id', 'os', 'browser', 'visit_time'],
-                'safe'],
+            [['token', 'ip', 'language', 'user_id', 'os', 'browser', 'visit_time'], 'safe'],
         ];
     }
 
@@ -43,8 +42,7 @@ class UserVisitLogSearch extends UserVisitLog
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size',
-                    20),
+                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
             ],
             'sort' => [
                 'defaultOrder' => ['id' => SORT_DESC],

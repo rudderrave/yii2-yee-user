@@ -1,20 +1,19 @@
 <?php
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\components\Html;
+use yeesoft\models\Role;
+use yeesoft\models\User;
+use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\usermanagement\models\User $model
+ * @var yeesoft\models\User $model
  */
 $this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back',
-    'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,25 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p>
                 <?=
-                GhostHtml::a('Edit', ['update', 'id' => $model->id],
+                Html::a('Edit', ['update', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary'])
                 ?>
                 <?=
-                GhostHtml::a(
-                    UserManagementModule::t('back', 'Change Password'),
+                Html::a(
+                    Yee::t('back', 'Change Password'),
                     ['change-password', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary']
                 )
                 ?>
                 <?=
-                GhostHtml::a(
-                    UserManagementModule::t('back', 'Roles and permissions'),
+                Html::a(
+                    Yee::t('back', 'Roles and permissions'),
                     ['user-permission/set', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary']
                 )
                 ?>
                 <?=
-                GhostHtml::a('Delete', ['delete', 'id' => $model->id],
+                Html::a('Delete', ['delete', 'id' => $model->id],
                     [
                         'class' => 'btn btn-sm btn-default',
                         'data' => [
@@ -55,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])
                 ?>
                 <?=
-                GhostHtml::a('Add New', ['create'],
+                Html::a('Add New', ['create'],
                     ['class' => 'btn btn-sm btn-primary pull-right'])
                 ?>
             </p>
@@ -84,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'visible' => User::hasPermission('viewUserEmail'),
                     ],
                     [
-                        'label' => UserManagementModule::t('back', 'Roles'),
+                        'label' => Yee::t('back', 'Roles'),
                         'value' => implode('<br>',
                             ArrayHelper::map(Role::getUserRoles($model->id),
                                 'name', 'description')),

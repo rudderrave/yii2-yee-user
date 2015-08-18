@@ -1,17 +1,17 @@
 <?php
 
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\usermanagement\models\User $model
+ * @var yeesoft\models\User $model
  */
-$this->title = UserManagementModule::t('back', 'Changing password for user: ') . ' ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Changing password for user: ') . ' ' . $model->username;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing password');
+$this->params['breadcrumbs'][] = Yee::t('back', 'Changing password');
 ?>
 <div class="user-update">
 
@@ -39,15 +39,13 @@ $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing passw
                         <?php if ($model->isNewRecord): ?>
                             <?=
                             Html::submitButton(
-                                '<span class="glyphicon glyphicon-plus-sign"></span> ' . UserManagementModule::t('back',
-                                    'Create'), ['class' => 'btn btn-success']
+                                '<span class="glyphicon glyphicon-plus-sign"></span> ' . Yee::t('back', 'Create'), ['class' => 'btn btn-success']
                             )
                             ?>
                         <?php else: ?>
                             <?=
                             Html::submitButton(
-                                '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back',
-                                    'Save'), ['class' => 'btn btn-primary']
+                                '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'), ['class' => 'btn btn-primary']
                             )
                             ?>
                         <?php endif; ?>

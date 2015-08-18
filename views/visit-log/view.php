@@ -1,16 +1,16 @@
 <?php
 
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\usermanagement\models\UserVisitLog $model
+ * @var yeesoft\models\UserVisitLog $model
  */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Visit log'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-visit-log-view">
@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'os',
                     'browser',
                     'user_agent',
-
                     'visit_time:datetime',
                 ],
             ]) ?>

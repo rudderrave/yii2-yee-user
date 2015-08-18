@@ -10,15 +10,14 @@
  * @var yii\rbac\Role $role
  */
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\helpers\Html;
+use yeesoft\models\Role;
+use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
-$this->title = UserManagementModule::t('back', 'Permissions for role:') . ' ' . $role->description;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Permissions for role:') . ' ' . $role->description;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Roles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -31,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('back', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
     </p>
 
     <div class="row">
@@ -41,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Child roles') ?>
+                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Child roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -60,9 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => UserManagementModule::t('back', 'Permissions for role - "{role}"', [
-                                        'role' => $label,
-                                    ]),
+                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', [ 'role' => $label ]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -83,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                         ['class' => 'btn btn-primary btn-sm']
                     ) ?>
 
@@ -97,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Permissions') ?>
+                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -125,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                         ['class' => 'btn btn-primary btn-sm']
                     ) ?>
 

@@ -2,11 +2,11 @@
 
 /**
  * @var yii\widgets\ActiveForm $form
- * @var yeesoft\usermanagement\models\Permission $model
+ * @var yeesoft\models\Permission $model
  */
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\AuthItemGroup;
+use yeesoft\helpers\Html;
+use yeesoft\models\AuthItemGroup;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
@@ -55,22 +55,22 @@ use yii\widgets\ActiveForm;
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
                                 <?=
-                                GhostHtml::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
+                                Html::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
                                     ['class' => 'btn btn-success'])
                                 ?>
                                 <?=
-                                GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
+                                Html::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
                                     ['permission/'],
                                     ['class' => 'btn btn-default']
                                 )
                                 ?>
                             <?php else: ?>
                                 <?=
-                                GhostHtml::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
+                                Html::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
                                     ['class' => 'btn btn-primary'])
                                 ?>
                                 <?=
-                                GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
+                                Html::a('<span class="glyphicon glyphicon-remove"></span> Delete',
                                     ['delete', 'id' => $model->name],
                                     [
                                         'class' => 'btn btn-default',

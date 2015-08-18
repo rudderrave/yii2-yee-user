@@ -1,16 +1,16 @@
 <?php
 
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\usermanagement\models\AuthItemGroup $model
+ * @var yeesoft\models\AuthItemGroup $model
  */
 
-$this->title = UserManagementModule::t('back', 'Editing permission group') . ': ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Editing permission group') . ': ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permission groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->code]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
 ?>

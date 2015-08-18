@@ -2,19 +2,19 @@
 /**
  * @var yii\web\View $this
  * @var array $permissionsByGroup
- * @var yeesoft\usermanagement\models\User $user
+ * @var yeesoft\models\User $user
  */
 
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\models\Role;
+use yeesoft\Yee;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 BootstrapPluginAsset::register($this);
-$this->title = UserManagementModule::t('back', 'Roles and permissions for user:') . ' ' . $user->username;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
+$this->title = Yee::t('back', 'Roles and permissions for user:') . ' ' . $user->username;
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Roles') ?>
+                        <span class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -51,9 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => UserManagementModule::t('back', 'Permissions for role - "{role}"', [
-                                        'role' => $label,
-                                    ]),
+                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', [ 'role' => $label ]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -76,12 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php if (Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id): ?>
 
                         <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
+                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
                             ['class' => 'btn btn-primary btn-sm']
                         ) ?>
                     <?php else: ?>
                         <div class="alert alert-warning well-sm text-center">
-                            <?= UserManagementModule::t('back', 'You can not change own permissions') ?>
+                            <?= Yee::t('back', 'You can not change own permissions') ?>
                         </div>
                     <?php endif; ?>
 
@@ -96,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Permissions') ?>
+                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">

@@ -2,33 +2,28 @@
 
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\UserManagementModule;
-use yii\helpers\Html;
+use yeesoft\helpers\Html;
+use yeesoft\models\Role;
+use yeesoft\Yee;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /**
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\usermanagement\models\search\RoleSearch $searchModel
+ * @var yeesoft\user\models\search\RoleSearch $searchModel
  * @var yii\web\View $this
  */
-$this->title = UserManagementModule::t('back', 'Roles');
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
+$this->title = Yee::t('back', 'Roles');
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 
 <div class="role-index">
 
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?=
-            GhostHtml::a('Add New', ['create'],
-                ['class' => 'btn btn-sm btn-primary'])
-            ?>
+            <?= Html::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 

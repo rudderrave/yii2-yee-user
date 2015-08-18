@@ -2,9 +2,9 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\admin\BaseController;
-use yeesoft\usermanagement\models\AuthItemGroup;
-use yeesoft\usermanagement\models\search\AuthItemGroupSearch;
+use yeesoft\controllers\admin\BaseController;
+use yeesoft\models\AuthItemGroup;
+use yeesoft\user\models\search\AuthItemGroupSearch;
 
 /**
  * AuthItemGroupController implements the CRUD actions for AuthItemGroup model.
@@ -14,7 +14,7 @@ class PermissionGroupsController extends BaseController
     /**
      * @var AuthItemGroup
      */
-    public $modelClass = 'yeesoft\usermanagement\models\AuthItemGroup';
+    public $modelClass = 'yeesoft\models\AuthItemGroup';
 
     /**
      * @var AuthItemGroupSearch

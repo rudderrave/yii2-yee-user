@@ -3,10 +3,10 @@
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\gridquicklinks\GridQuickLinks;
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\helpers\Html;
+use yeesoft\models\Role;
+use yeesoft\models\User;
+use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -15,9 +15,9 @@ use yii\widgets\Pjax;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\usermanagement\models\search\UserSearch $searchModel
+ * @var yeesoft\user\models\search\UserSearch $searchModel
  */
-$this->title = UserManagementModule::t('back', 'Users');
+$this->title = Yee::t('back', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -25,10 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?=
-            GhostHtml::a('Add New', ['create'],
-                ['class' => 'btn btn-sm btn-primary'])
-            ?>
+            <?= Html::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -138,12 +135,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yeesoft\grid\columns\StatusColumn',
                         'attribute' => 'status',
                         'optionsArray' => [
-                            [User::STATUS_ACTIVE, UserManagementModule::t('back',
-                                'Active'), 'primary'],
-                            [User::STATUS_INACTIVE, UserManagementModule::t('back',
-                                'Inactive'), 'info'],
-                            [User::STATUS_BANNED, UserManagementModule::t('back',
-                                'Banned'), 'default'],
+                            [User::STATUS_ACTIVE, Yee::t('back', 'Active'), 'primary'],
+                            [User::STATUS_INACTIVE, Yee::t('back', 'Inactive'), 'info'],
+                            [User::STATUS_BANNED, Yee::t('back', 'Banned'), 'default'],
                         ],
                     ],
                 ],

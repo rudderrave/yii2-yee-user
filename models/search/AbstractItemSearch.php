@@ -2,9 +2,9 @@
 
 namespace yeesoft\user\models\search;
 
-use yeesoft\usermanagement\models\AbstractItem;
-use yeesoft\usermanagement\models\Permission;
-use yeesoft\usermanagement\models\Role;
+use yeesoft\models\AbstractItem;
+use yeesoft\models\Permission;
+use yeesoft\models\Role;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -34,8 +34,7 @@ abstract class AbstractItemSearch extends AbstractItem
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size',
-                    20),
+                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
             ],
             'sort' => [
                 'defaultOrder' => [
@@ -48,11 +47,9 @@ abstract class AbstractItemSearch extends AbstractItem
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', Yii::$app->getModule('user-management')->auth_item_table . '.name',
-            $this->name])
-            ->andFilterWhere(['like', Yii::$app->getModule('user-management')->auth_item_table . '.description',
-                $this->description])
-            ->andFilterWhere([Yii::$app->getModule('user-management')->auth_item_table . '.group_code' => $this->group_code]);
+        $query->andFilterWhere(['like', Yii::$app->getModule('yee')->auth_item_table . '.name', $this->name])
+            ->andFilterWhere(['like', Yii::$app->getModule('yee')->auth_item_table . '.description', $this->description])
+            ->andFilterWhere([Yii::$app->getModule('yee')->auth_item_table . '.group_code' => $this->group_code]);
 
         return $dataProvider;
     }

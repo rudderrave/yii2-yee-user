@@ -2,11 +2,11 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\admin\BaseController;
-use yeesoft\usermanagement\models\Permission;
-use yeesoft\usermanagement\models\Role;
-use yeesoft\usermanagement\models\User;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\controllers\admin\BaseController;
+use yeesoft\models\Permission;
+use yeesoft\models\Role;
+use yeesoft\models\User;
+use yeesoft\Yee;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -31,7 +31,7 @@ class UserPermissionController extends BaseController
         $permissionsByGroup = [];
         $permissions = Permission::find()
             ->andWhere([
-                Yii::$app->getModule('user-management')->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))
+                Yii::$app->getModule('yee')->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))
             ])
             ->joinWith('group')
             ->all();
@@ -51,7 +51,7 @@ class UserPermissionController extends BaseController
     public function actionSetRoles($id)
     {
         if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
-            Yii::$app->session->setFlash('error', UserManagementModule::t('back', 'You can not change own permissions'));
+            Yii::$app->session->setFlash('error', Yee::t('back', 'You can not change own permissions'));
             return $this->redirect(['set', 'id' => $id]);
         }
 
@@ -71,7 +71,7 @@ class UserPermissionController extends BaseController
             User::assignRole($id, $role);
         }
 
-        Yii::$app->session->setFlash('success', UserManagementModule::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
 
         return $this->redirect(['set', 'id' => $id]);
     }

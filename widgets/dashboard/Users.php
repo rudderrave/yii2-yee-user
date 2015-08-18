@@ -3,7 +3,7 @@
 namespace yeesoft\user\widgets\dashboard;
 
 use yeesoft\user\models\search\UserSearch;
-use yeesoft\usermanagement\models\User;
+use yeesoft\models\User;
 
 class Users extends \yii\base\Widget
 {

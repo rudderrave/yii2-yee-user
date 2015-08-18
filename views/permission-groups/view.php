@@ -1,17 +1,17 @@
 <?php
 
-use yeesoft\usermanagement\components\GhostHtml;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\helpers\Html;
+use yeesoft\Yee;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\usermanagement\models\AuthItemGroup $model
+ * @var yeesoft\models\AuthItemGroup $model
  */
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permission groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -24,12 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
 
             <p>
+                <?= Html::a('Edit', ['update', 'id' => $model->code], ['class' => 'btn btn-sm btn-primary']) ?>
+
                 <?=
-                GhostHtml::a('Edit', ['update', 'id' => $model->code],
-                    ['class' => 'btn btn-sm btn-primary'])
-                ?>
-                <?=
-                GhostHtml::a('Delete', ['delete', 'id' => $model->code],
+                Html::a('Delete', ['delete', 'id' => $model->code],
                     [
                         'class' => 'btn btn-sm btn-default',
                         'data' => [
@@ -38,12 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ])
                 ?>
-                <?=
-                GhostHtml::a('Add New', ['create'],
-                    ['class' => 'btn btn-sm btn-primary pull-right'])
-                ?>
+                
+                <?= Html::a('Add New', ['create'], ['class' => 'btn btn-sm btn-primary pull-right']) ?>
             </p>
-
 
             <?=
             DetailView::widget([
@@ -59,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-
 
 </div>
 

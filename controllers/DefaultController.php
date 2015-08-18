@@ -2,8 +2,8 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\base\controllers\admin\BaseController;
-use yeesoft\usermanagement\models\User;
+use yeesoft\controllers\admin\BaseController;
+use yeesoft\models\User;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -15,7 +15,7 @@ class DefaultController extends BaseController
     /**
      * @var User
      */
-    public $modelClass = 'yeesoft\usermanagement\models\User';
+    public $modelClass = 'yeesoft\models\User';
 
     /**
      * @var UserSearch

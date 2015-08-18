@@ -3,14 +3,14 @@
  *
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
- * @var yeesoft\usermanagement\models\Role $model
+ * @var yeesoft\models\Role $model
  */
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\helpers\Html;
 
-$this->title = UserManagementModule::t('back', 'Role creation');
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['index']];
+$this->title = Yee::t('back', 'Role creation');
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Roles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

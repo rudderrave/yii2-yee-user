@@ -3,17 +3,17 @@
 use webvimark\extensions\DateRangePicker\DateRangePicker;
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\usermanagement\UserManagementModule;
+use yeesoft\Yee;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\usermanagement\models\search\UserVisitLogSearch $searchModel
+ * @var yeesoft\user\models\search\UserVisitLogSearch $searchModel
  */
-$this->title = UserManagementModule::t('back', 'Visit log');
-$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user']];
+$this->title = Yee::t('back', 'Visit log');
+$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         /* [
                           'attribute' => 'author_id',
-                          'filter' => yeesoft\usermanagement\models\User::getUsersList(),
+                          'filter' => yeesoft\models\User::getUsersList(),
                           'filterInputOptions' => [],
                           'value' => function(Post $model) {
                           return Html::a($model->author->username,
@@ -111,23 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php
 DateRangePicker::widget([
