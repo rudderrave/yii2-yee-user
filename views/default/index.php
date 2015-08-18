@@ -8,7 +8,6 @@ use yeesoft\models\Role;
 use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 

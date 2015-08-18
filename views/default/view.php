@@ -1,11 +1,10 @@
 <?php
 
-use yeesoft\components\Html;
+use yeesoft\helpers\Html;
 use yeesoft\models\Role;
 use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**

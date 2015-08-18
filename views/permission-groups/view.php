@@ -1,7 +1,7 @@
 <?php
 
+use yeesoft\helpers\Html;
 use yeesoft\Yee;
-use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
