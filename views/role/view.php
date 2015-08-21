@@ -12,6 +12,7 @@
 
 use yeesoft\helpers\Html;
 use yeesoft\models\Role;
+use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 
@@ -79,10 +80,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ) ?>
 
                     <hr/>
-                    <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                        ['class' => 'btn btn-primary btn-sm']
-                    ) ?>
+                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                        <?= Html::submitButton(
+                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
+                            ['class' => 'btn btn-primary btn-sm']
+                        ) ?>
+                    <?php endif; ?>
 
                     <?= Html::endForm() ?>
                 </div>
@@ -121,10 +124,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <hr/>
-                    <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                        ['class' => 'btn btn-primary btn-sm']
-                    ) ?>
+
+                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                        <?= Html::submitButton(
+                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
+                            ['class' => 'btn btn-primary btn-sm']
+                        ) ?>
+                    <?php endif; ?>
 
                     <?= Html::endForm() ?>
 

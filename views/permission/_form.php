@@ -56,11 +56,11 @@ use yii\widgets\ActiveForm;
                             <?php if ($model->isNewRecord): ?>
                                 <?=
                                 Html::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
-                                    ['class' => 'btn btn-success'])
+                                    ['class' => 'btn btn-primary'])
                                 ?>
                                 <?=
                                 Html::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
-                                    ['permission/'],
+                                    ['/user/permission/index'],
                                     ['class' => 'btn btn-default']
                                 )
                                 ?>

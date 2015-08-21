@@ -10,8 +10,6 @@
   ],
   "require": {
     "yeesoft/yii2-yee-core": "dev-master",
-    "yeesoft/yii2-grid-plus": "dev-master",
-    "yeesoft/yii2-grid-quick-links": "dev-master",
     "webvimark/grid-page-size": "dev-master",
     "webvimark/date-range-picker": "dev-master",
     "ikimea/browser": "*"

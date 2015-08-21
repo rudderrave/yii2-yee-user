@@ -59,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'description',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
+                        'controller' => '/user/permission',
                         'title' => function ($model) {
                             if ($model->name == Yii::$app->getModule('yee')->commonPermissionName) {
                                 return Html::a(

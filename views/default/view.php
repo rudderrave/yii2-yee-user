@@ -25,25 +25,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p>
                 <?=
-                Html::a('Edit', ['update', 'id' => $model->id],
+                Html::a('Edit', ['/user/default/update', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary'])
                 ?>
                 <?=
                 Html::a(
                     Yee::t('back', 'Change Password'),
-                    ['change-password', 'id' => $model->id],
+                    ['/user/default/change-password', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary']
                 )
                 ?>
                 <?=
                 Html::a(
                     Yee::t('back', 'Roles and permissions'),
-                    ['user-permission/set', 'id' => $model->id],
+                    ['/user/user-permission/set', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary']
                 )
                 ?>
                 <?=
-                Html::a('Delete', ['delete', 'id' => $model->id],
+                Html::a('Delete', ['/user/default/delete', 'id' => $model->id],
                     [
                         'class' => 'btn btn-sm btn-default',
                         'data' => [
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])
                 ?>
                 <?=
-                Html::a('Add New', ['create'],
+                Html::a('Add New', ['/user/default/create'],
                     ['class' => 'btn btn-sm btn-primary pull-right'])
                 ?>
             </p>
@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     array(
                         'attribute' => 'registration_ip',
-                        'value' => Html::a($model->registration_ip,
+                        'value' => yii\helpers\Html::a($model->registration_ip,
                             "http://ipinfo.io/" . $model->registration_ip,
                             ["target" => "_blank"]),
                         'format' => 'raw',

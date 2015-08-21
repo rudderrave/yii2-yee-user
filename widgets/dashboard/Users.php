@@ -47,23 +47,28 @@ class Users extends \yii\base\Widget
 
     public function run()
     {
-        $searchModel = new UserSearch();
-        $formName = $searchModel->formName();
+        if (User::hasPermission('viewUsers')) {
 
-        $recent = User::find()->orderBy(['id' => SORT_DESC])->limit($this->recentLimit)->all();
 
-        foreach ($this->options as &$option) {
-            $count = User::find()->filterWhere($option['filterWhere'])->count();
-            $option['count'] = $count;
-            $option['url'] = [$this->indexAction, $formName => $option['filterWhere']];
+            $searchModel = new UserSearch();
+            $formName = $searchModel->formName();
+
+            $recent = User::find()->orderBy(['id' => SORT_DESC])->limit($this->recentLimit)->all();
+
+            foreach ($this->options as &$option) {
+                $count = User::find()->filterWhere($option['filterWhere'])->count();
+                $option['count'] = $count;
+                $option['url'] = [$this->indexAction, $formName => $option['filterWhere']];
+            }
+
+            return $this->render('users', [
+                'height' => $this->height,
+                'width' => $this->width,
+                'position' => $this->position,
+                'users' => $this->options,
+                'recent' => $recent,
+            ]);
+
         }
-
-        return $this->render('users', [
-            'height' => $this->height,
-            'width' => $this->width,
-            'position' => $this->position,
-            'users' => $this->options,
-            'recent' => $recent,
-        ]);
     }
 }

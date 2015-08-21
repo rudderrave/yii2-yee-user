@@ -10,6 +10,7 @@
  */
 
 use yeesoft\helpers\Html;
+use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <div class="row">
                         <?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <fieldset>
                                     <legend><?= $groupName ?></legend>
 
@@ -66,17 +67,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <hr/>
-                    <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                        ['class' => 'btn btn-primary btn-sm']
-                    ) ?>
+                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                        <?= Html::submitButton(
+                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
+                            ['class' => 'btn btn-primary btn-sm']
+                        ) ?>
+                    <?php endif; ?>
 
                     <?= Html::endForm() ?>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
@@ -100,10 +103,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <div class="row">
                         <div class="col-sm-3">
-                            <?= Html::submitButton(
-                                '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                                ['class' => 'btn btn-primary btn-sm']
-                            ) ?>
+                            <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                                <?= Html::submitButton(
+                                    '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
+                                    ['class' => 'btn btn-primary btn-sm']
+                                ) ?>
+                            <?php endif; ?>
                         </div>
 
                         <div class="col-sm-6">
@@ -143,10 +148,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ) ?>
 
                     <hr/>
-                    <?= Html::submitButton(
-                        '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                        ['class' => 'btn btn-primary btn-sm']
-                    ) ?>
+                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                        <?= Html::submitButton(
+                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
+                            ['class' => 'btn btn-primary btn-sm']
+                        ) ?>
+                    <?php endif; ?>
 
                     <?= Html::endForm() ?>
 

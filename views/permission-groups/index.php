@@ -3,6 +3,7 @@
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
+use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
@@ -55,11 +56,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'name',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
+                        'controller' => '/user/permission-groups',
                         'title' => function ($model) {
-                            return Html::a(
-                                $model->name, ['update', 'id' => $model->code],
-                                ['data-pjax' => 0]
-                            );
+                            if (User::hasPermission('manageRolesAndPermissions')) {
+                                return Html::a(
+                                    $model->name, ['update', 'id' => $model->code],
+                                    ['data-pjax' => 0]
+                                );
+                            } else {
+                                return $model->name;
+                            }
+
                         },
                     ],
                     'code',

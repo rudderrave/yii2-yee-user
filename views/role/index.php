@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'description',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
+                        'controller' => '/user/role',
                         'title' => function (Role $model) {
                             return Html::a($model->description,
                                 ['view', 'id' => $model->name],

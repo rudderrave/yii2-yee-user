@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'user_id',
                             'class' => 'yeesoft\grid\columns\TitleActionColumn',
+                            'controller' => '/user/visit-log',
                             'title' => function ($model) {
                                 return Html::a(@$model->user->username,
                                     ['view', 'id' => $model->id], ['data-pjax' => 0]);
