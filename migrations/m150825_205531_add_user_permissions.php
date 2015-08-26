@@ -184,6 +184,7 @@ class m150825_205531_add_user_permissions extends Migration
         $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'editUsers']);
         $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'viewRolesAndPermissions']);
         $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'viewUsers']);
+        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'changeUserPassword']);
     }
 
     public function down()
@@ -191,6 +192,7 @@ class m150825_205531_add_user_permissions extends Migration
 
         $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUserEmail']);
         $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUsers']);
+        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'changeUserPassword']);
         $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'assignRolesToUsers']);
         $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'bindUserToIp']);
         $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'createUsers']);
