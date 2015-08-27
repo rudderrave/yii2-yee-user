@@ -19,7 +19,7 @@ class m150729_121634_add_user_menu_links extends Migration
 
         $this->insert('menu_link', ['id' => 'user-role', 'menu_id' => 'admin-main-menu', 'link' => '/user/role/index', 'label' => 'Roles', 'parent_id' => 'user', 'order' => 2]);
 
-        $this->insert('menu_link', ['id' => 'user-user', 'menu_id' => 'admin-main-menu', 'link' => '/user/user/default/index', 'label' => 'Users', 'parent_id' => 'user', 'order' => 1]);
+        $this->insert('menu_link', ['id' => 'user-user', 'menu_id' => 'admin-main-menu', 'link' => '/user/default/index', 'label' => 'Users', 'parent_id' => 'user', 'order' => 1]);
     }
 
     public function down()
