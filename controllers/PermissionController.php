@@ -48,9 +48,7 @@ class PermissionController extends BaseController
         $childRoutes = AuthHelper::getChildrenByType($item->name, AbstractItem::TYPE_ROUTE);
         $childPermissions = AuthHelper::getChildrenByType($item->name, AbstractItem::TYPE_PERMISSION);
 
-        return $this->renderIsAjax('view',
-            compact('item', 'childPermissions', 'routes',
-                'permissionsByGroup', 'childRoutes'));
+        return $this->renderIsAjax('view', compact('item', 'childPermissions', 'routes', 'permissionsByGroup', 'childRoutes'));
     }
 
     /**
@@ -75,7 +73,7 @@ class PermissionController extends BaseController
         Permission::addChildren($item->name, $toAdd);
         Permission::removeChildren($item->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -108,7 +106,7 @@ class PermissionController extends BaseController
 
         AuthHelper::invalidatePermissions();
 
-        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

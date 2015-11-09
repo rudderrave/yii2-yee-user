@@ -13,14 +13,18 @@ use yeesoft\helpers\Html;
 use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
+use yeesoft\user\UserModule;
 
-$this->title = Yee::t('back', 'Settings for permission') . ': ' . $item->description;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permissions'), 'url' => ['index']];
+$this->title = UserModule::t('user', '{permission} Permission Settings', ['permission' => $item->description]);
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Permissions'), 'url' => ['/user/role/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <h3 class="lte-hide-title"><?= $this->title ?></h3>
+
+<div class="col-sm-12">
+    <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+</div>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -29,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= Html::a(Yee::t('back', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= Html::a(Yee::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('yee', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
     </p>
 
     <div class="row">
@@ -39,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span class="glyphicon glyphicon-th"></span>
-                        <?= Yee::t('back', 'Child permissions') ?>
+                        <?= UserModule::t('user', 'Child permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -68,10 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                            ['class' => 'btn btn-primary btn-sm']
-                        ) ?>
+                        <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>
@@ -83,12 +84,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span class="glyphicon glyphicon-th"></span> Routes
+                        <span class="glyphicon glyphicon-th"></span><?= UserModule::t('user', 'Routes') ?>
 
                         <?= Html::a(
-                            'Refresh routes',
-                            ['refresh-routes', 'id' => $item->name],
-                            [
+                            UserModule::t('user', 'Refresh routes'),
+                            ['refresh-routes', 'id' => $item->name], [
                                 'class' => 'btn btn-default btn-sm pull-right',
                                 'style' => 'margin-top:-5px',
                             ]
@@ -104,26 +104,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-sm-3">
                             <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                                <?= Html::submitButton(
-                                    '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                                    ['class' => 'btn btn-primary btn-sm']
-                                ) ?>
+                                <?= Html::submitButton( Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                             <?php endif; ?>
                         </div>
 
                         <div class="col-sm-6">
-                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm"
-                                   placeholder="Search route">
+                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm" placeholder="<?=UserModule::t('user', 'Search route')?>">
                         </div>
 
                         <div class="col-sm-3 text-right">
-						<span id="show-only-selected-routes" class="btn btn-default btn-sm">
-							<i class="fa fa-minus"></i> Show only selected
-						</span>
-						<span id="show-all-routes" class="btn btn-default btn-sm hide">
-							<i class="fa fa-plus"></i> Show all
-						</span>
-
+                            <span id="show-only-selected-routes" class="btn btn-default btn-sm">
+				<i class="fa fa-minus"></i> <?=UserModule::t('user', 'Show only selected')?>
+                            </span>
+                            <span id="show-all-routes" class="btn btn-default btn-sm hide">
+				<i class="fa fa-plus"></i> <?=UserModule::t('user', 'Show all')?>
+                            </span>
                         </div>
                     </div>
 
@@ -149,10 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                            ['class' => 'btn btn-primary btn-sm']
-                        ) ?>
+                        <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>

@@ -2,16 +2,18 @@
 
 use yeesoft\Yee;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\AuthItemGroup $model
  */
 
-$this->title = Yee::t('back', 'Creating permission group');
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permission groups'), 'url' => ['index']];
+$this->title = UserModule::t('user', 'Create Permission Group');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Permission Groups'), 'url' => ['/user/permission-groups/index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="permission-groups-create">

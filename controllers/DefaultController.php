@@ -6,6 +6,7 @@ use yeesoft\controllers\admin\BaseController;
 use yeesoft\models\User;
 use Yii;
 use yii\web\NotFoundHttpException;
+use yeesoft\user\UserModule;
 
 /**
  * DefaultController implements the CRUD actions for User model.
@@ -21,6 +22,8 @@ class DefaultController extends BaseController
      * @var UserSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\search\UserSearch';
+
+    public $disabledActions = ['view'];
 
     /**
      * @return mixed|string|\yii\web\Response
@@ -47,7 +50,7 @@ class DefaultController extends BaseController
         $model = User::findOne($id);
 
         if (!$model) {
-            throw new NotFoundHttpException('User not found');
+            throw new NotFoundHttpException(UserModule::t('user', 'User not found') );
         }
 
         $model->scenario = 'changePassword';

@@ -10,13 +10,14 @@ use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\UserSearch $searchModel
  */
-$this->title = Yee::t('back', 'Users');
+$this->title = UserModule::t('user', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a('Add New', ['/user/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yee::t('yee', 'Add New'), ['/user/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -33,12 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="row">
                 <div class="col-sm-6">
-                    <?=
-                    GridQuickLinks::widget([
+                    <?= GridQuickLinks::widget([
                         'model' => User::class,
                         'searchModel' => $searchModel,
-                    ])
-                    ?>
+                    ]) ?>
                 </div>
 
                 <div class="col-sm-6 text-right">
@@ -52,8 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ])
             ?>
 
-            <?=
-            GridView::widget([
+            <?= GridView::widget([
                 'id' => 'user-grid',
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
@@ -70,22 +68,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->username,
                                 ['/user/default/view', 'id' => $model->id], ['data-pjax' => 0]);
                         },
-                        'buttonsTemplate' => '{update} {delete} {view} {permissions} {password}',
+                        'buttonsTemplate' => '{update} {delete} {permissions} {password}',
                         'buttons' => [
                             'permissions' => function ($url, $model, $key) {
-                                return Html::a('Permissions',
-                                    Url::to(['user-permission/set', 'id' => $model->id]),
-                                    [
-                                        'title' => 'Permissions',
+                                return Html::a(UserModule::t('user', 'Permissions'),
+                                    Url::to(['user-permission/set', 'id' => $model->id]), [
+                                        'title' => UserModule::t('user', 'Permissions'),
                                         'data-pjax' => '0'
                                     ]
                                 );
                             },
                             'password' => function ($url, $model, $key) {
-                                return Html::a('Password',
-                                    Url::to(['default/change-password', 'id' => $model->id]),
-                                    [
-                                        'title' => 'Password',
+                                return Html::a(UserModule::t('user', 'Password'),
+                                    Url::to(['default/change-password', 'id' => $model->id]), [
+                                        'title' => UserModule::t('user', 'Password'),
                                         'data-pjax' => '0'
                                     ]
                                 );
@@ -130,15 +126,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yeesoft\grid\columns\StatusColumn',
                         'attribute' => 'superadmin',
                         'visible' => Yii::$app->user->isSuperadmin,
+                        'options' => ['style' => 'width:60px']
                     ],
                     [
                         'class' => 'yeesoft\grid\columns\StatusColumn',
                         'attribute' => 'status',
                         'optionsArray' => [
-                            [User::STATUS_ACTIVE, Yee::t('back', 'Active'), 'primary'],
-                            [User::STATUS_INACTIVE, Yee::t('back', 'Inactive'), 'info'],
-                            [User::STATUS_BANNED, Yee::t('back', 'Banned'), 'default'],
+                            [User::STATUS_ACTIVE, Yee::t('yee', 'Active'), 'primary'],
+                            [User::STATUS_INACTIVE, Yee::t('yee', 'Inactive'), 'info'],
+                            [User::STATUS_BANNED, Yee::t('yee', 'Banned'), 'default'],
                         ],
+                        'options' => ['style' => 'width:60px']
                     ],
                 ],
             ]);

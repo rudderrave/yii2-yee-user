@@ -2,13 +2,14 @@
 
 use yeesoft\Yee;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\User $model
  */
-$this->title = Yee::t('back', 'User creation');
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['index']];
+$this->title = UserModule::t('user', 'Create User');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

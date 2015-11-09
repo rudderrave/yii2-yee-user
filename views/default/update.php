@@ -2,15 +2,16 @@
 
 use yeesoft\Yee;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\User $model
  */
-$this->title = Yee::t('back', 'Editing user: ') . ' ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yee::t('back', 'Editing');
+$this->title = UserModule::t('user', 'Update User');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="user-update">

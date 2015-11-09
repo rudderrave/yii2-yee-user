@@ -10,15 +10,17 @@ use yeesoft\Yee;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
+
+$this->title = UserModule::t('user', 'Roles and Permissions for "{user}"', ['user' => $user->username]);
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', $user->username), 'url' => ['/user/default/update', 'id' => $user->id]];
+$this->params['breadcrumbs'][] = $this->title;
 
 BootstrapPluginAsset::register($this);
-$this->title = Yee::t('back', 'Roles and permissions for user:') . ' ' . $user->username;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <h3 class="lte-hide-title"><?= $this->title ?></h3>
+<h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -31,15 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Roles') ?>
+                        <span class="glyphicon glyphicon-th"></span> <?= UserModule::t('user', 'Roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
 
                     <?= Html::beginForm(['set-roles', 'id' => $user->id]) ?>
 
-                    <?= Html::checkboxList(
-                        'roles',
+                    <?= Html::checkboxList('roles',
                         ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name'),
                         ArrayHelper::map(Role::getAvailableRoles(), 'name', 'description'),
                         [
@@ -51,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', ['role' => $label]),
+                                    'title' => UserModule::t('user', 'Permissions for "{role}" role', ['role' => $label]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -73,16 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php if (Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id): ?>
 
-                        <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                            ['class' => 'btn btn-primary btn-sm']
-                        ) ?>
+                        <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php else: ?>
                         <div class="alert alert-warning well-sm text-center">
-                            <?= Yee::t('back', 'You can not change own permissions') ?>
+                            <?= UserModule::t('user', "You can't update own permissions!") ?>
                         </div>
                     <?php endif; ?>
-
 
                     <?= Html::endForm() ?>
                 </div>
@@ -93,33 +90,26 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span
-                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Permissions') ?>
+                        <span class="glyphicon glyphicon-th"></span>
+                        <?= UserModule::t('user', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
-
                     <div class="row">
                         <?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
-
                             <div class="col-sm-6">
                                 <fieldset>
                                     <legend><?= $groupName ?></legend>
-
                                     <ul>
                                         <?php foreach ($permissions as $permission): ?>
                                             <li><?= $permission->description ?></li>
                                         <?php endforeach ?>
                                     </ul>
                                 </fieldset>
-
                                 <br/>
                             </div>
-
                         <?php endforeach ?>
-
                     </div>
-
                 </div>
             </div>
         </div>

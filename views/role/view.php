@@ -15,14 +15,15 @@ use yeesoft\models\Role;
 use yeesoft\models\User;
 use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
+use yeesoft\user\UserModule;
 
-$this->title = Yee::t('back', 'Permissions for role:') . ' ' . $role->description;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Roles'), 'url' => ['index']];
+$this->title = UserModule::t('user', '{permission} Role Settings', ['permission' => $role->description]);
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Roles'), 'url' => ['/user/role/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <h2 class="lte-hide-title"><?= $this->title ?></h2>
+<h2 class="lte-hide-title"><?= $this->title ?></h2>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -31,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= Html::a(Yee::t('back', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= Html::a(Yee::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('yee', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yee::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
     </p>
 
     <div class="row">
@@ -41,14 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Child roles') ?>
+                            class="glyphicon glyphicon-th"></span> <?= UserModule::t('user',  'Child roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
                     <?= Html::beginForm(['set-child-roles', 'id' => $role->name]) ?>
 
-                    <?= Html::checkboxList(
-                        'child_roles',
+                    <?= Html::checkboxList( 'child_roles',
                         ArrayHelper::map($childRoles, 'name', 'name'),
                         ArrayHelper::map($allRoles, 'name', 'description'),
                         [
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => Yee::t('back', 'Permissions for role - "{role}"', ['role' => $label]),
+                                    'title' => UserModule::t('user', 'Permissions for "{role}" role', ['role' => $label]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -81,10 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                            ['class' => 'btn btn-primary btn-sm']
-                        ) ?>
+                        <?= Html::submitButton( Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>
@@ -96,8 +93,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span
-                            class="glyphicon glyphicon-th"></span> <?= Yee::t('back', 'Permissions') ?>
+                        <span class="glyphicon glyphicon-th"></span>
+                        <?= UserModule::t('user', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -108,7 +105,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-sm-6">
                                 <fieldset>
                                     <legend><?= $groupName ?></legend>
-
                                     <?= Html::checkboxList(
                                         'child_permissions',
                                         ArrayHelper::map($currentPermissions, 'name', 'name'),
@@ -118,18 +114,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </fieldset>
                                 <br/>
                             </div>
-
-
                         <?php endforeach ?>
                     </div>
 
                     <hr/>
 
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(
-                            '<span class="glyphicon glyphicon-ok"></span> ' . Yee::t('back', 'Save'),
-                            ['class' => 'btn btn-primary btn-sm']
-                        ) ?>
+                        <?= Html::submitButton( Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>

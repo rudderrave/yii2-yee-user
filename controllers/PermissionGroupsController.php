@@ -21,6 +21,8 @@ class PermissionGroupsController extends BaseController
      */
     public $modelSearchClass = 'yeesoft\user\models\search\AuthItemGroupSearch';
 
+    public $disabledActions = ['view'];
+
     /**
      * Define redirect page after update, create, delete, etc
      *
@@ -35,11 +37,8 @@ class PermissionGroupsController extends BaseController
             case 'delete':
                 return ['index'];
                 break;
-            case 'update':
-                return ['view', 'id' => $model->code];
-                break;
             case 'create':
-                return ['view', 'id' => $model->code];
+                return ['update', 'id' => $model->code];
                 break;
             default:
                 return ['index'];

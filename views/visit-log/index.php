@@ -6,14 +6,16 @@ use yeesoft\grid\GridView;
 use yeesoft\Yee;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\UserVisitLogSearch $searchModel
  */
-$this->title = Yee::t('back', 'Visit log');
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
+
+$this->title = UserModule::t('user', 'Visit Log');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

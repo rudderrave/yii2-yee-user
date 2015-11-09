@@ -2,6 +2,8 @@
 
 use yeesoft\helpers\Html;
 use yii\widgets\ActiveForm;
+use Yii;
+use yeesoft\Yee;
 
 /**
  * @var yii\web\View $this
@@ -21,53 +23,28 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-9">
-
             <div class="panel panel-default">
                 <div class="panel-body">
-
-                    <?=
-                    $form->field($model, 'name')->textInput(['maxlength' => 255,
-                        'autofocus' => $model->isNewRecord ? true : false])
-                    ?>
-
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
                     <?= $form->field($model, 'code')->textInput(['maxlength' => 64]) ?>
-
                 </div>
-
             </div>
         </div>
 
         <div class="col-md-3">
-
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="record-info">
-
-
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
-                                <?=
-                                Html::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
-                                    ['class' => 'btn btn-primary'])
-                                ?>
-                                <?=
-                                Html::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
-                                    ['/user/permission-groups/index'],
-                                    ['class' => 'btn btn-default']
-                                )
-                                ?>
+                                <?= Html::submitButton(Yee::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a(Yee::t('yee', 'Cancel'), ['/user/permission-groups/index'], ['class' => 'btn btn-default'] ) ?>
                             <?php else: ?>
-                                <?=
-                                Html::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
-                                    ['class' => 'btn btn-primary'])
-                                ?>
-                                <?=
-                                Html::a('<span class="glyphicon glyphicon-remove"></span> Delete',
-                                    ['delete', 'id' => $model->code],
-                                    [
+                                <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a(Yee::t('yee', 'Delete'), ['delete', 'id' => $model->code], [
                                         'class' => 'btn btn-default',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to delete this item?',
+                                            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                             'method' => 'post',
                                         ],
                                     ])
@@ -77,8 +54,6 @@ use yii\widgets\ActiveForm;
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 

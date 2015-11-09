@@ -2,17 +2,17 @@
 
 use yeesoft\Yee;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\AuthItemGroup $model
  */
 
-$this->title = Yee::t('back', 'Editing permission group') . ': ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Permission groups'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->code]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
+$this->title = UserModule::t('user', 'Update Permission Group');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Permission Groups'), 'url' => ['/user/permission-groups/index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="permission-groups-update">

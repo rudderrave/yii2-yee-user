@@ -9,7 +9,7 @@ use yeesoft\models\User;
 use yeesoft\Yee;
 use Yii;
 use yii\web\NotFoundHttpException;
-
+use yeesoft\user\UserModule;
 
 class UserPermissionController extends BaseController
 {
@@ -25,7 +25,7 @@ class UserPermissionController extends BaseController
         $user = User::findOne($id);
 
         if (!$user) {
-            throw new NotFoundHttpException('User not found');
+            throw new NotFoundHttpException(UserModule::t('user', 'User not found'));
         }
 
         $permissionsByGroup = [];
@@ -51,7 +51,7 @@ class UserPermissionController extends BaseController
     public function actionSetRoles($id)
     {
         if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
-            Yii::$app->session->setFlash('error', Yee::t('back', 'You can not change own permissions'));
+            Yii::$app->session->setFlash('error', UserModule::t('user', 'You can not change own permissions'));
             return $this->redirect(['set', 'id' => $id]);
         }
 
@@ -71,7 +71,7 @@ class UserPermissionController extends BaseController
             User::assignRole($id, $role);
         }
 
-        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
 
         return $this->redirect(['set', 'id' => $id]);
     }

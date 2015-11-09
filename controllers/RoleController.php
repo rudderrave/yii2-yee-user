@@ -34,8 +34,7 @@ class RoleController extends BaseController
 
         $authManager = new DbManager();
 
-        $allRoles = Role::find()
-            ->asArray()
+        $allRoles = Role::find()->asArray()
             ->andWhere('name != :current_name', [':current_name' => $id])
             ->all();
 
@@ -56,8 +55,7 @@ class RoleController extends BaseController
 
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
-        return $this->renderIsAjax('view',
-            compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup'));
+        return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup'));
     }
 
     /**
@@ -89,7 +87,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -115,7 +113,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('back', 'Saved'));
+        Yii::$app->session->setFlash('success', Yee::t('Saved', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

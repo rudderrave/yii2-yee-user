@@ -6,12 +6,12 @@
 
 use yeesoft\Yee;
 use yii\helpers\Html;
+use yeesoft\user\UserModule;
 
-$this->title = Yee::t('back', 'Editing role: ') . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Users'), 'url' => ['/user']];
-$this->params['breadcrumbs'][] = ['label' => Yee::t('back', 'Roles'), 'url' => ['index']];
+$this->title = UserModule::t('user', 'Update Role');
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Roles'), 'url' => ['/user/role/index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 
 <div class="role-update">
