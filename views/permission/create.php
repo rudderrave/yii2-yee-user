@@ -6,13 +6,11 @@
  * @var yeesoft\models\Permission $model
  */
 
-use yeesoft\Yee;
 use yii\helpers\Html;
-use yeesoft\user\UserModule;
 
-$this->title = UserModule::t('user', 'Create Permission');
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Permissions'), 'url' => ['/user/permission/index']];
+$this->title = Yii::t('yee/user', 'Create Permission');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Permissions'), 'url' => ['/user/permission/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

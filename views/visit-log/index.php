@@ -3,10 +3,8 @@
 use webvimark\extensions\DateRangePicker\DateRangePicker;
 use webvimark\extensions\GridPageSize\GridPageSize;
 use yeesoft\grid\GridView;
-use yeesoft\Yee;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
@@ -14,8 +12,8 @@ use yeesoft\user\UserModule;
  * @var yeesoft\user\models\search\UserVisitLogSearch $searchModel
  */
 
-$this->title = UserModule::t('user', 'Visit Log');
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
+$this->title = Yii::t('yee/user', 'Visit Log');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -71,7 +69,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'format' => 'raw',
                         ),
-                        'visit_time:datetime',
+                        [
+                            'attribute' => 'visit_time',
+                            'value' => function ($model) {
+                                return "{$model->visitDate} {$model->visitTime}";
+                            },
+                        ],
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'template' => '{view}',

@@ -1,17 +1,15 @@
 <?php
 
-use yeesoft\Yee;
 use yii\widgets\DetailView;
-use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\UserVisitLog $model
  */
 
-$this->title = UserModule::t('user', 'Log №{id}', ['id' => $model->id]);
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Visit Log'), 'url' => ['/user/visit-log/index']];
+$this->title = Yii::t('yee/user', 'Log №{id}', ['id' => $model->id]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Visit Log'), 'url' => ['/user/visit-log/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -29,12 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'user_id',
                         'value' => @$model->user->username,
                     ],
+                    [
+                        'attribute' => 'visit_time',
+                        'value' => "{$model->visitDate} {$model->visitTime}",
+                    ],
                     'ip',
                     'language',
                     'os',
                     'browser',
                     'user_agent',
-                    'visit_time:datetime',
                 ],
             ]) ?>
 

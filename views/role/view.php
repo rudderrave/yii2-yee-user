@@ -13,13 +13,11 @@
 use yeesoft\helpers\Html;
 use yeesoft\models\Role;
 use yeesoft\models\User;
-use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
-use yeesoft\user\UserModule;
 
-$this->title = UserModule::t('user', '{permission} Role Settings', ['permission' => $role->description]);
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Roles'), 'url' => ['/user/role/index']];
+$this->title = Yii::t('yee/user', '{permission} Role Settings', ['permission' => $role->description]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Roles'), 'url' => ['/user/role/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -32,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= Html::a(Yee::t('yee', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= Html::a(Yee::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
     </p>
 
     <div class="row">
@@ -42,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= UserModule::t('user',  'Child roles') ?>
+                            class="glyphicon glyphicon-th"></span> <?= Yii::t('yee/user',  'Child roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -60,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => UserModule::t('user', 'Permissions for "{role}" role', ['role' => $label]),
+                                    'title' => Yii::t('yee/user', 'Permissions for "{role}" role', ['role' => $label]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -81,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton( Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton( Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>
@@ -94,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span class="glyphicon glyphicon-th"></span>
-                        <?= UserModule::t('user', 'Permissions') ?>
+                        <?= Yii::t('yee/user', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -120,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <hr/>
 
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton( Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton( Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>

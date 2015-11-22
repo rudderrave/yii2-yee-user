@@ -3,7 +3,6 @@
 use yeesoft\helpers\Html;
 use yii\widgets\ActiveForm;
 use Yii;
-use yeesoft\Yee;
 
 /**
  * @var yii\web\View $this
@@ -37,11 +36,11 @@ use yeesoft\Yee;
                     <div class="record-info">
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
-                                <?= Html::submitButton(Yee::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yee::t('yee', 'Cancel'), ['/user/permission-groups/index'], ['class' => 'btn btn-default'] ) ?>
+                                <?= Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a(Yii::t('yee', 'Cancel'), ['/user/permission-groups/index'], ['class' => 'btn btn-default'] ) ?>
                             <?php else: ?>
-                                <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yee::t('yee', 'Delete'), ['delete', 'id' => $model->code], [
+                                <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a(Yii::t('yee', 'Delete'), ['delete', 'id' => $model->code], [
                                         'class' => 'btn btn-default',
                                         'data' => [
                                             'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),

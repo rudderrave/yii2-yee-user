@@ -6,15 +6,13 @@
  */
 
 use yeesoft\models\Role;
-use yeesoft\Yee;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yeesoft\user\UserModule;
 
-$this->title = UserModule::t('user', 'Roles and Permissions for "{user}"', ['user' => $user->username]);
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', $user->username), 'url' => ['/user/default/update', 'id' => $user->id]];
+$this->title = Yii::t('yee/user', 'Roles and Permissions for "{user}"', ['user' => $user->username]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', $user->username), 'url' => ['/user/default/update', 'id' => $user->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
 BootstrapPluginAsset::register($this);
@@ -33,7 +31,7 @@ BootstrapPluginAsset::register($this);
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span class="glyphicon glyphicon-th"></span> <?= UserModule::t('user', 'Roles') ?>
+                        <span class="glyphicon glyphicon-th"></span> <?= Yii::t('yee/user', 'Roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
@@ -52,7 +50,7 @@ BootstrapPluginAsset::register($this);
                                 $list .= '</ul>';
 
                                 $helpIcon = Html::beginTag('span', [
-                                    'title' => UserModule::t('user', 'Permissions for "{role}" role', ['role' => $label]),
+                                    'title' => Yii::t('yee/user', 'Permissions for "{role}" role', ['role' => $label]),
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
@@ -74,10 +72,10 @@ BootstrapPluginAsset::register($this);
 
                     <?php if (Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id): ?>
 
-                        <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
                     <?php else: ?>
                         <div class="alert alert-warning well-sm text-center">
-                            <?= UserModule::t('user', "You can't update own permissions!") ?>
+                            <?= Yii::t('yee/user', "You can't update own permissions!") ?>
                         </div>
                     <?php endif; ?>
 
@@ -91,7 +89,7 @@ BootstrapPluginAsset::register($this);
                 <div class="panel-heading">
                     <strong>
                         <span class="glyphicon glyphicon-th"></span>
-                        <?= UserModule::t('user', 'Permissions') ?>
+                        <?= Yii::t('yee/user', 'Permissions') ?>
                     </strong>
                 </div>
                 <div class="panel-body">

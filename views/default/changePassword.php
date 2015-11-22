@@ -1,16 +1,14 @@
 <?php
 
-use yeesoft\Yee;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\User $model
  */
-$this->title = UserModule::t('user', 'Update User Password');
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['index']];
+$this->title = Yii::t('yee/user', 'Update User Password');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -34,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <?= Html::submitButton(Yee::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
                     </div>
                 </div>
 

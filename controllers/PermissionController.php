@@ -8,7 +8,6 @@ use yeesoft\models\AbstractItem;
 use yeesoft\models\Permission;
 use yeesoft\models\Route;
 use yeesoft\user\models\search\PermissionSearch;
-use yeesoft\Yee;
 use Yii;
 
 class PermissionController extends BaseController
@@ -73,7 +72,7 @@ class PermissionController extends BaseController
         Permission::addChildren($item->name, $toAdd);
         Permission::removeChildren($item->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -106,7 +105,7 @@ class PermissionController extends BaseController
 
         AuthHelper::invalidatePermissions();
 
-        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

@@ -15,7 +15,7 @@ use yii\helpers\Html;
                 <?php foreach ($recent as $item) : ?>
                     <div class="clearfix" style="border-bottom: 1px solid #eee; margin: 7px; padding: 0 0 5px 5px;">
                         <span style="font-size:80%; margin-right: 10px;"
-                              class="label label-primary">[<?= $item->createdDateTime ?>]</span>
+                              class="label label-primary">[<?= "{$item->createdDate} {$item->createdTime}" ?>]</span>
                         <?= $item->username ?> -  <?= $item->email ?> -  <?= $item->registration_ip ?>
                     </div>
                 <?php endforeach; ?>

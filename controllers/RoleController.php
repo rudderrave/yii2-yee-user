@@ -87,7 +87,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('yee', 'Saved'));
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

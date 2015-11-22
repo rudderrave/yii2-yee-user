@@ -6,18 +6,16 @@ use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
 use yeesoft\models\Role;
 use yeesoft\models\User;
-use yeesoft\Yee;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yeesoft\user\UserModule;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\UserSearch $searchModel
  */
-$this->title = UserModule::t('user', 'Users');
+$this->title = Yii::t('yee/user', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -25,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a(Yee::t('yee', 'Add New'), ['/user/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yii::t('yee', 'Add New'), ['/user/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 
@@ -71,17 +69,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'buttonsTemplate' => '{update} {delete} {permissions} {password}',
                         'buttons' => [
                             'permissions' => function ($url, $model, $key) {
-                                return Html::a(UserModule::t('user', 'Permissions'),
+                                return Html::a(Yii::t('yee/user', 'Permissions'),
                                     Url::to(['user-permission/set', 'id' => $model->id]), [
-                                        'title' => UserModule::t('user', 'Permissions'),
+                                        'title' => Yii::t('yee/user', 'Permissions'),
                                         'data-pjax' => '0'
                                     ]
                                 );
                             },
                             'password' => function ($url, $model, $key) {
-                                return Html::a(UserModule::t('user', 'Password'),
+                                return Html::a(Yii::t('yee/user', 'Password'),
                                     Url::to(['default/change-password', 'id' => $model->id]), [
-                                        'title' => UserModule::t('user', 'Password'),
+                                        'title' => Yii::t('yee/user', 'Password'),
                                         'data-pjax' => '0'
                                     ]
                                 );
@@ -132,9 +130,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yeesoft\grid\columns\StatusColumn',
                         'attribute' => 'status',
                         'optionsArray' => [
-                            [User::STATUS_ACTIVE, Yee::t('yee', 'Active'), 'primary'],
-                            [User::STATUS_INACTIVE, Yee::t('yee', 'Inactive'), 'info'],
-                            [User::STATUS_BANNED, Yee::t('yee', 'Banned'), 'default'],
+                            [User::STATUS_ACTIVE, Yii::t('yee', 'Active'), 'primary'],
+                            [User::STATUS_INACTIVE, Yii::t('yee', 'Inactive'), 'info'],
+                            [User::STATUS_BANNED, Yii::t('yee', 'Banned'), 'default'],
                         ],
                         'options' => ['style' => 'width:60px']
                     ],

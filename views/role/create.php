@@ -5,12 +5,11 @@
  * @var yii\widgets\ActiveForm $form
  * @var yeesoft\models\Role $model
  */
-use yeesoft\Yee;
-use yii\helpers\Html;use yeesoft\user\UserModule;
+use yii\helpers\Html;
 
-$this->title = UserModule::t('user', 'Create Role');
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => UserModule::t('user', 'Roles'), 'url' => ['/user/role/index']];
+$this->title = Yii::t('yee/user', 'Create Role');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Roles'), 'url' => ['/user/role/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
