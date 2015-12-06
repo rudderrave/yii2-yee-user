@@ -1,6 +1,6 @@
 <?php
 
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridQuickLinks;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
@@ -63,8 +63,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'controller' => '/user/default',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'title' => function (User $model) {
-                            return Html::a($model->username,
-                                ['/user/default/view', 'id' => $model->id], ['data-pjax' => 0]);
+                            if (User::hasPermission('editUsers')) {
+                                return Html::a($model->username, ['/user/default/update', 'id' => $model->id], ['data-pjax' => 0]);
+                            } else {
+                                return $model->username;
+                            }
                         },
                         'buttonsTemplate' => '{update} {delete} {permissions} {password}',
                         'buttons' => [

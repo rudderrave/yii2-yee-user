@@ -1,6 +1,6 @@
 <?php
 
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
 use yeesoft\models\Role;
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
 
-            <?php Pjax::begin([ 'id' => 'role-grid-pjax' ]) ?>
+            <?php Pjax::begin(['id' => 'role-grid-pjax']) ?>
 
             <?=
             GridView::widget([

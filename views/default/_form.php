@@ -36,9 +36,9 @@ use yii\widgets\ActiveForm;
                     <?php if (User::hasPermission('editUserEmail')): ?>
                         <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
                     <?php endif; ?>
-                    
+
                     <?php if (User::hasPermission('bindUserToIp')): ?>
-                        <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example').' : 123.34.56.78, 234.123.89.78') ?>
+                        <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example') . ' : 123.34.56.78, 234.123.89.78') ?>
                     <?php endif; ?>
 
                 </div>
@@ -78,9 +78,8 @@ use yii\widgets\ActiveForm;
                             <label class="control-label" style="float: left; padding-right: 5px;">
                                 <?= $model->attributeLabels()['updated_at'] ?> :
                             </label>
-                            <span><?= "{$model->updatedDate} {$model->updatedTime}" ?></span>
+                            <span><?= $model->updatedDatetime ?></span>
                         </div>
-
 
                         <div class="form-group ">
                             <?php if ($model->isNewRecord): ?>
@@ -89,12 +88,12 @@ use yii\widgets\ActiveForm;
                             <?php else: ?>
                                 <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
                                 <?= Html::a(Yii::t('yee', 'Delete'), ['/user/default/delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-default',
-                                        'data' => [
-                                            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                            'method' => 'post',
-                                        ],
-                                    ])
+                                    'class' => 'btn btn-default',
+                                    'data' => [
+                                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                        'method' => 'post',
+                                    ],
+                                ])
                                 ?>
                             <?php endif; ?>
                         </div>

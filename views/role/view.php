@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Roles'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h2 class="lte-hide-title"><?= $this->title ?></h2>
+    <h2 class="lte-hide-title"><?= $this->title ?></h2>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -40,13 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span
-                            class="glyphicon glyphicon-th"></span> <?= Yii::t('yee/user',  'Child roles') ?>
+                            class="glyphicon glyphicon-th"></span> <?= Yii::t('yee/user', 'Child roles') ?>
                     </strong>
                 </div>
                 <div class="panel-body">
                     <?= Html::beginForm(['set-child-roles', 'id' => $role->name]) ?>
 
-                    <?= Html::checkboxList( 'child_roles',
+                    <?= Html::checkboxList('child_roles',
                         ArrayHelper::map($childRoles, 'name', 'name'),
                         ArrayHelper::map($allRoles, 'name', 'description'),
                         [
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <hr/>
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton( Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <hr/>
 
                     <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton( Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                     <?php endif; ?>
 
                     <?= Html::endForm() ?>

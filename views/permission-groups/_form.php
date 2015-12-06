@@ -2,7 +2,6 @@
 
 use yeesoft\helpers\Html;
 use yii\widgets\ActiveForm;
-use Yii;
 
 /**
  * @var yii\web\View $this
@@ -37,16 +36,16 @@ use Yii;
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
                                 <?= Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yii::t('yee', 'Cancel'), ['/user/permission-groups/index'], ['class' => 'btn btn-default'] ) ?>
+                                <?= Html::a(Yii::t('yee', 'Cancel'), ['/user/permission-groups/index'], ['class' => 'btn btn-default']) ?>
                             <?php else: ?>
                                 <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
                                 <?= Html::a(Yii::t('yee', 'Delete'), ['delete', 'id' => $model->code], [
-                                        'class' => 'btn btn-default',
-                                        'data' => [
-                                            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                            'method' => 'post',
-                                        ],
-                                    ])
+                                    'class' => 'btn btn-default',
+                                    'data' => [
+                                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                        'method' => 'post',
+                                    ],
+                                ])
                                 ?>
                             <?php endif; ?>
                         </div>

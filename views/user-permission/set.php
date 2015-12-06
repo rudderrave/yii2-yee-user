@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 BootstrapPluginAsset::register($this);
 ?>
 
-<h3 class="lte-hide-title"><?= $this->title ?></h3>
+    <h3 class="lte-hide-title"><?= $this->title ?></h3>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -72,7 +72,7 @@ BootstrapPluginAsset::register($this);
 
                     <?php if (Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id): ?>
 
-                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                     <?php else: ?>
                         <div class="alert alert-warning well-sm text-center">
                             <?= Yii::t('yee/user', "You can't update own permissions!") ?>

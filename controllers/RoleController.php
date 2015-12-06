@@ -7,7 +7,6 @@ use yeesoft\helpers\AuthHelper;
 use yeesoft\models\Permission;
 use yeesoft\models\Role;
 use yeesoft\user\models\search\RoleSearch;
-use yeesoft\Yee;
 use Yii;
 use yii\rbac\DbManager;
 
@@ -113,7 +112,7 @@ class RoleController extends BaseController
         Role::addChildren($role->name, $toAdd);
         Role::removeChildren($role->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yee::t('Saved', 'Saved'));
+        Yii::$app->session->setFlash('success', Yii::t('yii', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }

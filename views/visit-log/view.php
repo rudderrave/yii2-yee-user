@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'visit_time',
-                        'value' => "{$model->visitDate} {$model->visitTime}",
+                        'value' => $model->visitDatetime,
                     ],
                     'ip',
                     'language',

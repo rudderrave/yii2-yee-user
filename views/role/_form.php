@@ -6,7 +6,6 @@
  */
 use yeesoft\helpers\Html;
 use yii\widgets\ActiveForm;
-use Yii;
 
 ?>
 
@@ -36,7 +35,7 @@ use Yii;
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
                                 <?= Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yii::t('yee', 'Cancel'), ['/user/role/index'], [ 'class' => 'btn btn-default' ]) ?>
+                                <?= Html::a(Yii::t('yee', 'Cancel'), ['/user/role/index'], ['class' => 'btn btn-default']) ?>
                             <?php else: ?>
                                 <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
                                 <?= Html::a(Yii::t('yee', 'Delete'),

@@ -4,26 +4,11 @@ namespace yeesoft\user\widgets\dashboard;
 
 use yeesoft\models\User;
 use yeesoft\user\models\search\UserSearch;
+use yeesoft\widgets\DashboardWidget;
+use Yii;
 
-class Users extends \yii\base\Widget
+class Users extends DashboardWidget
 {
-    /**
-     * Widget height
-     */
-    public $height = 'auto';
-
-    /**
-     * Widget width
-     */
-    public $width = '8';
-
-    /**
-     * Widget position
-     *
-     * @var string
-     */
-    public $position = 'left';
-
     /**
      * Most recent post limit
      */
@@ -39,16 +24,15 @@ class Users extends \yii\base\Widget
      *
      * @var array
      */
-    public $options = [
-        ['label' => 'Active', 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_ACTIVE]],
-        ['label' => 'Inactive', 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_INACTIVE]],
-        ['label' => 'Banned', 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_BANNED]],
-    ];
+    public $options;
 
     public function run()
     {
-        if (User::hasPermission('viewUsers')) {
+        if (!$this->options) {
+            $this->options = $this->getDefaultOptions();
+        }
 
+        if (User::hasPermission('viewUsers')) {
 
             $searchModel = new UserSearch();
             $formName = $searchModel->formName();
@@ -70,5 +54,14 @@ class Users extends \yii\base\Widget
             ]);
 
         }
+    }
+
+    public function getDefaultOptions()
+    {
+        return [
+            ['label' => Yii::t('yee', 'Active'), 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_ACTIVE]],
+            ['label' => Yii::t('yee', 'Inactive'), 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_INACTIVE]],
+            ['label' => Yii::t('yee', 'Banned'), 'icon' => 'ok', 'filterWhere' => ['status' => User::STATUS_BANNED]],
+        ];
     }
 }

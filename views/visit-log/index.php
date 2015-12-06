@@ -1,7 +1,7 @@
 <?php
 
 use webvimark\extensions\DateRangePicker\DateRangePicker;
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'visit_time',
                             'value' => function ($model) {
-                                return "{$model->visitDate} {$model->visitTime}";
+                                return $model->visitDatetime;
                             },
                         ],
                         [

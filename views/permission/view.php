@@ -20,9 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<div class="col-sm-12">
-    <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-</div>
+    <div class="col-sm-12">
+        <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+    </div>
 
 <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="alert alert-success text-center">
@@ -102,20 +102,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-sm-3">
                             <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                                <?= Html::submitButton( Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm'] ) ?>
+                                <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                             <?php endif; ?>
                         </div>
 
                         <div class="col-sm-6">
-                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm" placeholder="<?=Yii::t('yee/user', 'Search route')?>">
+                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm"
+                                   placeholder="<?= Yii::t('yee/user', 'Search route') ?>">
                         </div>
 
                         <div class="col-sm-3 text-right">
                             <span id="show-only-selected-routes" class="btn btn-default btn-sm">
-				<i class="fa fa-minus"></i> <?=Yii::t('yee/user', 'Show only selected')?>
+				<i class="fa fa-minus"></i> <?= Yii::t('yee/user', 'Show only selected') ?>
                             </span>
                             <span id="show-all-routes" class="btn btn-default btn-sm hide">
-				<i class="fa fa-plus"></i> <?=Yii::t('yee/user', 'Show all')?>
+				<i class="fa fa-plus"></i> <?= Yii::t('yee/user', 'Show all') ?>
                             </span>
                         </div>
                     </div>

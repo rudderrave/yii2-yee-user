@@ -49,7 +49,7 @@ class DefaultController extends BaseController
         $model = User::findOne($id);
 
         if (!$model) {
-            throw new NotFoundHttpException(Yii::t('yee/user', 'User not found') );
+            throw new NotFoundHttpException(Yii::t('yee/user', 'User not found'));
         }
 
         $model->scenario = 'changePassword';
