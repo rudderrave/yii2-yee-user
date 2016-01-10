@@ -14,12 +14,12 @@ class m150729_121634_add_user_menu_links extends Migration
         $this->insert('menu_link', ['id' => 'user-role', 'menu_id' => 'admin-menu', 'link' => '/user/role/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 2]);
         $this->insert('menu_link', ['id' => 'user-user', 'menu_id' => 'admin-menu', 'link' => '/user/default/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 1]);
 
-        $this->insert('menu_link_lang', ['link_id' => 'user', 'label' => 'Users', 'language' => 'en']);
-        $this->insert('menu_link_lang', ['link_id' => 'user-groups', 'label' => 'Permission groups', 'language' => 'en']);
-        $this->insert('menu_link_lang', ['link_id' => 'user-log', 'label' => 'Visit log', 'language' => 'en']);
-        $this->insert('menu_link_lang', ['link_id' => 'user-permission', 'label' => 'Permissions', 'language' => 'en']);
-        $this->insert('menu_link_lang', ['link_id' => 'user-role', 'label' => 'Roles', 'language' => 'en']);
-        $this->insert('menu_link_lang', ['link_id' => 'user-user', 'label' => 'Users', 'language' => 'en']);
+        $this->insert('menu_link_lang', ['link_id' => 'user', 'label' => 'Users', 'language' => 'en-US']);
+        $this->insert('menu_link_lang', ['link_id' => 'user-groups', 'label' => 'Permission groups', 'language' => 'en-US']);
+        $this->insert('menu_link_lang', ['link_id' => 'user-log', 'label' => 'Visit log', 'language' => 'en-US']);
+        $this->insert('menu_link_lang', ['link_id' => 'user-permission', 'label' => 'Permissions', 'language' => 'en-US']);
+        $this->insert('menu_link_lang', ['link_id' => 'user-role', 'label' => 'Roles', 'language' => 'en-US']);
+        $this->insert('menu_link_lang', ['link_id' => 'user-user', 'label' => 'Users', 'language' => 'en-US']);
     }
 
     public function down()
