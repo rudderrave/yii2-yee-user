@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-sm-6">
                     <?= GridQuickLinks::widget([
-                        'model' => User::class,
+                        'model' => User::className(),
                         'searchModel' => $searchModel,
                     ]) ?>
                 </div>
