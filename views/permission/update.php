@@ -1,6 +1,6 @@
 <?php
 /**
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var yeesoft\models\Permission $model
  */
 

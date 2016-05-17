@@ -1,369 +1,163 @@
 <?php
 
-use yii\db\Migration;
-use yii\db\Schema;
+use yeesoft\db\PermissionsMigration;
 
-class m150825_205531_add_user_permissions extends Migration
+class m150825_205531_add_user_permissions extends PermissionsMigration
 {
 
-    public function up()
+    public function beforeUp()
     {
-
-        $this->insert('auth_item_group', ['code' => 'userManagement', 'name' => 'User Management', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-
-        $this->insert('auth_item', ['name' => '/admin/user/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/bulk-activate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/bulk-deactivate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/bulk-delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/change-password', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/create', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/grid-page-size', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/grid-sort', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/index', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/toggle-attribute', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/update', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/default/view', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/bulk-activate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/bulk-deactivate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/bulk-delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/create', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/grid-page-size', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/grid-sort', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/index', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/toggle-attribute', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/update', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission-groups/view', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/bulk-activate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/bulk-deactivate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/bulk-delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/create', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/grid-page-size', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/grid-sort', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/index', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/refresh-routes', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/set-child-permissions', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/set-child-routes', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/toggle-attribute', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/update', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/permission/view', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/bulk-activate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/bulk-deactivate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/bulk-delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/create', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/grid-page-size', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/grid-sort', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/index', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/set-child-permissions', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/set-child-roles', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/toggle-attribute', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/update', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/role/view', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/user-permission/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/user-permission/set', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/user-permission/set-roles', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/*', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/bulk-activate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/bulk-deactivate', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/bulk-delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/create', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/delete', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/grid-page-size', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/grid-sort', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/index', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/toggle-attribute', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/update', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => '/admin/user/visit-log/view', 'type' => '3', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-
-        $this->insert('auth_item', ['name' => 'assignRolesToUsers', 'type' => '2', 'description' => 'Assign roles to users', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'bindUserToIp', 'type' => '2', 'description' => 'Bind user to IP', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'changeUserPassword', 'type' => '2', 'description' => 'Change user password', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'createUsers', 'type' => '2', 'description' => 'Create users', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'deleteUsers', 'type' => '2', 'description' => 'Delete users', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'editUserEmail', 'type' => '2', 'description' => 'Edit user email', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'editUsers', 'type' => '2', 'description' => 'Edit users', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'manageRolesAndPermissions', 'type' => '2', 'description' => 'Manage roles and permissions', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewRegistrationIp', 'type' => '2', 'description' => 'View registration IP', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewRolesAndPermissions', 'type' => '2', 'description' => 'View roles and permissions', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewUserEmail', 'type' => '2', 'description' => 'View user email', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewUserRoles', 'type' => '2', 'description' => 'View user roles', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewUsers', 'type' => '2', 'description' => 'View users', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-        $this->insert('auth_item', ['name' => 'viewVisitLog', 'type' => '2', 'description' => 'View visit log', 'group_code' => 'userManagement', 'created_at' => '1440180000', 'updated_at' => '1440180000']);
-
-
-        $this->insert('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/bulk-activate']);
-        $this->insert('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/bulk-deactivate']);
-        $this->insert('auth_item_child', ['parent' => 'deleteUsers', 'child' => '/admin/user/default/bulk-delete']);
-        $this->insert('auth_item_child', ['parent' => 'changeUserPassword', 'child' => '/admin/user/default/change-password']);
-        $this->insert('auth_item_child', ['parent' => 'createUsers', 'child' => '/admin/user/default/create']);
-        $this->insert('auth_item_child', ['parent' => 'deleteUsers', 'child' => '/admin/user/default/delete']);
-        $this->insert('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/grid-page-size']);
-        $this->insert('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/grid-sort']);
-        $this->insert('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/index']);
-        $this->insert('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/toggle-attribute']);
-        $this->insert('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/update']);
-        $this->insert('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/view']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-activate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-deactivate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-delete']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/create']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/delete']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/grid-page-size']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/grid-sort']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/index']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/toggle-attribute']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/update']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/view']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-activate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-deactivate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-delete']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/create']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/delete']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/grid-page-size']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/grid-sort']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/index']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/refresh-routes']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/set-child-permissions']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/set-child-routes']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/toggle-attribute']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/update']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/view']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-activate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-deactivate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-delete']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/create']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/delete']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/grid-page-size']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/grid-sort']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/index']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/set-child-permissions']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/set-child-roles']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/toggle-attribute']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/update']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/view']);
-        $this->insert('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => '/admin/user/user-permission/set']);
-        $this->insert('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => '/admin/user/user-permission/set-roles']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-activate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-deactivate']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-delete']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/create']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/delete']);
-        $this->insert('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/grid-page-size']);
-        $this->insert('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/grid-sort']);
-        $this->insert('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/index']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/toggle-attribute']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/update']);
-        $this->insert('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/view']);
-
-        $this->insert('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => 'viewUserRoles']);
-        $this->insert('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'changeUserPassword', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'createUsers', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'deleteUsers', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'editUserEmail', 'child' => 'viewUserEmail']);
-        $this->insert('auth_item_child', ['parent' => 'editUsers', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => 'editUsers']);
-        $this->insert('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => 'viewRolesAndPermissions']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => 'viewUserRoles']);
-        $this->insert('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => 'viewUsers']);
-
-        $this->insert('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUserEmail']);
-        $this->insert('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'assignRolesToUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'bindUserToIp']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'createUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'editUserEmail']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'editUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'viewRolesAndPermissions']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'viewUsers']);
-        $this->insert('auth_item_child', ['parent' => 'administrator', 'child' => 'changeUserPassword']);
+        $this->addPermissionsGroup('userManagement', 'User Management');
     }
 
-    public function down()
+    public function afterDown()
     {
-
-        $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUserEmail']);
-        $this->delete('auth_item_child', ['parent' => 'moderator', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'changeUserPassword']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'assignRolesToUsers']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'bindUserToIp']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'createUsers']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'deleteUsers']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'editUserEmail']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'editUsers']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'viewRolesAndPermissions']);
-        $this->delete('auth_item_child', ['parent' => 'administrator', 'child' => 'viewUsers']);
-
-        $this->delete('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => 'viewUserRoles']);
-        $this->delete('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'changeUserPassword', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'createUsers', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'deleteUsers', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'editUserEmail', 'child' => 'viewUserEmail']);
-        $this->delete('auth_item_child', ['parent' => 'editUsers', 'child' => 'viewUsers']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => 'editUsers']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => 'viewRolesAndPermissions']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => 'viewUserRoles']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => 'viewUsers']);
-
-        $this->delete('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/bulk-activate']);
-        $this->delete('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/bulk-deactivate']);
-        $this->delete('auth_item_child', ['parent' => 'deleteUsers', 'child' => '/admin/user/default/bulk-delete']);
-        $this->delete('auth_item_child', ['parent' => 'changeUserPassword', 'child' => '/admin/user/default/change-password']);
-        $this->delete('auth_item_child', ['parent' => 'createUsers', 'child' => '/admin/user/default/create']);
-        $this->delete('auth_item_child', ['parent' => 'deleteUsers', 'child' => '/admin/user/default/delete']);
-        $this->delete('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/grid-page-size']);
-        $this->delete('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/grid-sort']);
-        $this->delete('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/index']);
-        $this->delete('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/toggle-attribute']);
-        $this->delete('auth_item_child', ['parent' => 'editUsers', 'child' => '/admin/user/default/update']);
-        $this->delete('auth_item_child', ['parent' => 'viewUsers', 'child' => '/admin/user/default/view']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-activate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-deactivate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/bulk-delete']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/create']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/delete']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/grid-page-size']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/grid-sort']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/index']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/toggle-attribute']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission-groups/update']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission-groups/view']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-activate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-deactivate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/bulk-delete']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/create']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/delete']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/grid-page-size']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/grid-sort']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/index']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/refresh-routes']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/set-child-permissions']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/set-child-routes']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/toggle-attribute']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/permission/update']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/permission/view']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-activate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-deactivate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/bulk-delete']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/create']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/delete']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/grid-page-size']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/grid-sort']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/index']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/set-child-permissions']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/set-child-roles']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/toggle-attribute']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/role/update']);
-        $this->delete('auth_item_child', ['parent' => 'viewRolesAndPermissions', 'child' => '/admin/user/role/view']);
-        $this->delete('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => '/admin/user/user-permission/set']);
-        $this->delete('auth_item_child', ['parent' => 'assignRolesToUsers', 'child' => '/admin/user/user-permission/set-roles']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-activate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-deactivate']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/bulk-delete']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/create']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/delete']);
-        $this->delete('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/grid-page-size']);
-        $this->delete('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/grid-sort']);
-        $this->delete('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/index']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/toggle-attribute']);
-        $this->delete('auth_item_child', ['parent' => 'manageRolesAndPermissions', 'child' => '/admin/user/visit-log/update']);
-        $this->delete('auth_item_child', ['parent' => 'viewVisitLog', 'child' => '/admin/user/visit-log/view']);
-
-        $this->delete('auth_item', ['name' => '/admin/user/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/bulk-activate']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/bulk-deactivate']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/bulk-delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/change-password']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/create']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/grid-page-size']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/grid-sort']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/index']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/toggle-attribute']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/update']);
-        $this->delete('auth_item', ['name' => '/admin/user/default/view']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/bulk-activate']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/bulk-deactivate']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/bulk-delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/create']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/grid-page-size']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/grid-sort']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/index']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/toggle-attribute']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/update']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission-groups/view']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/bulk-activate']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/bulk-deactivate']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/bulk-delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/create']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/grid-page-size']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/grid-sort']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/index']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/refresh-routes']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/set-child-permissions']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/set-child-routes']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/toggle-attribute']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/update']);
-        $this->delete('auth_item', ['name' => '/admin/user/permission/view']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/bulk-activate']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/bulk-deactivate']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/bulk-delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/create']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/grid-page-size']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/grid-sort']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/index']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/set-child-permissions']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/set-child-roles']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/toggle-attribute']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/update']);
-        $this->delete('auth_item', ['name' => '/admin/user/role/view']);
-        $this->delete('auth_item', ['name' => '/admin/user/user-permission/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/user-permission/set']);
-        $this->delete('auth_item', ['name' => '/admin/user/user-permission/set-roles']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/*']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/bulk-activate']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/bulk-deactivate']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/bulk-delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/create']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/delete']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/grid-page-size']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/grid-sort']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/index']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/toggle-attribute']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/update']);
-        $this->delete('auth_item', ['name' => '/admin/user/visit-log/view']);
-
-        $this->delete('auth_item', ['name' => 'assignRolesToUsers']);
-        $this->delete('auth_item', ['name' => 'bindUserToIp']);
-        $this->delete('auth_item', ['name' => 'changeUserPassword']);
-        $this->delete('auth_item', ['name' => 'createUsers']);
-        $this->delete('auth_item', ['name' => 'deleteUsers']);
-        $this->delete('auth_item', ['name' => 'editUserEmail']);
-        $this->delete('auth_item', ['name' => 'editUsers']);
-        $this->delete('auth_item', ['name' => 'manageRolesAndPermissions']);
-        $this->delete('auth_item', ['name' => 'viewRegistrationIp']);
-        $this->delete('auth_item', ['name' => 'viewRolesAndPermissions']);
-        $this->delete('auth_item', ['name' => 'viewUserEmail']);
-        $this->delete('auth_item', ['name' => 'viewUserRoles']);
-        $this->delete('auth_item', ['name' => 'viewUsers']);
-        $this->delete('auth_item', ['name' => 'viewVisitLog']);
-
-        $this->delete('auth_item_group', ['code' => 'userManagement']);
+        $this->deletePermissionsGroup('userManagement');
     }
+
+    public function getPermissions()
+    {
+        return [
+            'userManagement' => [
+                'links' => [
+                    '/admin/user/*',
+                    '/admin/user/default/*',
+                    '/admin/user/role/*',
+                    '/admin/user/permission/*',
+                    '/admin/user/permission-groups/*',
+                    '/admin/user/user-permission/*',
+                    '/admin/user/visit-log/*',
+                ],
+                'viewUsers' => [
+                    'title' => 'View Users',
+                    'roles' => [self::ROLE_MODERATOR],
+                    'links' => [
+                        '/admin/user/default/index',
+                        '/admin/user/default/grid-sort',
+                        '/admin/user/default/grid-page-size',
+                    ],
+                ],
+                'editUsers' => [
+                    'title' => 'Edit Users',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers'],
+                    'links' => [
+                        '/admin/user/default/update',
+                        '/admin/user/default/bulk-activate',
+                        '/admin/user/default/bulk-deactivate',
+                        '/admin/user/default/toggle-attribute',
+                    ],
+                ],
+                'createUsers' => [
+                    'title' => 'Create Users',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers'],
+                    'links' => [
+                        '/admin/user/default/create',
+                    ],
+                ],
+                'deleteUsers' => [
+                    'title' => 'Delete Users',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers'],
+                    'links' => [
+                        '/admin/user/default/delete',
+                        '/admin/user/default/bulk-delete',
+                    ],
+                ],
+                'changeUserPassword' => [
+                    'title' => 'Change User Password',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers'],
+                    'links' => [
+                        '/admin/user/default/change-password',
+                    ],
+                ],
+                'viewRolesAndPermissions' => [
+                    'title' => 'View Roles And Permissions',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers', 'viewUserRoles'],
+                    'links' => [
+                        '/admin/user/permission-groups/index',
+                        '/admin/user/permission-groups/grid-sort',
+                        '/admin/user/permission-groups/grid-page-size',
+                        '/admin/user/permission/index',
+                        '/admin/user/permission/grid-sort',
+                        '/admin/user/permission/grid-page-size',
+                        '/admin/user/role/index',
+                        '/admin/user/role/grid-sort',
+                        '/admin/user/role/grid-page-size',
+                    ],
+                ],
+                'manageRolesAndPermissions' => [
+                    'title' => 'Manage Roles And Permissions',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewRolesAndPermissions', 'viewUsers', 'editUsers'],
+                    'links' => [
+                        '/admin/user/permission-groups/update',
+                        '/admin/user/permission-groups/create',
+                        '/admin/user/permission-groups/delete',
+                        '/admin/user/permission-groups/bulk-delete',
+                        '/admin/user/permission/update',
+                        '/admin/user/permission/create',
+                        '/admin/user/permission/delete',
+                        '/admin/user/permission/bulk-delete',
+                        '/admin/user/permission/view',
+                        '/admin/user/permission/refresh-routes',
+                        '/admin/user/permission/set-child-permissions',
+                        '/admin/user/permission/set-child-routes',
+                        '/admin/user/role/update',
+                        '/admin/user/role/create',
+                        '/admin/user/role/delete',
+                        '/admin/user/role/bulk-delete',
+                        '/admin/user/role/view',
+                        '/admin/user/role/set-child-permissions',
+                        '/admin/user/role/set-child-roles',
+                    ],
+                ],
+                'assignRolesToUsers' => [
+                    'title' => 'Assign Roles To Users',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers', 'viewUserRoles'],
+                    'links' => [
+                        '/admin/user/user-permission/set',
+                        '/admin/user/user-permission/set-roles',
+                    ],
+                ],
+                'viewVisitLog' => [
+                    'title' => 'View Visit Logs',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUsers'],
+                    'links' => [
+                        '/admin/user/visit-log/index',
+                        '/admin/user/visit-log/view',
+                        '/admin/user/visit-log/grid-sort',
+                        '/admin/user/visit-log/grid-page-size',
+                    ],
+                ],
+                'bindUserToIp' => [
+                    'title' => 'Bind User To IP',
+                    'roles' => [self::ROLE_ADMIN],
+                ],
+                'editUserEmail' => [
+                    'title' => 'Edit User Email',
+                    'roles' => [self::ROLE_ADMIN],
+                    'childs' => ['viewUserEmail'],
+                ],
+                'viewRegistrationIp' => [
+                    'title' => 'View Registration IP',
+                    'roles' => [self::ROLE_ADMIN],
+                ],
+                'viewUserEmail' => [
+                    'title' => 'View User Email',
+                    'roles' => [self::ROLE_MODERATOR],
+                ],
+                'viewUserRoles' => [
+                    'title' => 'View User Roles',
+                    'roles' => [self::ROLE_ADMIN],
+                ],
+            ],
+        ];
+    }
+
 }

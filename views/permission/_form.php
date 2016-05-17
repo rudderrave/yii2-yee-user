@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var yeesoft\models\Permission $model
  */
 
 use yeesoft\helpers\Html;
 use yeesoft\models\AuthItemGroup;
 use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
+use yeesoft\widgets\ActiveForm;
 
 ?>
 

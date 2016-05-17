@@ -38,8 +38,8 @@ class RoleController extends BaseController
             ->all();
 
         $permissions = Permission::find()
-            ->andWhere(Yii::$app->getModule('yee')->auth_item_table . '.name != :commonPermissionName',
-                [':commonPermissionName' => Yii::$app->getModule('yee')->commonPermissionName])
+            ->andWhere(Yii::$app->yee->auth_item_table . '.name != :commonPermissionName',
+                [':commonPermissionName' => Yii::$app->yee->commonPermissionName])
             ->joinWith('group')
             ->all();
 

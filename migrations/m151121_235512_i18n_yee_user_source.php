@@ -1,6 +1,6 @@
 <?php
 
-use yeesoft\i18n\SourceMessagesMigration;
+use yeesoft\db\SourceMessagesMigration;
 
 class m151121_235512_i18n_yee_user_source extends SourceMessagesMigration
 {

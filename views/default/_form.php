@@ -2,12 +2,12 @@
 
 use yeesoft\helpers\Html;
 use yeesoft\models\User;
-use yii\widgets\ActiveForm;
+use yeesoft\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\User $model
- * @var yii\bootstrap\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  */
 ?>
 
@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="record-info">
-                        <?= $form->field($model->loadDefaultValues(), 'status')->dropDownList(User::getStatusList(), ['class' => '']) ?>
+                        <?= $form->field($model->loadDefaultValues(), 'status')->dropDownList(User::getStatusList()) ?>
 
                         <?php if (User::hasPermission('editUserEmail')): ?>
                             <?= $form->field($model, 'email_confirmed')->checkbox() ?>

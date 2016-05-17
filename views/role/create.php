@@ -2,7 +2,7 @@
 /**
  *
  * @var yii\web\View $this
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var yeesoft\models\Role $model
  */
 use yii\helpers\Html;

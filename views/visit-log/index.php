@@ -83,7 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         /* [
                           'attribute' => 'author_id',
                           'filter' => yeesoft\models\User::getUsersList(),
-                          'filterInputOptions' => [],
                           'value' => function(Post $model) {
                           return Html::a($model->author->username,
                           ['user/view', 'id' => $model->author_id],

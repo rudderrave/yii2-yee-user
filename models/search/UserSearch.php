@@ -61,7 +61,7 @@ class UserSearch extends User
             'id' => $this->id,
             'superadmin' => $this->superadmin,
             'status' => $this->status,
-            Yii::$app->getModule('yee')->auth_item_table . '.name' => $this->gridRoleSearch,
+            Yii::$app->yee->auth_item_table . '.name' => $this->gridRoleSearch,
             'registration_ip' => $this->registration_ip,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

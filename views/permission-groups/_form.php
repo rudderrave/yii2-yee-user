@@ -1,12 +1,12 @@
 <?php
 
 use yeesoft\helpers\Html;
-use yii\widgets\ActiveForm;
+use yeesoft\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\AuthItemGroup $model
- * @var yii\bootstrap\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  */
 ?>
 

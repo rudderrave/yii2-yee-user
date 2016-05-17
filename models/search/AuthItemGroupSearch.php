@@ -47,13 +47,13 @@ class AuthItemGroupSearch extends AuthItemGroup
         if ($this->created_at) {
             $tmp = explode(' - ', $this->created_at);
             if (isset($tmp[0], $tmp[1])) {
-                $query->andFilterWhere(['between', Yii::$app->getModule('yee')->auth_item_group_table . '.created_at',
+                $query->andFilterWhere(['between', Yii::$app->yee->auth_item_group_table . '.created_at',
                     strtotime($tmp[0]), strtotime($tmp[1])]);
             }
         }
 
-        $query->andFilterWhere(['like', Yii::$app->getModule('yee')->auth_item_group_table . '.code', $this->code])
-            ->andFilterWhere(['like', Yii::$app->getModule('yee')->auth_item_group_table . '.name', $this->name]);
+        $query->andFilterWhere(['like', Yii::$app->yee->auth_item_group_table . '.code', $this->code])
+            ->andFilterWhere(['like', Yii::$app->yee->auth_item_group_table . '.name', $this->name]);
 
         return $dataProvider;
     }

@@ -54,23 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'actions' => [Url::to(['bulk-delete']) => Yii::t('yee', 'Delete')]
                 ],
                 'columns' => [
-                    ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
+                    ['class' => 'yeesoft\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
                     [
                         'attribute' => 'description',
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'controller' => '/user/permission',
                         'title' => function ($model) {
-                            if ($model->name == Yii::$app->getModule('yee')->commonPermissionName) {
-                                return Html::a(
-                                    $model->description,
-                                    ['view', 'id' => $model->name],
-                                    ['data-pjax' => 0, 'class' => 'label label-primary']
-                                );
-                            } else {
-                                return Html::a($model->description,
-                                    ['view', 'id' => $model->name],
-                                    ['data-pjax' => 0]);
-                            }
+                            return Html::a(
+                                $model->description,
+                                ['view', 'id' => $model->name],
+                                (($model->name == Yii::$app->yee->commonPermissionName)) ? ['data-pjax' => 0, 'class' => 'label label-primary'] : ['data-pjax' => 0]
+                            );
                         },
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
@@ -95,7 +89,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (Permission $model) {
                             return $model->group_code ? $model->group->name : '';
                         },
-                        'filterInputOptions' => [],
                         'options' => ['style' => 'width:150px'],
                     ],
                 ],

@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'gridId' => 'user-grid',
                 ],
                 'columns' => [
-                    ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
+                    ['class' => 'yeesoft\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
                     [
                         'attribute' => 'username',
                         'controller' => '/user/default',
@@ -111,7 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                         'visible' => User::hasPermission('viewUserRoles'),
-                        'filterInputOptions' => [],
                     ],
                     /*  [
                       'attribute' => 'registration_ip',

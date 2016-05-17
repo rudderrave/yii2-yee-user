@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var yeesoft\models\Role $model
  */
 use yeesoft\helpers\Html;
-use yii\widgets\ActiveForm;
+use yeesoft\widgets\ActiveForm;
 
 ?>
 

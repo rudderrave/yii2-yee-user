@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this yii\web\View
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var array $routes
  * @var array $childRoutes
  * @var array $permissionsByGroup

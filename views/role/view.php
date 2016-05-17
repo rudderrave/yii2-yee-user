@@ -1,6 +1,6 @@
 <?php
 /**
- * @var yii\widgets\ActiveForm $form
+ * @var yeesoft\widgets\ActiveForm $form
  * @var array $childRoles
  * @var array $allRoles
  * @var array $routes
