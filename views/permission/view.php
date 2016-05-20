@@ -19,21 +19,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Permissions'), 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-    <div class="col-sm-12">
-        <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+            <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        </div>
     </div>
-
-<?php if (Yii::$app->session->hasFlash('success')): ?>
-    <div class="alert alert-success text-center">
-        <?= Yii::$app->session->getFlash('success') ?>
-    </div>
-<?php endif; ?>
-
-    <p>
-        <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
-    </p>
 
     <div class="row">
         <div class="col-sm-4">
@@ -83,15 +75,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-heading">
                     <strong>
                         <span class="glyphicon glyphicon-th"></span><?= Yii::t('yee/user', 'Routes') ?>
-
-                        <?= Html::a(
-                            Yii::t('yee/user', 'Refresh routes'),
-                            ['refresh-routes', 'id' => $item->name], [
-                                'class' => 'btn btn-default btn-sm pull-right',
-                                'style' => 'margin-top:-5px',
-                            ]
-                        ) ?>
-
                     </strong>
                 </div>
 

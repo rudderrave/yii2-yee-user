@@ -17,14 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 BootstrapPluginAsset::register($this);
 ?>
-
-    <h3 class="lte-hide-title"><?= $this->title ?></h3>
-
-<?php if (Yii::$app->session->hasFlash('success')): ?>
-    <div class="alert alert-success text-center">
-        <?= Yii::$app->session->getFlash('success') ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+        </div>
     </div>
-<?php endif; ?>
 
     <div class="row">
         <div class="col-sm-4">

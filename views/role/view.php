@@ -21,18 +21,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Roles'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <h2 class="lte-hide-title"><?= $this->title ?></h2>
-
-<?php if (Yii::$app->session->hasFlash('success')): ?>
-    <div class="alert alert-success text-center">
-        <?= Yii::$app->session->getFlash('success') ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+            <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+        </div>
     </div>
-<?php endif; ?>
-
-    <p>
-        <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $role->name], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
-    </p>
 
     <div class="row">
         <div class="col-sm-4">

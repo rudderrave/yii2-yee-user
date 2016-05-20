@@ -72,7 +72,7 @@ class PermissionController extends BaseController
         Permission::addChildren($item->name, $toAdd);
         Permission::removeChildren($item->name, $toRemove);
 
-        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
+        Yii::$app->session->setFlash('crudMessage', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
@@ -105,21 +105,7 @@ class PermissionController extends BaseController
 
         AuthHelper::invalidatePermissions();
 
-        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
-
-        return $this->redirect(['view', 'id' => $id]);
-    }
-
-    /**
-     * Add new routes and remove unused (for example if module or controller was deleted)
-     *
-     * @param string $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionRefreshRoutes($id)
-    {
-        Route::refreshRoutes();
+        Yii::$app->session->setFlash('crudMessage', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
     }
