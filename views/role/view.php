@@ -63,12 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $helpIcon .= '?';
                                 $helpIcon .= Html::endTag('span');
 
-                                $isChecked = $checked ? 'checked' : '';
-                                $checkbox = "<label><input type='checkbox' name='{$name}' value='{$value}' {$isChecked}> {$label}</label>";
-
-                                return $helpIcon . ' ' . $checkbox;
+                                $checkbox = Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
+                                return "<div><div class='pull-left' style='margin-right: 15px;'>{$checkbox}</div><div>{$helpIcon}</div></div>";
                             },
-                            'separator' => '<br>'
+                            //'separator' => '<br>'
                         ]
                     ) ?>
 
@@ -101,8 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= Html::checkboxList(
                                         'child_permissions',
                                         ArrayHelper::map($currentPermissions, 'name', 'name'),
-                                        ArrayHelper::map($permissions, 'name', 'description'),
-                                        ['separator' => '<br>']
+                                        ArrayHelper::map($permissions, 'name', 'description')
+                                        
                                     ) ?>
                                 </fieldset>
                                 <br/>

@@ -45,18 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-sm-12">
                                 <fieldset>
                                     <legend><?= $groupName ?></legend>
-
                                     <?= Html::checkboxList(
                                         'child_permissions',
                                         ArrayHelper::map($childPermissions, 'name', 'name'),
-                                        ArrayHelper::map($permissions, 'name', 'description'),
-                                        ['separator' => '<br>']
+                                        ArrayHelper::map($permissions, 'name', 'description')
                                     ) ?>
                                 </fieldset>
                                 <br/>
                             </div>
-
-
                         <?php endforeach ?>
                     </div>
 
@@ -94,14 +90,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                    placeholder="<?= Yii::t('yee/user', 'Search route') ?>">
                         </div>
 
-                        <div class="col-sm-3 text-right">
+                        <!--div class="col-sm-3 text-right">
                             <span id="show-only-selected-routes" class="btn btn-default btn-sm">
 				<i class="fa fa-minus"></i> <?= Yii::t('yee/user', 'Show only selected') ?>
                             </span>
                             <span id="show-all-routes" class="btn btn-default btn-sm hide">
 				<i class="fa fa-plus"></i> <?= Yii::t('yee/user', 'Show all') ?>
                             </span>
-                        </div>
+                        </div-->
                     </div>
 
                     <hr/>
@@ -156,14 +152,14 @@ routeText.each(function(){
 	var _t = $(this);
 
 	var chunks = _t.html().split('/').reverse();
-	var margin = chunks.length * 40 - 40;
+	var margin = chunks.length * 30 - 30;
 
 	if ( chunks[0] == '*' )
 	{
-		margin -= 40;
+		margin -= 30;
 	}
 
-	_t.closest('label').css('margin-left', margin);
+	_t.closest('label').closest('div.checkbox').css('margin-left', margin);
 
 });
 

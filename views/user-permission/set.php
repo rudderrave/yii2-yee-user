@@ -8,7 +8,7 @@
 use yeesoft\models\Role;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yeesoft\helpers\Html;
 
 $this->title = Yii::t('yee/user', 'Roles and Permissions for "{user}"', ['user' => $user->username]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
@@ -51,18 +51,15 @@ BootstrapPluginAsset::register($this);
                                     'data-content' => $list,
                                     'data-html' => 'true',
                                     'role' => 'button',
-                                    'style' => 'margin-bottom: 5px; padding: 0 5px',
+                                    'style' => 'margin: 0 30px 5px 0; padding: 0 5px;',
                                     'class' => 'btn btn-sm btn-default role-help-btn',
                                 ]);
                                 $helpIcon .= '?';
                                 $helpIcon .= Html::endTag('span');
-
-                                $isChecked = $checked ? 'checked' : '';
-                                $checkbox = "<label><input type='checkbox' name='{$name}' value='{$value}' {$isChecked}> {$label}</label>";
-
-                                return $helpIcon . ' ' . $checkbox;
+                                
+                                $checkbox = Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
+                                return "<div><div class='pull-left' style='margin-right: 15px;'>{$checkbox}</div><div>{$helpIcon}</div></div>";
                             },
-                            'separator' => '<br>',
                         ]
                     ) ?>
                     <br/>

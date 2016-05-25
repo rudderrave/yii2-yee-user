@@ -37,8 +37,7 @@ use yeesoft\widgets\ActiveForm;
                     <div class="record-info">
 
                         <?= $form->field($model, 'group_code')
-                            ->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'),
-                                ['prompt' => '', 'class' => '']) ?>
+                            ->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'), ['prompt' => '']) ?>
 
                         <div class="form-group">
                             <?php if ($model->isNewRecord): ?>
