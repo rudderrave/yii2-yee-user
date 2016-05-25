@@ -32,7 +32,7 @@ class DefaultController extends BaseController
         $model = new User(['scenario' => 'newUser']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->renderIsAjax('create', compact('model'));
