@@ -3,6 +3,7 @@
 use yeesoft\helpers\Html;
 use yeesoft\models\User;
 use yeesoft\widgets\ActiveForm;
+use yeesoft\helpers\YeeHelper;
 
 /**
  * @var yii\web\View $this
@@ -32,15 +33,40 @@ use yeesoft\widgets\ActiveForm;
                         <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                         <?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                     <?php endif; ?>
-
+                    
                     <?php if (User::hasPermission('editUserEmail')): ?>
                         <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
                     <?php endif; ?>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'first_name')->textInput(['maxlength' => 124]) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'last_name')->textInput(['maxlength' => 124]) ?>
+                        </div>
+                    </div>
 
-                    <?php if (User::hasPermission('bindUserToIp')): ?>
-                        <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example') . ' : 123.34.56.78, 234.123.89.78') ?>
-                    <?php endif; ?>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <?= $form->field($model, 'gender')->dropDownList(User::getGenderList()) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <?= $form->field($model, 'birth_day')->textInput(['maxlength' => 2]) ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($model, 'birth_month')->dropDownList(YeeHelper::getMonthsList()) ?>
+                        </div>
+                        <div class="col-md-3">
+                            <?= $form->field($model, 'birth_year')->textInput(['maxlength' => 4]) ?>
+                        </div>
+                    </div>
 
+                    <?= $form->field($model, 'info')->textarea(['maxlength' => 255]) ?>
+             
                 </div>
             </div>
         </div>
@@ -55,6 +81,15 @@ use yeesoft\widgets\ActiveForm;
                         <?php if (User::hasPermission('editUserEmail')): ?>
                             <?= $form->field($model, 'email_confirmed')->checkbox() ?>
                         <?php endif; ?>
+                        
+                        <?= $form->field($model, 'skype')->textInput(['maxlength' => 64]) ?>
+                        
+                        <?= $form->field($model, 'phone')->textInput(['maxlength' => 24]) ?>
+
+                        <?php if (User::hasPermission('bindUserToIp')): ?>
+                            <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example') . ' : 123.34.56.78, 234.123.89.78') ?>
+                        <?php endif; ?>
+                        
                     </div>
                 </div>
             </div>
