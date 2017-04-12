@@ -9,8 +9,8 @@
     }
   ],
   "require": {
-    "yeesoft/yii2-yee-core": "~0.1.0",
-    "yeesoft/yii2-yee-auth": "~0.1.0",
+    "yeesoft/yii2-yee-core": "~0.2.0",
+    "yeesoft/yii2-yee-auth": "~0.2.0",
     "webvimark/date-range-picker": "~1.0.2",
     "ikimea/browser": "~1.14"
   },
