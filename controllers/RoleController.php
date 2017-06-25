@@ -6,7 +6,7 @@ use yeesoft\controllers\admin\BaseController;
 use yeesoft\helpers\AuthHelper;
 use yeesoft\models\Permission;
 use yeesoft\models\Role;
-use yeesoft\user\models\search\RoleSearch;
+use yeesoft\user\models\RoleSearch;
 use Yii;
 use yii\rbac\DbManager;
 
@@ -20,7 +20,7 @@ class RoleController extends BaseController
     /**
      * @var RoleSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\search\RoleSearch';
+    public $modelSearchClass = 'yeesoft\user\models\RoleSearch';
 
     /**
      * @param string $id

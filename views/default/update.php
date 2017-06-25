@@ -1,18 +1,12 @@
 <?php
 
-use yii\helpers\Html;
-
 /**
  * @var yii\web\View $this
  * @var yeesoft\models\User $model
  */
-$this->title = Yii::t('yee/user', 'Update User');
+$this->title = Yii::t('yee', 'Update "{item}"', ['item' => Yii::t('yee/user', 'User')]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-
+$this->params['breadcrumbs'][] = Yii::t('yee', 'Update');
 ?>
 
-<div class="user-update">
-    <h3 class="lte-hide-title"><?= Html::encode($this->title) ?></h3>
-    <?= $this->render('_form', compact('model')) ?>
-</div>
+<?= $this->render('_form', compact('model')) ?>

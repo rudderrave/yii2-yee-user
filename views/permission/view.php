@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var $this yii\web\View
  * @var yeesoft\widgets\ActiveForm $form
@@ -8,129 +9,110 @@
  * @var array $childPermissions
  * @var yii\rbac\Permission $item
  */
-
 use yeesoft\helpers\Html;
 use yeesoft\models\User;
 use yii\helpers\ArrayHelper;
 
 $this->title = Yii::t('yee/user', '{permission} Permission Settings', ['permission' => $item->description]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Permissions'), 'url' => ['/user/role/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Permissions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary'])
+        . ' ' . Html::a(Yii::t('yee', 'Add New'), ['create'], ['class' => 'btn btn-sm btn-primary']);
 ?>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
-            <?= Html::a(Yii::t('yee', 'Edit'), ['update', 'id' => $item->name], ['class' => 'btn btn-sm btn-primary']) ?>
-            <?= Html::a(Yii::t('yee', 'Create'), ['create'], ['class' => 'btn btn-sm btn-primary']) ?>
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <?= Yii::t('yee/user', 'Child permissions') ?>
+                </h3>
+            </div>
+            <div class="box-body">
+                <?= Html::beginForm(['set-child-permissions', 'id' => $item->name]) ?>
+
+                <div class="row">
+                    <?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <legend><?= $groupName ?></legend>
+                                <?= Html::checkboxList('child_permissions', ArrayHelper::map($childPermissions, 'name', 'name'), ArrayHelper::map($permissions, 'name', 'description')) ?>
+                            </fieldset>
+                            <hr/>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+
+                <hr/>
+                <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                    <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
+                <?php endif; ?>
+
+                <?= Html::endForm() ?>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>
-                        <span class="glyphicon glyphicon-th"></span>
-                        <?= Yii::t('yee/user', 'Child permissions') ?>
-                    </strong>
-                </div>
-                <div class="panel-body">
-
-                    <?= Html::beginForm(['set-child-permissions', 'id' => $item->name]) ?>
-
-                    <div class="row">
-                        <?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
-                            <div class="col-sm-12">
-                                <fieldset>
-                                    <legend><?= $groupName ?></legend>
-                                    <?= Html::checkboxList(
-                                        'child_permissions',
-                                        ArrayHelper::map($childPermissions, 'name', 'name'),
-                                        ArrayHelper::map($permissions, 'name', 'description')
-                                    ) ?>
-                                </fieldset>
-                                <br/>
-                            </div>
-                        <?php endforeach ?>
-                    </div>
-
-                    <hr/>
-                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
-                    <?php endif; ?>
-
-                    <?= Html::endForm() ?>
-                </div>
+    <div class="col-md-8">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <?= Yii::t('yee/user', 'Routes') ?>
+                </h3>
             </div>
-        </div>
+            <div class="box-body">
+                <?= Html::beginForm(['set-child-routes', 'id' => $item->name]) ?>
 
-        <div class="col-sm-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>
-                        <span class="glyphicon glyphicon-th"></span><?= Yii::t('yee/user', 'Routes') ?>
-                    </strong>
-                </div>
-
-                <div class="panel-body">
-
-                    <?= Html::beginForm(['set-child-routes', 'id' => $item->name]) ?>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                                <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm"
-                                   placeholder="<?= Yii::t('yee/user', 'Search route') ?>">
-                        </div>
-
-                        <!--div class="col-sm-3 text-right">
-                            <span id="show-only-selected-routes" class="btn btn-default btn-sm">
-				<i class="fa fa-minus"></i> <?= Yii::t('yee/user', 'Show only selected') ?>
-                            </span>
-                            <span id="show-all-routes" class="btn btn-default btn-sm hide">
-				<i class="fa fa-plus"></i> <?= Yii::t('yee/user', 'Show all') ?>
-                            </span>
-                        </div-->
+                <div class="row">
+                    <div class="col-sm-3">
+                        <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                            <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
+                        <?php endif; ?>
                     </div>
 
-                    <hr/>
+                    <!--div class="col-sm-6">
+                        <input id="search-in-routes" autofocus="on" type="text" class="form-control input-sm" placeholder="<?= Yii::t('yee/user', 'Search route') ?>">
+                    </div-->
 
-                    <?= Html::checkboxList(
-                        'child_routes',
-                        ArrayHelper::map($childRoutes, 'name', 'name'),
-                        ArrayHelper::map($routes, 'name', 'name'),
-                        [
-                            'id' => 'routes-list',
-                            'separator' => '<div class="separator"></div>',
-                            'item' => function ($index, $label, $name, $checked, $value) {
-                                return Html::checkbox($name, $checked, [
+                    <!--div class="col-sm-3 text-right">
+                        <span id="show-only-selected-routes" class="btn btn-default btn-sm">
+                            <i class="fa fa-minus"></i> <?= Yii::t('yee/user', 'Show only selected') ?>
+                        </span>
+                        <span id="show-all-routes" class="btn btn-default btn-sm hide">
+                            <i class="fa fa-plus"></i> <?= Yii::t('yee/user', 'Show all') ?>
+                        </span>
+                    </div-->
+                </div>
+
+                <hr/>
+
+                <?=
+                Html::checkboxList('child_routes', ArrayHelper::map($childRoutes, 'name', 'name'), ArrayHelper::map($routes, 'name', 'name'), [
+                    'id' => 'routes-list',
+                    'separator' => '<div class="separator"></div>',
+                    'item' => function ($index, $label, $name, $checked, $value) {
+                        return Html::checkbox($name, $checked, [
                                     'value' => $value,
                                     'label' => '<span class="route-text">' . $label . '</span>',
                                     'labelOptions' => ['class' => 'route-label'],
                                     'class' => 'route-checkbox',
-                                ]);
-                            },
-                        ]
-                    ) ?>
+                        ]);
+                    },
+                ])
+                ?>
 
-                    <hr/>
-                    <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
-                        <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
-                    <?php endif; ?>
+                <hr/>
+                <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                    <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
+                <?php endif; ?>
 
-                    <?= Html::endForm() ?>
-
-                </div>
+                <?= Html::endForm() ?>
             </div>
         </div>
     </div>
+</div>
 
 <?php
 $js = <<<JS
@@ -159,7 +141,7 @@ routeText.each(function(){
 		margin -= 30;
 	}
 
-	_t.closest('label').closest('div.checkbox').css('margin-left', margin);
+        _t.closest('label').closest('div.checkbox').attr('style', 'margin-left: ' + margin + 'px !important');
 
 });
 

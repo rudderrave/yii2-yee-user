@@ -1,6 +1,6 @@
 <?php
 
-namespace yeesoft\user\models\search;
+namespace yeesoft\user\models;
 
 use yeesoft\models\User;
 use Yii;
@@ -13,6 +13,9 @@ use yii\data\ActiveDataProvider;
 class UserSearch extends User
 {
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -21,12 +24,26 @@ class UserSearch extends User
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function search($params)
     {
         $query = User::find();
@@ -69,8 +86,9 @@ class UserSearch extends User
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'email', $this->email]);
+                ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }
+
 }

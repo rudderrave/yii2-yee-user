@@ -7,7 +7,7 @@ use yeesoft\helpers\AuthHelper;
 use yeesoft\models\AbstractItem;
 use yeesoft\models\Permission;
 use yeesoft\models\Route;
-use yeesoft\user\models\search\PermissionSearch;
+use yeesoft\user\models\PermissionSearch;
 use Yii;
 
 class PermissionController extends BaseController
@@ -20,7 +20,7 @@ class PermissionController extends BaseController
     /**
      * @var PermissionSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\search\PermissionSearch';
+    public $modelSearchClass = 'yeesoft\user\models\PermissionSearch';
 
     /**
      * @param string $id
