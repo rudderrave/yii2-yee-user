@@ -72,7 +72,7 @@ class DefaultController extends BaseController
         $model->scenario = 'changePassword';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('crudMessage', Yii::t('yee/auth', 'Password has been updated'));
+            Yii::$app->session->setFlash('success', Yii::t('yee/auth', 'Password has been updated'));
             return $this->redirect(['change-password', 'id' => $model->id]);
         }
 

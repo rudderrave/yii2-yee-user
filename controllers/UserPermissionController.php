@@ -69,7 +69,7 @@ class UserPermissionController extends BaseController
             User::assignRole($id, $role);
         }
 
-        Yii::$app->session->setFlash('crudMessage', Yii::t('yee', 'Saved'));
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
         return $this->redirect(['set', 'id' => $id]);
     }
