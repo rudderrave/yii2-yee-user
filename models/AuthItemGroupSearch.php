@@ -1,6 +1,6 @@
 <?php
 
-namespace yeesoft\user\models\search;
+namespace yeesoft\user\models;
 
 use yeesoft\models\AuthItemGroup;
 use Yii;

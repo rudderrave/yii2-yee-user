@@ -1,7 +1,6 @@
 <?php
 
 use webvimark\extensions\DateRangePicker\DateRangePicker;
-use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
@@ -9,7 +8,7 @@ use yii\widgets\Pjax;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\user\models\search\UserVisitLogSearch $searchModel
+ * @var yeesoft\user\models\UserVisitLogSearch $searchModel
  */
 $this->title = Yii::t('yee/user', 'Visit Log');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];

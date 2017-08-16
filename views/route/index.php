@@ -1,17 +1,22 @@
 <?php
 
+use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\User;
+use yeesoft\models\AuthItemGroup;
+use yeesoft\models\Permission;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yeesoft\models\Rule;
 
 /**
- * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\user\models\AuthItemGroupSearch $searchModel
+ * @var yeesoft\user\models\search\PermissionSearch $searchModel
+ * @var yii\web\View $this
  */
-$this->title = Yii::t('yee/user', 'Permission Groups');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];
+$this->title = Yii::t('yee/user', 'Routes');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['description'] = 'YeeCMS 0.2.0';
@@ -30,22 +35,27 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
             'columns' => [
                 ['class' => 'yeesoft\grid\CheckboxColumn', 'options' => ['style' => 'width:10px'], 'displayFilter' => false],
                 [
-                    'attribute' => 'name',
+                    'attribute' => 'controller',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                    'controller' => '/user/permission-groups',
                     'title' => function ($model) {
-                        if (User::hasPermission('manageRolesAndPermissions')) {
-                            return Html::a($model->name, ['update', 'id' => $model->code], ['data-pjax' => 0]);
-                        } else {
-                            return $model->name;
-                        }
+                        return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
                     },
-                    'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
-                'code',
+                [
+                    'attribute' => 'base_url',
+                    'options' => ['style' => 'width:20%'],
+                ],
+                [
+                    'attribute' => 'action',
+                    'options' => ['style' => 'width:20%'],
+                ],
+                [
+                    'attribute' => 'action',
+                    'options' => ['style' => 'width:20%'],
+                ],
             ],
-        ])
+        ]);
         ?>
 
         <?php Pjax::end() ?>

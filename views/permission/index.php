@@ -36,7 +36,6 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                 [
                     'attribute' => 'description',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                    'controller' => '/user/permission',
                     'title' => function ($model) {
                         return Html::a(
                                         $model->description, ['view', 'id' => $model->name], (($model->name == Yii::$app->yee->commonPermissionName)) ? ['data-pjax' => 0, 'class' => 'label label-primary'] : ['data-pjax' => 0]

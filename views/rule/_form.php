@@ -1,14 +1,13 @@
 <?php
 
-/**
- * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Permission $model
- */
 use yeesoft\helpers\Html;
-use yeesoft\models\AuthItemGroup;
-use yii\helpers\ArrayHelper;
 use yeesoft\widgets\ActiveForm;
-use yeesoft\models\Rule;
+
+/**
+ * @var yii\web\View $this
+ * @var yeesoft\models\AuthItemGroup $model
+ * @var yeesoft\widgets\ActiveForm $form
+ */
 ?>
 
 <?php $form = ActiveForm::begin() ?>
@@ -17,9 +16,9 @@ use yeesoft\models\Rule;
     <div class="col-md-9">
         <div class="box box-primary">
             <div class="box-body">
-                <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
+                <?= $form->field($model, 'class_name')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
-                <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'description') ?>
+                <?= $form->field($model, 'name')->slugInput(['maxlength' => 255], 'class_name') ?>
             </div>
         </div>
     </div>
@@ -27,11 +26,6 @@ use yeesoft\models\Rule;
     <div class="col-md-3">
         <div class="box box-primary">
             <div class="box-body">
-
-                <?= $form->field($model, 'group_code')->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'), ['prompt' => '']) ?>
-
-                <?= $form->field($model, 'rule_name')->dropDownList(ArrayHelper::map(Rule::find()->asArray()->all(), 'name', 'name'), ['prompt' => '']) ?>
-
                 <div class="row">
                     <?php if ($model->isNewRecord): ?>
                         <div class="col-md-6">

@@ -1,10 +1,11 @@
 <?php
 
-namespace yeesoft\user\models\search;
+namespace yeesoft\user\models;
 
 use yeesoft\models\AbstractItem;
 use yeesoft\models\Permission;
 use yeesoft\models\Role;
+use yeesoft\models\Route;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -15,7 +16,7 @@ abstract class AbstractItemSearch extends AbstractItem
     public function rules()
     {
         return [
-            [['name', 'description', 'group_code'], 'string'],
+            [['name', 'description', 'group_code', 'rule_name'], 'string'],
         ];
     }
 
@@ -27,7 +28,22 @@ abstract class AbstractItemSearch extends AbstractItem
 
     public function search($params)
     {
-        $query = (static::ITEM_TYPE == static::TYPE_ROLE) ? Role::find() : Permission::find();
+        switch (static::ITEM_TYPE) {
+            case static::TYPE_ROLE:
+                $query = Role::find();
+                break;
+
+            case static::TYPE_PERMISSION:
+                $query = Permission::find();
+                break;
+
+            case static::TYPE_ROUTE:
+                $query = Route::find();
+                break;
+
+            default:
+                throw new \yii\base\InvalidParamException('Invalid Auth Type.');
+        }
 
         $query->joinWith(['group']);
 
@@ -47,10 +63,13 @@ abstract class AbstractItemSearch extends AbstractItem
             return $dataProvider;
         }
 
+        $query->andFilterWhere(['rule_name' => $this->rule_name]);
+        
         $query->andFilterWhere(['like', Yii::$app->yee->auth_item_table . '.name', $this->name])
-            ->andFilterWhere(['like', Yii::$app->yee->auth_item_table . '.description', $this->description])
-            ->andFilterWhere([Yii::$app->yee->auth_item_table . '.group_code' => $this->group_code]);
+                ->andFilterWhere(['like', Yii::$app->yee->auth_item_table . '.description', $this->description])
+                ->andFilterWhere([Yii::$app->yee->auth_item_table . '.group_code' => $this->group_code]);
 
         return $dataProvider;
     }
+
 }

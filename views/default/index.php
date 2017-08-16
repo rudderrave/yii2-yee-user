@@ -42,7 +42,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'buttonsTemplate' => '{update} {delete} {permissions} {password}',
                     'buttons' => [
                         'permissions' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('yee/user', 'Permissions'), Url::to(['user-permission/set', 'id' => $model->id]), [
+                            return Html::a(Yii::t('yee/user', 'Permissions'), Url::to(['permissions', 'id' => $model->id]), [
                                         'title' => Yii::t('yee/user', 'Permissions'),
                                         'data-pjax' => '0'
                                             ]

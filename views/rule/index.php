@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\AuthItemGroupSearch $searchModel
  */
-$this->title = Yii::t('yee/user', 'Permission Groups');
+$this->title = Yii::t('yee/user', 'Rules');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -32,10 +32,9 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                 [
                     'attribute' => 'name',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                    'controller' => '/user/permission-groups',
                     'title' => function ($model) {
                         if (User::hasPermission('manageRolesAndPermissions')) {
-                            return Html::a($model->name, ['update', 'id' => $model->code], ['data-pjax' => 0]);
+                            return Html::a($model->name, ['update', 'id' => $model->name], ['data-pjax' => 0]);
                         } else {
                             return $model->name;
                         }
@@ -43,7 +42,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
-                'code',
+                'class_name'
             ],
         ])
         ?>

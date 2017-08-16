@@ -2,14 +2,14 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\controllers\admin\BaseController;
+use yeesoft\controllers\CrudController;
 use yeesoft\models\AuthItemGroup;
-use yeesoft\user\models\search\AuthItemGroupSearch;
+use yeesoft\user\models\AuthItemGroupSearch;
 
 /**
  * AuthItemGroupController implements the CRUD actions for AuthItemGroup model.
  */
-class PermissionGroupsController extends BaseController
+class PermissionGroupsController extends CrudController
 {
     /**
      * @var AuthItemGroup
@@ -19,7 +19,7 @@ class PermissionGroupsController extends BaseController
     /**
      * @var AuthItemGroupSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\search\AuthItemGroupSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthItemGroupSearch';
 
     public $disabledActions = ['view'];
 

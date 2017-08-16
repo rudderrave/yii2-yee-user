@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
             <div class="box-body">
-                <?= Html::beginForm(['set-roles', 'id' => $user->id]) ?>
+                <?= Html::beginForm(['roles', 'id' => $user->id]) ?>
 
                 <?=
                 Html::checkboxList('roles', ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name'), ArrayHelper::map(Role::getAvailableRoles(), 'name', 'description'), [

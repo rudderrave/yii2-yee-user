@@ -14,7 +14,7 @@ $this->title = Yii::t('yee/user', 'Roles');
 $this->params['description'] = 'YeeCMS 0.2.0';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], ['class' => 'btn btn-sm btn-primary']);
+$this->params['header-content'] = Html::a(Yii::t('yee', ' <div class="plus-sign"></div>Add New'), ['create'], ['class' => 'btn btn-sm btn-primary']);
 ?>
 
 <div class="box box-primary">

@@ -17,9 +17,11 @@ use yeesoft\models\Rule;
     <div class="col-md-9">
         <div class="box box-primary">
             <div class="box-body">
-                <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
-
-                <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'description') ?>
+                <?= $form->field($model, 'controller')->textInput(['maxlength' => 127]) ?>
+                
+                <?= $form->field($model, 'action')->textInput(['maxlength' => 63]) ?>
+                
+                <?= $form->field($model, 'base_url')->textInput(['maxlength' => 63]) ?>
             </div>
         </div>
     </div>
@@ -27,10 +29,6 @@ use yeesoft\models\Rule;
     <div class="col-md-3">
         <div class="box box-primary">
             <div class="box-body">
-
-                <?= $form->field($model, 'group_code')->dropDownList(ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'), ['prompt' => '']) ?>
-
-                <?= $form->field($model, 'rule_name')->dropDownList(ArrayHelper::map(Rule::find()->asArray()->all(), 'name', 'name'), ['prompt' => '']) ?>
 
                 <div class="row">
                     <?php if ($model->isNewRecord): ?>
@@ -46,7 +44,7 @@ use yeesoft\models\Rule;
                         </div>
                         <div class="col-md-6">
                             <?=
-                            Html::a(Yii::t('yee', 'Delete'), ['delete', 'id' => $model->name], [
+                            Html::a(Yii::t('yee', 'Delete'), ['delete', 'id' => $model->id], [
                                 'class' => 'btn btn-default btn-block',
                                 'data' => [
                                     'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),

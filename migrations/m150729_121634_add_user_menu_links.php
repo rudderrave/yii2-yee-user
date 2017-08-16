@@ -12,6 +12,8 @@ class m150729_121634_add_user_menu_links extends Migration
         $this->insert('{{%menu_link}}', ['id' => 'user-log', 'menu_id' => 'admin-menu', 'link' => '/user/visit-log/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 10]);
         $this->insert('{{%menu_link}}', ['id' => 'user-permission', 'menu_id' => 'admin-menu', 'link' => '/user/permission/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 3]);
         $this->insert('{{%menu_link}}', ['id' => 'user-role', 'menu_id' => 'admin-menu', 'link' => '/user/role/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 2]);
+        $this->insert('{{%menu_link}}', ['id' => 'user-rule', 'menu_id' => 'admin-menu', 'link' => '/user/rule/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 8]);
+        $this->insert('{{%menu_link}}', ['id' => 'user-route', 'menu_id' => 'admin-menu', 'link' => '/user/route/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 9]);
         $this->insert('{{%menu_link}}', ['id' => 'user-user', 'menu_id' => 'admin-menu', 'link' => '/user/default/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 1]);
 
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user', 'label' => 'Users', 'language' => 'en-US']);
@@ -19,6 +21,7 @@ class m150729_121634_add_user_menu_links extends Migration
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-log', 'label' => 'Visit log', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-permission', 'label' => 'Permissions', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-role', 'label' => 'Roles', 'language' => 'en-US']);
+        $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-rule', 'label' => 'Rules', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-user', 'label' => 'Users', 'language' => 'en-US']);
     }
 
@@ -26,6 +29,8 @@ class m150729_121634_add_user_menu_links extends Migration
     {
 
         $this->delete('{{%menu_link}}', ['like', 'id', 'user-user']);
+        $this->delete('{{%menu_link}}', ['like', 'id', 'user-route']);
+        $this->delete('{{%menu_link}}', ['like', 'id', 'user-rule']);
         $this->delete('{{%menu_link}}', ['like', 'id', 'user-role']);
         $this->delete('{{%menu_link}}', ['like', 'id', 'user-permission']);
         $this->delete('{{%menu_link}}', ['like', 'id', 'user-log']);

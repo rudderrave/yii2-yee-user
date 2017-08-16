@@ -2,7 +2,7 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\controllers\admin\BaseController;
+use yeesoft\controllers\CrudController;
 use yeesoft\helpers\AuthHelper;
 use yeesoft\models\Permission;
 use yeesoft\models\Role;
@@ -10,7 +10,7 @@ use yeesoft\user\models\RoleSearch;
 use Yii;
 use yii\rbac\DbManager;
 
-class RoleController extends BaseController
+class RoleController extends CrudController
 {
     /**
      * @var Role

@@ -2,12 +2,12 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\controllers\admin\BaseController;
+use yeesoft\controllers\CrudController;
 
 /**
  * UserVisitLogController implements the CRUD actions for UserVisitLog model.
  */
-class VisitLogController extends BaseController
+class VisitLogController extends CrudController
 {
     /**
      *
@@ -19,7 +19,7 @@ class VisitLogController extends BaseController
      *
      * @inheritdoc
      */
-    public $modelSearchClass = 'yeesoft\user\models\search\UserVisitLogSearch';
+    public $modelSearchClass = 'yeesoft\user\models\UserVisitLogSearch';
 
     /**
      *

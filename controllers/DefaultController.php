@@ -2,16 +2,19 @@
 
 namespace yeesoft\user\controllers;
 
-use yeesoft\controllers\admin\BaseController;
-use yeesoft\models\User;
 use Yii;
 use yii\web\NotFoundHttpException;
+use yeesoft\models\User;
+use yeesoft\models\Role;
+use yeesoft\models\Permission;
+use yeesoft\controllers\CrudController;
 
 /**
  * DefaultController implements the CRUD actions for User model.
  */
-class DefaultController extends BaseController
+class DefaultController extends CrudController
 {
+
     /**
      * @var User
      */
@@ -21,7 +24,6 @@ class DefaultController extends BaseController
      * @var UserSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\UserSearch';
-
     public $disabledActions = ['view'];
 
     protected function getRedirectPage($action, $model = null)
@@ -40,7 +42,7 @@ class DefaultController extends BaseController
                 return ['index'];
         }
     }
-    
+
     /**
      * @return mixed|string|\yii\web\Response
      */
@@ -78,4 +80,63 @@ class DefaultController extends BaseController
 
         return $this->renderIsAjax('changePassword', compact('model'));
     }
+
+    /**
+     * @param int $id User ID
+     *
+     * @throws \yii\web\NotFoundHttpException
+     * @return string
+     */
+    public function actionPermissions($id)
+    {
+        if (!$user = User::findOne($id)) {
+            throw new NotFoundHttpException(Yii::t('yee/user', 'User not found'));
+        }
+
+        $permissionsByGroup = [];
+        $permissions = Permission::find()
+                ->andWhere([Yii::$app->yee->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))])
+                ->joinWith('group')
+                ->all();
+
+        foreach ($permissions as $permission) {
+            $permissionsByGroup[@$permission->group->name][] = $permission;
+        }
+
+        return $this->renderIsAjax('permissions', compact('user', 'permissionsByGroup'));
+    }
+
+    /**
+     * @param int $id - User ID
+     *
+     * @return \yii\web\Response
+     */
+    public function actionRoles($id)
+    {
+        if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
+            Yii::$app->session->setFlash('error', Yii::t('yee/user', 'You can not change own permissions'));
+            return $this->redirect(['set', 'id' => $id]);
+        }
+
+        $oldAssignments = array_keys(Role::getUserRoles($id));
+
+        // To be sure that user didn't attempt to assign himself some unavailable roles
+        $newAssignments = array_intersect(Role::getAvailableRoles(Yii::$app->user->isSuperAdmin, true), Yii::$app->request->post('roles', []));
+
+        $toAssign = array_diff($newAssignments, $oldAssignments);
+        $toRevoke = array_diff($oldAssignments, $newAssignments);
+
+        foreach ($toRevoke as $role) {
+            User::revokeRole($id, $role);
+        }
+
+        foreach ($toAssign as $role) {
+            User::assignRole($id, $role);
+        }
+
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
+
+        return $this->redirect(['permissions', 'id' => $id]);
+    }
+
 }

@@ -16,7 +16,7 @@ use yeesoft\widgets\ActiveForm;
             <div class="box-body">
                 <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
-                <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+                <?= $form->field($model, 'name')->slugInput(['maxlength' => true], 'description') ?>
             </div>
         </div>
     </div>
