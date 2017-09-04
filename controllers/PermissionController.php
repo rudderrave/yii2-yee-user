@@ -9,6 +9,7 @@ use yeesoft\models\Permission;
 use yeesoft\models\Route;
 use yeesoft\user\models\PermissionSearch;
 use Yii;
+use yeesoft\rbac\ManagerInterface;
 
 class PermissionController extends CrudController
 {
@@ -22,36 +23,49 @@ class PermissionController extends CrudController
      */
     public $modelSearchClass = 'yeesoft\user\models\PermissionSearch';
 
+    public function init()
+    {
+        parent::init();
+        $this->on(self::EVENT_AFTER_ACTION, [$this, 'flushCache']);
+    }
+
+    protected function flushCache($event)
+    {
+        if (in_array($event->action->id, ['set-permissions', 'set-routes'])) {
+            Yii::$app->authManager->flushRouteCache();
+        }
+    }
+
     protected function getRoutes()
     {
         $result = [];
         $routes = Route::find()
                 ->orderBy(['base_url' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC])
                 ->all();
-        
+
         foreach ($routes as $route) {
             $result[$route->id] = $route->name;
         }
-        
+
         return $result;
     }
-    
+
     protected function getPermissions($currentPermissionid)
     {
         $result = [];
         $permissions = Permission::find()
-            ->andWhere(['not in', Yii::$app->yee->auth_item_table . '.name',
-                [Yii::$app->yee->commonPermissionName, $currentPermissionid]])
-            ->joinWith('group')
-            ->all();
+                ->andWhere(['not in', Yii::$app->yee->auth_item_table . '.name',
+                    [Yii::$app->yee->commonPermissionName, $currentPermissionid]])
+                ->joinWith('group')
+                ->all();
 
         foreach ($permissions as $permission) {
             $result[@$permission->group->name][] = $permission;
         }
-        
+
         return $result;
     }
-    
+
     /**
      * @param string $id
      *
@@ -163,4 +177,5 @@ class PermissionController extends CrudController
 
         return $this->renderIsAjax('update', compact('model'));
     }
+
 }
