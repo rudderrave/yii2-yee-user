@@ -43,26 +43,6 @@ class FilterController extends CrudController
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        /* @var $model \yeesoft\db\ActiveRecord */
-        $model = new $this->modelClass;
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('yee', 'Your item has been created.'));
-            return $this->redirect($this->getRedirectPage('create', $model));
-        } else {
-            //print_r($model->getErrors());die;
-        }
-
-        return $this->renderIsAjax($this->createView, compact('model'));
-    }
-
-    /**
      * Updates an existing model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
@@ -87,10 +67,6 @@ class FilterController extends CrudController
 
             $toRemove = array_diff($oldModels, $newModels);
             $toAdd = array_diff($newModels, $oldModels);
-            
-//            print_r($toRemove);
-//            print_r($toAdd);
-//            die;
 
             $model->unlinkModels($toRemove);
             $model->linkModels($toAdd);

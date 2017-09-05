@@ -7,11 +7,14 @@ use yeesoft\helpers\AuthHelper;
 use yeesoft\models\Permission;
 use yeesoft\models\Role;
 use yeesoft\user\models\RoleSearch;
+use yeesoft\models\Filter;
 use Yii;
 use yii\rbac\DbManager;
+use yii\helpers\ArrayHelper;
 
 class RoleController extends CrudController
 {
+
     /**
      * @var Role
      */
@@ -34,14 +37,13 @@ class RoleController extends CrudController
         $authManager = new DbManager();
 
         $allRoles = Role::find()->asArray()
-            ->andWhere('name != :current_name', [':current_name' => $id])
-            ->all();
+                ->andWhere('name != :current_name', [':current_name' => $id])
+                ->all();
 
         $permissions = Permission::find()
-            ->andWhere(Yii::$app->yee->auth_item_table . '.name != :commonPermissionName',
-                [':commonPermissionName' => Yii::$app->yee->commonPermissionName])
-            ->joinWith('group')
-            ->all();
+                ->andWhere(Yii::$app->yee->auth_item_table . '.name != :commonPermissionName', [':commonPermissionName' => Yii::$app->yee->commonPermissionName])
+                ->joinWith('group')
+                ->all();
 
         $permissionsByGroup = [];
         foreach ($permissions as $permission) {
@@ -54,7 +56,39 @@ class RoleController extends CrudController
 
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
-        return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup'));
+        $activeFilters = $models = Filter::find()->asArray()->all();
+        $selecedActiveFilters = $role->getFilters()->asArray()->all();
+
+        return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup', 'activeFilters', 'selecedActiveFilters'));
+    }
+
+    /**
+     * Add or remove active filters.
+     *
+     * @param string $id
+     *
+     * @return \yii\web\Response
+     */
+    public function actionSetActiveFilters($id)
+    {
+        $role = $this->findModel($id);
+ 
+        $selecedActiveFilters = $role->getFilters()->asArray()->all();
+
+        $newFilters = Yii::$app->request->post('filters', []);
+        $oldFilters = ArrayHelper::getColumn($selecedActiveFilters, 'id');
+
+        $toRemove = array_diff($oldFilters, $newFilters);
+        $toAdd = array_diff($newFilters, $oldFilters);
+
+        $role->unlinkFilters($toRemove);
+        $role->linkFilters($toAdd);
+        
+        Yii::$app->cache->flush(); //TODO: more accurate clear
+
+        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
+
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
@@ -153,4 +187,5 @@ class RoleController extends CrudController
 
         return $this->renderIsAjax('update', compact('model'));
     }
+
 }

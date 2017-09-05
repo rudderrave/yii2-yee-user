@@ -23,22 +23,24 @@ use yeesoft\widgets\ActiveForm;
             </div>
         </div>
 
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">
-                    <?= Yii::t('yee/user', 'Models') ?>
-                </h3>
+        <?php if (!$model->isNewRecord): ?>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <?= Yii::t('yee/user', 'Apply to Models') ?>
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <?=
+                    Html::checkboxList('models', ArrayHelper::getColumn($selected, 'id'), ArrayHelper::map($models, 'id', 'class_name'), [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+                            return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
+                        }
+                    ])
+                    ?>
+                </div>
             </div>
-            <div class="box-body">
-                <?=
-                Html::checkboxList('models', ArrayHelper::getColumn($selected, 'id'), ArrayHelper::map($models, 'id', 'class_name'), [
-                    'item' => function ($index, $label, $name, $checked, $value) {
-                        return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
-                    }
-                ])
-                ?>
-            </div>
-        </div>
+        <?php endif; ?>
     </div>
 
     <div class="col-md-3">

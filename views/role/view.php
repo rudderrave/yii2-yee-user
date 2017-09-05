@@ -70,6 +70,30 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
                 <?= Html::endForm() ?>
             </div>
         </div>
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    <?= Yii::t('yee/user', 'Active Filters') ?>
+                </h3>
+            </div>
+            <div class="box-body">
+                <?= Html::beginForm(['set-active-filters', 'id' => $role->name]) ?>
+                <?=
+                Html::checkboxList('filters', ArrayHelper::getColumn($selecedActiveFilters, 'id'), ArrayHelper::map($activeFilters, 'id', 'name'), [
+                    'item' => function ($index, $label, $name, $checked, $value) {
+                        return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
+                    }
+                ])
+                ?>
+                <hr/>
+                <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                    <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
+                <?php endif; ?>
+
+                <?= Html::endForm() ?>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-8">
