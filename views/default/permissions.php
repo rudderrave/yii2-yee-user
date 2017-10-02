@@ -5,7 +5,7 @@
  * @var array $permissionsByGroup
  * @var yeesoft\models\User $user
  */
-use yeesoft\models\Role;
+use yeesoft\models\AuthRole;
 use yii\helpers\ArrayHelper;
 use yeesoft\helpers\Html;
 
@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::beginForm(['roles', 'id' => $user->id]) ?>
 
                 <?=
-                Html::checkboxList('roles', ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name'), ArrayHelper::map(Role::getAvailableRoles(), 'name', 'description'), [
+                Html::checkboxList('roles', ArrayHelper::map(AuthRole::getUserRoles($user->id), 'name', 'name'), ArrayHelper::map(Role::getAvailableRoles(), 'name', 'description'), [
                     'item' => function ($index, $label, $name, $checked, $value) {
                         $list = '<ul style="padding-left: 10px">';
-                        foreach (Role::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
+                        foreach (AuthRole::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
                             $list .= $permissionDescription ? "<li>{$permissionDescription}</li>" : "<li>{$permissionName}</li>";
                         }
                         $list .= '</ul>';

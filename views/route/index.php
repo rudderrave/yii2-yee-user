@@ -1,14 +1,8 @@
 <?php
 
-use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\AuthItemGroup;
-use yeesoft\models\Permission;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
-use yeesoft\models\Rule;
 
 /**
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -43,7 +37,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'filterOptions' => ['colspan' => 2],
                 ],
                 [
-                    'attribute' => 'base_url',
+                    'attribute' => 'bundle',
                     'options' => ['style' => 'width:20%'],
                 ],
                 [

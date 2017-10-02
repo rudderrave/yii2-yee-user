@@ -4,10 +4,10 @@ namespace yeesoft\user\controllers;
 
 use yeesoft\controllers\CrudController;
 use yeesoft\helpers\AuthHelper;
-use yeesoft\models\Permission;
-use yeesoft\models\Role;
-use yeesoft\user\models\RoleSearch;
-use yeesoft\models\Filter;
+use yeesoft\models\AuthPermission;
+use yeesoft\models\AuthRole;
+use yeesoft\user\models\AuthRoleSearch;
+use yeesoft\models\AuthFilter;
 use Yii;
 use yii\rbac\DbManager;
 use yii\helpers\ArrayHelper;
@@ -16,14 +16,14 @@ class RoleController extends CrudController
 {
 
     /**
-     * @var Role
+     * @var AuthRole
      */
-    public $modelClass = 'yeesoft\models\Role';
+    public $modelClass = 'yeesoft\models\AuthRole';
 
     /**
-     * @var RoleSearch
+     * @var AuthRoleSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\RoleSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthRoleSearch';
 
     /**
      * @param string $id
@@ -36,12 +36,11 @@ class RoleController extends CrudController
 
         $authManager = new DbManager();
 
-        $allRoles = Role::find()->asArray()
+        $allRoles = AuthRole::find()->asArray()
                 ->andWhere('name != :current_name', [':current_name' => $id])
                 ->all();
 
-        $permissions = Permission::find()
-                ->andWhere(Yii::$app->yee->auth_item_table . '.name != :commonPermissionName', [':commonPermissionName' => Yii::$app->yee->commonPermissionName])
+        $permissions = AuthPermission::find()
                 ->joinWith('group')
                 ->all();
 
@@ -56,7 +55,7 @@ class RoleController extends CrudController
 
         $currentPermissions = $currentRoutesAndPermissions->permissions;
 
-        $activeFilters = $models = Filter::find()->asArray()->all();
+        $activeFilters = $models = AuthFilter::find()->asArray()->all();
         $selecedActiveFilters = $role->getFilters()->asArray()->all();
 
         return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup', 'activeFilters', 'selecedActiveFilters'));
@@ -109,7 +108,7 @@ class RoleController extends CrudController
         $oldChildRoles = [];
 
         foreach ($children as $child) {
-            if ($child->type == Role::TYPE_ROLE) {
+            if ($child->type == AuthRole::TYPE_ROLE) {
                 $oldChildRoles[$child->name] = $child->name;
             }
         }
@@ -117,8 +116,8 @@ class RoleController extends CrudController
         $toRemove = array_diff($oldChildRoles, $newChildRoles);
         $toAdd = array_diff($newChildRoles, $oldChildRoles);
 
-        Role::addChildren($role->name, $toAdd);
-        Role::removeChildren($role->name, $toRemove);
+        AuthRole::addChildren($role->name, $toAdd);
+        AuthRole::removeChildren($role->name, $toRemove);
 
         Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
@@ -143,8 +142,8 @@ class RoleController extends CrudController
         $toRemove = array_diff($oldChildPermissions, $newChildPermissions);
         $toAdd = array_diff($newChildPermissions, $oldChildPermissions);
 
-        Role::addChildren($role->name, $toAdd);
-        Role::removeChildren($role->name, $toRemove);
+        AuthRole::addChildren($role->name, $toAdd);
+        AuthRole::removeChildren($role->name, $toRemove);
 
         Yii::$app->session->setFlash('success', Yii::t('yii', 'Saved'));
 
@@ -158,8 +157,8 @@ class RoleController extends CrudController
      */
     public function actionCreate()
     {
-        $model = new Role;
-        $model->scenario = 'webInput';
+        $model = new AuthRole;
+        //$model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->name]);

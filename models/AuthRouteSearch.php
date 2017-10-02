@@ -2,19 +2,27 @@
 
 namespace yeesoft\user\models;
 
+use yeesoft\models\AuthRoute;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yeesoft\models\Filter;
 
-class FilterSearch extends Filter
+class AuthRouteSearch extends AuthRoute
 {
 
     public function rules()
     {
         return [
-            [['name', 'class_name'], 'safe'],
+            [['controller', 'action', 'bundle'], 'safe'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
     }
 
     public function scenarios()
@@ -25,7 +33,7 @@ class FilterSearch extends Filter
 
     public function search($params)
     {
-        $query = Filter::find();
+        $query = parent::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -33,7 +41,7 @@ class FilterSearch extends Filter
                 'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
             ],
             'sort' => [
-                'defaultOrder' => ['created_at' => SORT_DESC],
+                'defaultOrder' => ['bundle' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC],
             ],
         ]);
 
@@ -41,8 +49,9 @@ class FilterSearch extends Filter
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'class_name', $this->class_name]);
+        $query->andFilterWhere(['like', 'controller', $this->controller])
+                ->andFilterWhere(['like', 'action', $this->action])
+                ->andFilterWhere(['like', 'bundle', $this->bundle]);
 
         return $dataProvider;
     }

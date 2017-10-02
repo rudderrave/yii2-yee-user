@@ -11,7 +11,7 @@
  * @var yii\rbac\Role $role
  */
 use yeesoft\helpers\Html;
-use yeesoft\models\Role;
+use yeesoft\models\AuthRole;
 use yeesoft\models\User;
 use yii\helpers\ArrayHelper;
 
@@ -38,7 +38,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
                 Html::checkboxList('child_roles', ArrayHelper::map($childRoles, 'name', 'name'), ArrayHelper::map($allRoles, 'name', 'description'), [
                     'item' => function ($index, $label, $name, $checked, $value) {
                         $list = '<ul style="padding-left: 10px">';
-                        foreach (Role::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
+                        foreach (AuthRole::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
                             $list .= $permissionDescription ? "<li>{$permissionDescription}</li>" : "<li>{$permissionName}</li>";
                         }
                         $list .= '</ul>';

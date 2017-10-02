@@ -8,7 +8,7 @@ class m150729_121634_add_user_menu_links extends Migration
     public function up()
     {
         $this->insert('{{%menu_link}}', ['id' => 'user', 'menu_id' => 'admin-menu', 'image' => 'user', 'created_by' => 1, 'order' => 15]);
-        $this->insert('{{%menu_link}}', ['id' => 'user-groups', 'menu_id' => 'admin-menu', 'link' => '/user/permission-groups/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 4]);
+        $this->insert('{{%menu_link}}', ['id' => 'user-groups', 'menu_id' => 'admin-menu', 'link' => '/user/groups/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 4]);
         $this->insert('{{%menu_link}}', ['id' => 'user-log', 'menu_id' => 'admin-menu', 'link' => '/user/visit-log/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 10]);
         $this->insert('{{%menu_link}}', ['id' => 'user-permission', 'menu_id' => 'admin-menu', 'link' => '/user/permission/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 3]);
         $this->insert('{{%menu_link}}', ['id' => 'user-role', 'menu_id' => 'admin-menu', 'link' => '/user/role/index', 'parent_id' => 'user', 'created_by' => 1, 'order' => 2]);

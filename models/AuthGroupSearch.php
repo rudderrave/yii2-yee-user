@@ -2,21 +2,21 @@
 
 namespace yeesoft\user\models;
 
-use yeesoft\models\AuthItemGroup;
+use yeesoft\models\AuthGroup;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * AuthItemGroupSearch represents the model behind the search form about `app\modules\merchant\models\AuthItemGroup`.
+ * AuthGroupSearch represents the model behind the search form about `yeesoft\models\AuthGroup`.
  */
-class AuthItemGroupSearch extends AuthItemGroup
+class AuthGroupSearch extends AuthGroup
 {
 
     public function rules()
     {
         return [
-            [['code', 'name', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'title'], 'safe'],
         ];
     }
 
@@ -28,7 +28,7 @@ class AuthItemGroupSearch extends AuthItemGroup
 
     public function search($params)
     {
-        $query = AuthItemGroup::find();
+        $query = parent::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -44,17 +44,10 @@ class AuthItemGroupSearch extends AuthItemGroup
             return $dataProvider;
         }
 
-        if ($this->created_at) {
-            $tmp = explode(' - ', $this->created_at);
-            if (isset($tmp[0], $tmp[1])) {
-                $query->andFilterWhere(['between', Yii::$app->yee->auth_item_group_table . '.created_at',
-                    strtotime($tmp[0]), strtotime($tmp[1])]);
-            }
-        }
-
-        $query->andFilterWhere(['like', Yii::$app->yee->auth_item_group_table . '.code', $this->code])
-            ->andFilterWhere(['like', Yii::$app->yee->auth_item_group_table . '.name', $this->name]);
+        $query->andFilterWhere(['like', Yii::$app->authManager->groupTable . '.name', $this->name])
+                ->andFilterWhere(['like', Yii::$app->authManager->groupTable . '.title', $this->title]);
 
         return $dataProvider;
     }
+
 }

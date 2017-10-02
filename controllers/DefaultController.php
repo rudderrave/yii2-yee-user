@@ -5,8 +5,8 @@ namespace yeesoft\user\controllers;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yeesoft\models\User;
-use yeesoft\models\Role;
-use yeesoft\models\Permission;
+use yeesoft\models\AuthRole;
+use yeesoft\models\AuthPermission;
 use yeesoft\controllers\CrudController;
 
 /**
@@ -94,8 +94,8 @@ class DefaultController extends CrudController
         }
 
         $permissionsByGroup = [];
-        $permissions = Permission::find()
-                ->andWhere([Yii::$app->yee->auth_item_table . '.name' => array_keys(Permission::getUserPermissions($user->id))])
+        $permissions = AuthPermission::find()
+                ->andWhere([Yii::$app->authManager->itemTable . '.name' => array_keys(AuthPermission::getUserPermissions($user->id))])
                 ->joinWith('group')
                 ->all();
 
@@ -118,10 +118,10 @@ class DefaultController extends CrudController
             return $this->redirect(['set', 'id' => $id]);
         }
 
-        $oldAssignments = array_keys(Role::getUserRoles($id));
+        $oldAssignments = array_keys(AuthRole::getUserRoles($id));
 
         // To be sure that user didn't attempt to assign himself some unavailable roles
-        $newAssignments = array_intersect(Role::getAvailableRoles(Yii::$app->user->isSuperAdmin, true), Yii::$app->request->post('roles', []));
+        $newAssignments = array_intersect(AuthRole::getAvailableRoles(Yii::$app->user->isSuperAdmin, true), Yii::$app->request->post('roles', []));
 
         $toAssign = array_diff($newAssignments, $oldAssignments);
         $toRevoke = array_diff($oldAssignments, $newAssignments);

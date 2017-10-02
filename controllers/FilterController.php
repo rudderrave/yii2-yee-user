@@ -4,7 +4,6 @@ namespace yeesoft\user\controllers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yeesoft\models\Rule;
 use yeesoft\models\AuthModel;
 use yeesoft\controllers\CrudController;
 
@@ -12,14 +11,14 @@ class FilterController extends CrudController
 {
 
     /**
-     * @var Rule
+     * @var \yeesoft\models\AuthFilter
      */
-    public $modelClass = 'yeesoft\models\Filter';
+    public $modelClass = 'yeesoft\models\AuthFilter';
 
     /**
-     * @var RuleSearch
+     * @var \yeesoft\user\models\AuthFilterSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\FilterSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthFilterSearch';
 
     /**
      * @inheritdoc
@@ -52,7 +51,7 @@ class FilterController extends CrudController
      */
     public function actionUpdate($id)
     {
-        /* @var $model \yeesoft\models\Filter */
+        /* @var $model \yeesoft\models\AuthFilter */
         $model = $this->findModel($id);
 
         $authManager = Yii::$app->authManager;

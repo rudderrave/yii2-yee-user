@@ -2,7 +2,7 @@
 
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\Role;
+use yeesoft\models\AuthRole;
 use yii\widgets\Pjax;
 
 /**
@@ -32,8 +32,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', ' <div class="plus-sign"
                 [
                     'attribute' => 'description',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
-                    'controller' => '/user/role',
-                    'title' => function (Role $model) {
+                    'title' => function (AuthRole $model) {
                         return Html::a($model->description, ['view', 'id' => $model->name], ['data-pjax' => 0]);
                     },
                     'buttons' => [

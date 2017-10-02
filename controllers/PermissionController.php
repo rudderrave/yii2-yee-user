@@ -4,10 +4,10 @@ namespace yeesoft\user\controllers;
 
 use yeesoft\controllers\CrudController;
 use yeesoft\helpers\AuthHelper;
-use yeesoft\models\AbstractItem;
-use yeesoft\models\Permission;
-use yeesoft\models\Route;
-use yeesoft\user\models\PermissionSearch;
+use yeesoft\models\AuthItem;
+use yeesoft\models\AuthPermission;
+use yeesoft\models\AuthRoute;
+use yeesoft\user\models\AuthPermissionSearch;
 use Yii;
 use yeesoft\rbac\ManagerInterface;
 
@@ -16,12 +16,12 @@ class PermissionController extends CrudController
     /**
      * @var Permission
      */
-    public $modelClass = 'yeesoft\models\Permission';
+    public $modelClass = 'yeesoft\models\AuthPermission';
 
     /**
      * @var PermissionSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\PermissionSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthPermissionSearch';
 
     public function init()
     {
@@ -39,8 +39,8 @@ class PermissionController extends CrudController
     protected function getRoutes()
     {
         $result = [];
-        $routes = Route::find()
-                ->orderBy(['base_url' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC])
+        $routes = AuthRoute::find()
+                ->orderBy(['bundle' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC])
                 ->all();
 
         foreach ($routes as $route) {
@@ -53,9 +53,8 @@ class PermissionController extends CrudController
     protected function getPermissions($currentPermissionid)
     {
         $result = [];
-        $permissions = Permission::find()
-                ->andWhere(['not in', Yii::$app->yee->auth_item_table . '.name',
-                    [Yii::$app->yee->commonPermissionName, $currentPermissionid]])
+        $permissions = AuthPermission::find()
+                ->andWhere(['not in', Yii::$app->authManager->itemTable . '.name', [$currentPermissionid]])
                 ->joinWith('group')
                 ->all();
 
@@ -78,7 +77,7 @@ class PermissionController extends CrudController
         $routes = $this->getRoutes();
         $permissions = $this->getPermissions($id);
         $selectedRoutes = $item->getRoutes()->select('id')->column();
-        $selectedPermissions = AuthHelper::getChildrenByType($item->name, AbstractItem::TYPE_PERMISSION);
+        $selectedPermissions = AuthHelper::getChildrenByType($item->name, AuthItem::TYPE_PERMISSION);
 
         return $this->renderIsAjax('view', compact('item', 'routes', 'permissions', 'selectedRoutes', 'selectedPermissions'));
     }
@@ -92,17 +91,17 @@ class PermissionController extends CrudController
      */
     public function actionSetPermissions($id)
     {
-        /* @var $item Permission */
+        /* @var $item AuthPermission */
         $item = $this->findModel($id);
 
         $newPermissions = Yii::$app->request->post('child_permissions', []);
-        $oldPermissions = array_keys(AuthHelper::getChildrenByType($item->name, AbstractItem::TYPE_PERMISSION));
+        $oldPermissions = array_keys(AuthHelper::getChildrenByType($item->name, AuthItem::TYPE_PERMISSION));
 
         $toRemove = array_diff($oldPermissions, $newPermissions);
         $toAdd = array_diff($newPermissions, $oldPermissions);
 
-        Permission::addChildren($item->name, $toAdd);
-        Permission::removeChildren($item->name, $toRemove);
+        AuthPermission::addChildren($item->name, $toAdd);
+        AuthPermission::removeChildren($item->name, $toRemove);
 
         Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
 
@@ -118,7 +117,7 @@ class PermissionController extends CrudController
      */
     public function actionSetRoutes($id)
     {
-        /* @var $item Permission */
+        /* @var $item AuthPermission */
         $item = $this->findModel($id);
 
         $newRoutes = Yii::$app->request->post('child_routes', []);
@@ -129,10 +128,6 @@ class PermissionController extends CrudController
 
         $item->linkRoutes($toAdd);
         $item->unlinkRoutes($toRemove);
-
-//        if (($toAdd OR $toRemove) AND ($id == Yii::$app->yee->commonPermissionName)) {
-//            Yii::$app->cache->delete('__commonRoutes');
-//        }
 
         AuthHelper::invalidatePermissions();
 
@@ -148,8 +143,8 @@ class PermissionController extends CrudController
      */
     public function actionCreate()
     {
-        $model = new Permission();
-        $model->scenario = 'webInput';
+        $model = new AuthPermission();
+        //$model->scenario = 'webInput';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->name]);

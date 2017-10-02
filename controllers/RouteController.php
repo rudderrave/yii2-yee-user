@@ -2,9 +2,6 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
-use yeesoft\models\Route;
-use yeesoft\user\models\RouteSearch;
 use yeesoft\controllers\CrudController;
 
 class RouteController extends CrudController
@@ -13,14 +10,14 @@ class RouteController extends CrudController
     public $disabledActions = ['view'];
 
     /**
-     * @var Route
+     * @var \yeesoft\models\AuthRoute
      */
-    public $modelClass = 'yeesoft\models\Route';
+    public $modelClass = 'yeesoft\models\AuthRoute';
 
     /**
-     * @var RouteSearch
+     * @var \yeesoft\user\models\AuthRouteSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\RouteSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthRouteSearch';
 
     protected function getRedirectPage($action, $model = null)
     {

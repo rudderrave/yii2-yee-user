@@ -2,27 +2,19 @@
 
 namespace yeesoft\user\models;
 
-use yeesoft\models\Route;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yeesoft\models\AuthFilter;
 
-class RouteSearch extends Route
+class AuthFilterSearch extends AuthFilter
 {
 
     public function rules()
     {
         return [
-            [['controller', 'action', 'base_url'], 'safe'],
+            [['name', 'title', 'class_name'], 'safe'],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function formName()
-    {
-        return '';
     }
 
     public function scenarios()
@@ -33,7 +25,7 @@ class RouteSearch extends Route
 
     public function search($params)
     {
-        $query = Route::find();
+        $query = parent::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -41,7 +33,7 @@ class RouteSearch extends Route
                 'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
             ],
             'sort' => [
-                'defaultOrder' => ['base_url' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC],
+                'defaultOrder' => ['created_at' => SORT_DESC],
             ],
         ]);
 
@@ -49,9 +41,9 @@ class RouteSearch extends Route
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'controller', $this->controller])
-                ->andFilterWhere(['like', 'action', $this->action])
-                ->andFilterWhere(['like', 'base_url', $this->base_url]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+                ->andFilterWhere(['like', 'title', $this->title])
+                ->andFilterWhere(['like', 'class_name', $this->class_name]);
 
         return $dataProvider;
     }

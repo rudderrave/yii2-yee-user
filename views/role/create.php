@@ -4,7 +4,7 @@
  *
  * @var yii\web\View $this
  * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Role $model
+ * @var yeesoft\models\AuthRole $model
  */
 
 $this->title = Yii::t('yee/user', 'Create Role');

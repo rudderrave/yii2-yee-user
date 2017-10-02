@@ -2,20 +2,18 @@
 
 namespace yeesoft\user\controllers;
 
-use Yii;
-use yeesoft\models\Rule;
 use yeesoft\controllers\CrudController;
 
 class ModelController extends CrudController
 {
 
     /**
-     * @var Rule
+     * @var \yeesoft\models\AuthModel
      */
     public $modelClass = 'yeesoft\models\AuthModel';
 
     /**
-     * @var RuleSearch
+     * @var \yeesoft\user\models\AuthModelSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\AuthModelSearch';
 

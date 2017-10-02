@@ -5,15 +5,15 @@ namespace yeesoft\user\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yeesoft\models\Rule;
+use yeesoft\models\AuthRule;
 
-class RuleSearch extends Rule
+class AuthRuleSearch extends AuthRule
 {
 
     public function rules()
     {
         return [
-            [['name', 'class_name'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -25,7 +25,7 @@ class RuleSearch extends Rule
 
     public function search($params)
     {
-        $query = Rule::find();
+        $query = parent::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -41,8 +41,7 @@ class RuleSearch extends Rule
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'class_name', $this->class_name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

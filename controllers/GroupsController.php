@@ -3,23 +3,21 @@
 namespace yeesoft\user\controllers;
 
 use yeesoft\controllers\CrudController;
-use yeesoft\models\AuthItemGroup;
-use yeesoft\user\models\AuthItemGroupSearch;
 
 /**
- * AuthItemGroupController implements the CRUD actions for AuthItemGroup model.
+ * GroupsController implements the CRUD actions for Group model.
  */
-class PermissionGroupsController extends CrudController
+class GroupsController extends CrudController
 {
     /**
-     * @var AuthItemGroup
+     * @var \yeesoft\models\AuthGroup
      */
-    public $modelClass = 'yeesoft\models\AuthItemGroup';
+    public $modelClass = 'yeesoft\models\AuthGroup';
 
     /**
-     * @var AuthItemGroupSearch
+     * @var \yeesoft\user\models\AuthGroupSearch
      */
-    public $modelSearchClass = 'yeesoft\user\models\AuthItemGroupSearch';
+    public $modelSearchClass = 'yeesoft\user\models\AuthGroupSearch';
 
     public $disabledActions = ['view'];
 
@@ -27,7 +25,7 @@ class PermissionGroupsController extends CrudController
      * Define redirect page after update, create, delete, etc
      *
      * @param string $action
-     * @param AuthItemGroup $model
+     * @param Group $model
      *
      * @return string|array
      */
@@ -38,7 +36,7 @@ class PermissionGroupsController extends CrudController
                 return ['index'];
                 break;
             case 'create':
-                return ['update', 'id' => $model->code];
+                return ['update', 'id' => $model->name];
                 break;
             default:
                 return ['index'];

@@ -34,9 +34,9 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
                         if (User::hasPermission('manageRolesAndPermissions')) {
-                            return Html::a($model->name, ['update', 'id' => $model->id], ['data-pjax' => 0]);
+                            return Html::a($model->title, ['update', 'id' => $model->name], ['data-pjax' => 0]);
                         } else {
-                            return $model->name;
+                            return $model->title;
                         }
                     },
                     'buttonsTemplate' => '{update} {delete}',

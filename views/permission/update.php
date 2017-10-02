@@ -2,7 +2,7 @@
 
 /**
  * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Permission $model
+ * @var yeesoft\models\AuthPermission $model
  */
 $this->title = Yii::t('yee/user', 'Update Permission');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['/user/default/index']];

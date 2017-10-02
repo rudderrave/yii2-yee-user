@@ -6,7 +6,7 @@ use yeesoft\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\models\Filter $model
+ * @var yeesoft\models\AuthFilter $model
  * @var yeesoft\widgets\ActiveForm $form
  */
 ?>
@@ -17,8 +17,10 @@ use yeesoft\widgets\ActiveForm;
     <div class="col-md-9">
         <div class="box box-primary">
             <div class="box-body">
-                <?= $form->field($model, 'name')->textInput(['maxlength' => 127, 'autofocus' => $model->isNewRecord ? true : false]) ?>
+                <?= $form->field($model, 'title')->textInput(['maxlength' => 64, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
+                <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'title') ?>
+                
                 <?= $form->field($model, 'class_name')->textInput(['maxlength' => 255]) ?>
             </div>
         </div>
@@ -32,7 +34,7 @@ use yeesoft\widgets\ActiveForm;
                 </div>
                 <div class="box-body">
                     <?=
-                    Html::checkboxList('models', ArrayHelper::getColumn($selected, 'id'), ArrayHelper::map($models, 'id', 'class_name'), [
+                    Html::checkboxList('models', ArrayHelper::getColumn($selected, 'name'), ArrayHelper::map($models, 'name', 'class_name'), [
                         'item' => function ($index, $label, $name, $checked, $value) {
                             return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
                         }

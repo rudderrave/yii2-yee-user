@@ -2,21 +2,20 @@
 
 namespace yeesoft\user\models;
 
-use yeesoft\models\AbstractItem;
-use yeesoft\models\Permission;
-use yeesoft\models\Role;
-use yeesoft\models\Route;
+use yeesoft\models\AuthItem;
+use yeesoft\models\AuthPermission;
+use yeesoft\models\AuthRole;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-abstract class AbstractItemSearch extends AbstractItem
+abstract class AuthItemSearch extends AuthItem
 {
 
     public function rules()
     {
         return [
-            [['name', 'description', 'group_code', 'rule_name'], 'string'],
+            [['name', 'description', 'rule_name'], 'string'],
         ];
     }
 
@@ -30,22 +29,18 @@ abstract class AbstractItemSearch extends AbstractItem
     {
         switch (static::ITEM_TYPE) {
             case static::TYPE_ROLE:
-                $query = Role::find();
+                $query = AuthRole::find();
                 break;
 
             case static::TYPE_PERMISSION:
-                $query = Permission::find();
-                break;
-
-            case static::TYPE_ROUTE:
-                $query = Route::find();
+                $query = AuthPermission::find();
                 break;
 
             default:
                 throw new \yii\base\InvalidParamException('Invalid Auth Type.');
         }
 
-        $query->joinWith(['group']);
+        //$query->joinWith(['group']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,9 +60,9 @@ abstract class AbstractItemSearch extends AbstractItem
 
         $query->andFilterWhere(['rule_name' => $this->rule_name]);
         
-        $query->andFilterWhere(['like', Yii::$app->yee->auth_item_table . '.name', $this->name])
-                ->andFilterWhere(['like', Yii::$app->yee->auth_item_table . '.description', $this->description])
-                ->andFilterWhere([Yii::$app->yee->auth_item_table . '.group_code' => $this->group_code]);
+        $query->andFilterWhere(['like', Yii::$app->authManager->itemTable . '.name', $this->name])
+                ->andFilterWhere(['like', Yii::$app->authManager->itemTable . '.description', $this->description])
+                ;//->andFilterWhere([Yii::$app->authManager->itemTable . '.group_name' => $this->group_name]);
 
         return $dataProvider;
     }

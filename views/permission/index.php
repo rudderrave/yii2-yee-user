@@ -3,15 +3,15 @@
 use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\AuthItemGroup;
-use yeesoft\models\Permission;
+use yeesoft\models\AuthGroup;
+use yeesoft\models\AuthPermission;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /**
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var yeesoft\user\models\search\PermissionSearch $searchModel
+ * @var yeesoft\user\models\search\AuthPermissionSearch $searchModel
  * @var yii\web\View $this
  */
 $this->title = Yii::t('yee/user', 'Permissions');
@@ -37,9 +37,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'attribute' => 'description',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
-                        return Html::a(
-                                        $model->description, ['view', 'id' => $model->name], (($model->name == Yii::$app->yee->commonPermissionName)) ? ['data-pjax' => 0, 'class' => 'label label-primary'] : ['data-pjax' => 0]
-                        );
+                        return Html::a($model->description, ['view', 'id' => $model->name], ['data-pjax' => 0]);
                     },
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
@@ -57,14 +55,14 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'attribute' => 'name',
                     'options' => ['style' => 'width:150px'],
                 ],
-                [
-                    'attribute' => 'group_code',
-                    'filter' => ArrayHelper::map(AuthItemGroup::find()->asArray()->all(), 'code', 'name'),
-                    'value' => function (Permission $model) {
-                        return $model->group_code ? $model->group->name : '';
-                    },
-                    'options' => ['style' => 'width:150px'],
-                ],
+//                [
+//                    'attribute' => 'group_name',
+//                    'filter' => ArrayHelper::map(Group::find()->asArray()->all(), 'name', 'title'),
+//                    'value' => function (AuthPermission $model) {
+//                        return $model->group_name ? $model->group->title : '';
+//                    },
+//                    'options' => ['style' => 'width:150px'],
+//                ],
             ],
         ]);
         ?>

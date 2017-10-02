@@ -2,10 +2,10 @@
 
 namespace yeesoft\user\models;
 
-class RoleSearch extends AbstractItemSearch
+class AuthPermissionSearch extends AuthItemSearch
 {
 
-    const ITEM_TYPE = self::TYPE_ROLE;
+    const ITEM_TYPE = self::TYPE_PERMISSION;
 
     /**
      * @inheritdoc

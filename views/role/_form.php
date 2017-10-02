@@ -2,7 +2,7 @@
 
 /**
  * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Role $model
+ * @var yeesoft\models\AuthRole $model
  */
 use yeesoft\helpers\Html;
 use yeesoft\widgets\ActiveForm;

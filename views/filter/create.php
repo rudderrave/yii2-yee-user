@@ -2,7 +2,7 @@
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\models\Filter $model
+ * @var yeesoft\models\AuthFilter $model
  */
 $this->title = Yii::t('yee/user', 'Create Query Filter');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];

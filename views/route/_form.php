@@ -2,13 +2,10 @@
 
 /**
  * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Permission $model
+ * @var yeesoft\models\AuthPermission $model
  */
 use yeesoft\helpers\Html;
-use yeesoft\models\AuthItemGroup;
-use yii\helpers\ArrayHelper;
 use yeesoft\widgets\ActiveForm;
-use yeesoft\models\Rule;
 ?>
 
 <?php $form = ActiveForm::begin() ?>
@@ -21,7 +18,7 @@ use yeesoft\models\Rule;
                 
                 <?= $form->field($model, 'action')->textInput(['maxlength' => 63]) ?>
                 
-                <?= $form->field($model, 'base_url')->textInput(['maxlength' => 63]) ?>
+                <?= $form->field($model, 'bundle')->textInput(['maxlength' => 63]) ?>
             </div>
         </div>
     </div>

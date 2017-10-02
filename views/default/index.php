@@ -2,7 +2,7 @@
 
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\Role;
+use yeesoft\models\AuthRole;
 use yeesoft\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -71,7 +71,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                   ], */
                 [
                     'attribute' => 'gridRoleSearch',
-                    'filter' => ArrayHelper::map(Role::getAvailableRoles(Yii::$app->user->isSuperAdmin), 'name', 'description'),
+                    'filter' => ArrayHelper::map(AuthRole::getAvailableRoles(Yii::$app->user->isSuperAdmin), 'name', 'description'),
                     'value' => function (User $model) {
                         return implode(', ', ArrayHelper::map($model->roles, 'name', 'description'));
                     },

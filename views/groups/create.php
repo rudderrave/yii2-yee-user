@@ -2,7 +2,7 @@
 
 /**
  * @var yii\web\View $this
- * @var yeesoft\models\AuthItemGroup $model
+ * @var yeesoft\models\AuthGroup $model
  */
 $this->title = Yii::t('yee/user', 'Create Permission Group');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];

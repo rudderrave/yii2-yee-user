@@ -2,7 +2,7 @@
 
 /**
  * @var yeesoft\widgets\ActiveForm $form
- * @var yeesoft\models\Role $model
+ * @var yeesoft\models\AuthRole $model
  */
 $this->title = Yii::t('yee/user', 'Update Role');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Users'), 'url' => ['default/index']];
