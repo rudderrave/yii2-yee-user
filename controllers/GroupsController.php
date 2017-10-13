@@ -2,6 +2,7 @@
 
 namespace yeesoft\user\controllers;
 
+use yii\base\Model;
 use yeesoft\controllers\CrudController;
 
 /**
@@ -9,6 +10,7 @@ use yeesoft\controllers\CrudController;
  */
 class GroupsController extends CrudController
 {
+
     /**
      * @var \yeesoft\models\AuthGroup
      */
@@ -18,16 +20,10 @@ class GroupsController extends CrudController
      * @var \yeesoft\user\models\AuthGroupSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\AuthGroupSearch';
-
     public $disabledActions = ['view'];
 
     /**
-     * Define redirect page after update, create, delete, etc
-     *
-     * @param string $action
-     * @param Group $model
-     *
-     * @return string|array
+     * @inheritdoc
      */
     protected function getRedirectPage($action, $model = null)
     {
@@ -42,4 +38,21 @@ class GroupsController extends CrudController
                 return ['index'];
         }
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getActionScenario($action = null)
+    {
+        $action = ($action) ?: $this->action->id;
+
+        switch ($action) {
+            case 'update':
+                return 'update';
+                break;
+            default:
+                return Model::SCENARIO_DEFAULT;
+        }
+    }
+
 }

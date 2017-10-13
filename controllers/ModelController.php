@@ -2,6 +2,7 @@
 
 namespace yeesoft\user\controllers;
 
+use yii\base\Model;
 use yeesoft\controllers\CrudController;
 
 class ModelController extends CrudController
@@ -35,6 +36,22 @@ class ModelController extends CrudController
                 break;
             default:
                 return ['index'];
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getActionScenario($action = null)
+    {
+        $action = ($action) ?: $this->action->id;
+
+        switch ($action) {
+            case 'update':
+                return 'update';
+                break;
+            default:
+                return Model::SCENARIO_DEFAULT;
         }
     }
 

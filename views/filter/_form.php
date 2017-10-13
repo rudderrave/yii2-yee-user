@@ -19,22 +19,24 @@ use yeesoft\widgets\ActiveForm;
             <div class="box-body">
                 <?= $form->field($model, 'title')->textInput(['maxlength' => 64, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
-                <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'title') ?>
-                
+                <?php if ($model->isNewRecord): ?>
+                    <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'title') ?>
+                <?php endif; ?>
+
                 <?= $form->field($model, 'class_name')->textInput(['maxlength' => 255]) ?>
             </div>
         </div>
+    </div>
 
+    <div class="col-md-3">
         <?php if (!$model->isNewRecord): ?>
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">
-                        <?= Yii::t('yee/user', 'Apply to Models') ?>
-                    </h3>
+                    <h3 class="box-title"><?= Yii::t('yee/user', 'Apply to Models') ?></h3>
                 </div>
                 <div class="box-body">
                     <?=
-                    Html::checkboxList('models', ArrayHelper::getColumn($selected, 'name'), ArrayHelper::map($models, 'name', 'class_name'), [
+                    Html::checkboxList('authModel', ArrayHelper::getColumn($currentAuthModels, 'name'), ArrayHelper::map($authModels, 'name', 'title'), [
                         'item' => function ($index, $label, $name, $checked, $value) {
                             return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
                         }
@@ -43,9 +45,7 @@ use yeesoft\widgets\ActiveForm;
                 </div>
             </div>
         <?php endif; ?>
-    </div>
 
-    <div class="col-md-3">
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
@@ -57,6 +57,9 @@ use yeesoft\widgets\ActiveForm;
                             <?= Html::a(Yii::t('yee', 'Cancel'), ['index'], ['class' => 'btn btn-default btn-block']) ?>
                         </div>
                     <?php else: ?>
+                        <div class="col-md-12">
+                            <?= $form->field($model, 'name')->value() ?>
+                        </div>
                         <div class="col-md-6">
                             <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-block']) ?>
                         </div>

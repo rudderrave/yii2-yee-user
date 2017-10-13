@@ -3,6 +3,7 @@
 namespace yeesoft\user\controllers;
 
 use Yii;
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yeesoft\models\AuthModel;
 use yeesoft\controllers\CrudController;
@@ -42,6 +43,22 @@ class FilterController extends CrudController
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function getActionScenario($action = null)
+    {
+        $action = ($action) ?: $this->action->id;
+
+        switch ($action) {
+            case 'update':
+                return 'update';
+                break;
+            default:
+                return Model::SCENARIO_DEFAULT;
+        }
+    }
+
+    /**
      * Updates an existing model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
@@ -53,22 +70,20 @@ class FilterController extends CrudController
     {
         /* @var $model \yeesoft\models\AuthFilter */
         $model = $this->findModel($id);
+        $model->scenario = $this->getActionScenario($this->action->id);
 
-        $authManager = Yii::$app->authManager;
-
-        $models = AuthModel::find()->asArray()->all();
-        $selected = $model->getModels()->asArray()->all();
+        $authModels = AuthModel::find()->asArray()->all();
+        $currentAuthModels = $model->getModels()->asArray()->all();
 
         if (Yii::$app->request->isPost) {
+            /* @var $authManager \yeesoft\rbac\DbManager   */
+            $authManager = Yii::$app->authManager;
 
-            $newModels = Yii::$app->request->post('models', []);
-            $oldModels = ArrayHelper::getColumn($selected, 'id');
-
-            $toRemove = array_diff($oldModels, $newModels);
-            $toAdd = array_diff($newModels, $oldModels);
-
-            $model->unlinkModels($toRemove);
-            $model->linkModels($toAdd);
+            $request = Yii::$app->request->post('authModel', []);
+            $current = ArrayHelper::getColumn($currentAuthModels, 'name');
+            
+            $authManager->removeFilterFromModel($model->name, array_diff($current, $request));
+            $authManager->addFilterToModel($model->name, array_diff($request, $current));
         }
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
@@ -76,7 +91,7 @@ class FilterController extends CrudController
             return $this->redirect($this->getRedirectPage('update', $model));
         }
 
-        return $this->renderIsAjax($this->updateView, compact('model', 'models', 'selected'));
+        return $this->renderIsAjax($this->updateView, compact('model', 'authModels', 'currentAuthModels'));
     }
 
 }

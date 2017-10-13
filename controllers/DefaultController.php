@@ -24,8 +24,15 @@ class DefaultController extends CrudController
      * @var UserSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\UserSearch';
+
+    /**
+     * @inheritdoc
+     */
     public $disabledActions = ['view'];
 
+    /**
+     * @inheritdoc
+     */
     protected function getRedirectPage($action, $model = null)
     {
         switch ($action) {
@@ -96,7 +103,7 @@ class DefaultController extends CrudController
         $permissionsByGroup = [];
         $permissions = AuthPermission::find()
                 ->andWhere([Yii::$app->authManager->itemTable . '.name' => array_keys(AuthPermission::getUserPermissions($user->id))])
-                ->joinWith('group')
+                ->joinWith('groups')
                 ->all();
 
         foreach ($permissions as $permission) {

@@ -10,13 +10,27 @@ use yeesoft\models\AuthModel;
 class AuthModelSearch extends AuthModel
 {
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['name', 'class_name'], 'safe'],
+            [['title', 'name', 'class_name'], 'safe'],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -42,7 +56,8 @@ class AuthModelSearch extends AuthModel
         }
 
         $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'class_name', $this->class_name]);
+                ->andFilterWhere(['like', 'class_name', $this->class_name])
+                ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

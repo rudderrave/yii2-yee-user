@@ -32,8 +32,9 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'attribute' => 'controller',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
-                        return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                        return Html::a($model->name, ['update', 'id' => $model->id], ['data-pjax' => 0]);
                     },
+                    'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
                 [

@@ -18,8 +18,10 @@ use yeesoft\widgets\ActiveForm;
             <div class="box-body">
                 <?= $form->field($model, 'title')->textInput(['maxlength' => 64, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
-                <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'title') ?>
-                
+                <?php if ($model->isNewRecord): ?>
+                    <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'title') ?>
+                <?php endif; ?>
+
                 <?= $form->field($model, 'class_name')->textInput(['maxlength' => 255]) ?>
             </div>
         </div>
@@ -37,6 +39,10 @@ use yeesoft\widgets\ActiveForm;
                             <?= Html::a(Yii::t('yee', 'Cancel'), ['index'], ['class' => 'btn btn-default btn-block']) ?>
                         </div>
                     <?php else: ?>
+                        <div class="col-md-12">
+                            <?= $form->field($model, 'name')->value() ?>
+                        </div>
+
                         <div class="col-md-6">
                             <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-block']) ?>
                         </div>

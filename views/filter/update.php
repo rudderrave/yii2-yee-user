@@ -10,4 +10,4 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Query Filters')
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= $this->render('_form', compact('model', 'models', 'selected')) ?>
+<?= $this->render('_form', compact('model', 'authModels', 'currentAuthModels')) ?>

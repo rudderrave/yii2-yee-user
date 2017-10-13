@@ -2,15 +2,16 @@
 
 namespace yeesoft\user\controllers;
 
+use Yii;
+use yii\base\Model;
+use yii\rbac\DbManager;
+use yii\helpers\ArrayHelper;
 use yeesoft\controllers\CrudController;
 use yeesoft\helpers\AuthHelper;
 use yeesoft\models\AuthPermission;
 use yeesoft\models\AuthRole;
 use yeesoft\user\models\AuthRoleSearch;
 use yeesoft\models\AuthFilter;
-use Yii;
-use yii\rbac\DbManager;
-use yii\helpers\ArrayHelper;
 
 class RoleController extends CrudController
 {
@@ -24,6 +25,22 @@ class RoleController extends CrudController
      * @var AuthRoleSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\AuthRoleSearch';
+
+    /**
+     * @inheritdoc
+     */
+    protected function getActionScenario($action = null)
+    {
+        $action = ($action) ?: $this->action->id;
+
+        switch ($action) {
+            case 'update':
+                return 'update';
+                break;
+            default:
+                return Model::SCENARIO_DEFAULT;
+        }
+    }
 
     /**
      * @param string $id
@@ -41,7 +58,7 @@ class RoleController extends CrudController
                 ->all();
 
         $permissions = AuthPermission::find()
-                ->joinWith('group')
+                ->joinWith('groups')
                 ->all();
 
         $permissionsByGroup = [];
@@ -71,7 +88,7 @@ class RoleController extends CrudController
     public function actionSetActiveFilters($id)
     {
         $role = $this->findModel($id);
- 
+
         $selecedActiveFilters = $role->getFilters()->asArray()->all();
 
         $newFilters = Yii::$app->request->post('filters', []);
@@ -82,7 +99,7 @@ class RoleController extends CrudController
 
         $role->unlinkFilters($toRemove);
         $role->linkFilters($toAdd);
-        
+
         Yii::$app->cache->flush(); //TODO: more accurate clear
 
         Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
@@ -148,43 +165,6 @@ class RoleController extends CrudController
         Yii::$app->session->setFlash('success', Yii::t('yii', 'Saved'));
 
         return $this->redirect(['view', 'id' => $id]);
-    }
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new AuthRole;
-        //$model->scenario = 'webInput';
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
-        }
-
-        return $this->renderIsAjax('create', compact('model'));
-    }
-
-    /**
-     * Updates an existing model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'webInput';
-
-        if ($model->load(Yii::$app->request->post()) AND $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
-        }
-
-        return $this->renderIsAjax('update', compact('model'));
     }
 
 }

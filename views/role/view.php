@@ -80,7 +80,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
             <div class="box-body">
                 <?= Html::beginForm(['set-active-filters', 'id' => $role->name]) ?>
                 <?=
-                Html::checkboxList('filters', ArrayHelper::getColumn($selecedActiveFilters, 'id'), ArrayHelper::map($activeFilters, 'id', 'name'), [
+                Html::checkboxList('filters', ArrayHelper::getColumn($selecedActiveFilters, 'name'), ArrayHelper::map($activeFilters, 'name', 'title'), [
                     'item' => function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
                     }

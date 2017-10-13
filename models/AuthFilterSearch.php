@@ -10,6 +10,9 @@ use yeesoft\models\AuthFilter;
 class AuthFilterSearch extends AuthFilter
 {
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -17,6 +20,17 @@ class AuthFilterSearch extends AuthFilter
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class

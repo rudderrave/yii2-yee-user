@@ -53,16 +53,16 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                 ],
                 [
                     'attribute' => 'name',
-                    'options' => ['style' => 'width:150px'],
+                    'options' => ['style' => 'width:30%'],
                 ],
-//                [
-//                    'attribute' => 'group_name',
-//                    'filter' => ArrayHelper::map(Group::find()->asArray()->all(), 'name', 'title'),
-//                    'value' => function (AuthPermission $model) {
-//                        return $model->group_name ? $model->group->title : '';
-//                    },
-//                    'options' => ['style' => 'width:150px'],
-//                ],
+                [
+                    'attribute' => 'groupName',
+                    'filter' => ArrayHelper::map(AuthGroup::find()->asArray()->all(), 'name', 'title'),
+                    'value' => function (AuthPermission $model) {
+                        return $model->groupName ? $model->group->title : '';
+                    },
+                    'options' => ['style' => 'width:30%'],
+                ],
             ],
         ]);
         ?>

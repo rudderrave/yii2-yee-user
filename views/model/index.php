@@ -30,7 +30,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
             'columns' => [
                 ['class' => 'yeesoft\grid\CheckboxColumn', 'options' => ['style' => 'width:10px'], 'displayFilter' => false],
                 [
-                    'attribute' => 'name',
+                    'attribute' => 'title',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
                         if (User::hasPermission('manageRolesAndPermissions')) {

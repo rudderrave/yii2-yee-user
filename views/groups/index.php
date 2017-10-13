@@ -42,7 +42,10 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
-                'name',
+                [
+                    'attribute' => 'name',
+                    'options' => ['style' => 'width:50%'],
+                ],
             ],
         ])
         ?>

@@ -13,6 +13,9 @@ use yii\data\ActiveDataProvider;
 class AuthGroupSearch extends AuthGroup
 {
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -20,6 +23,17 @@ class AuthGroupSearch extends AuthGroup
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class

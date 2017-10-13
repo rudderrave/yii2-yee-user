@@ -10,4 +10,4 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('yee/user', 'Permissions'), 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= $this->render('_form', compact('model')) ?>
+<?= $this->render('_form', compact('model', 'routes', 'permissions', 'selectedRoutes', 'selectedPermissions', 'dynamicModel')) ?>

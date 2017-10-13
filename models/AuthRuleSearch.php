@@ -10,6 +10,9 @@ use yeesoft\models\AuthRule;
 class AuthRuleSearch extends AuthRule
 {
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -17,6 +20,17 @@ class AuthRuleSearch extends AuthRule
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function formName()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class

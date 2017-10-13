@@ -2,10 +2,20 @@
 
 namespace yeesoft\user\models;
 
-class AuthRoleSearch extends AuthItemSearch
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use yeesoft\models\AuthRole;
+
+class AuthRoleSearch extends AuthRole
 {
 
-    const ITEM_TYPE = self::TYPE_ROLE;
+    public function rules()
+    {
+        return [
+            [['name', 'description', 'rule_name'], 'string'],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -13,6 +23,40 @@ class AuthRoleSearch extends AuthItemSearch
     public function formName()
     {
         return '';
+    }
+
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    public function search($params)
+    {
+        $query = parent::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                ],
+            ],
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere(['rule_name' => $this->rule_name]);
+
+        $query->andFilterWhere(['like', Yii::$app->authManager->itemTable . '.name', $this->name])
+                ->andFilterWhere(['like', Yii::$app->authManager->itemTable . '.description', $this->description]);
+
+        return $dataProvider;
     }
 
 }
