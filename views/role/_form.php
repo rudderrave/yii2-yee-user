@@ -6,22 +6,125 @@
  */
 use yeesoft\helpers\Html;
 use yeesoft\widgets\ActiveForm;
+use yeesoft\models\AuthRole;
+use yeesoft\models\User;
+use yeesoft\models\AuthFilter;
+use yii\helpers\ArrayHelper;
+use yeesoft\models\AuthPermission;
+?>
+
+<?php
+$this->registerJs(<<<JS
+
+$('.role-help-btn').off('mouseover mouseleave')
+    .on('mouseover', function(){
+        $(this).popover('show');
+    }).on('mouseleave', function(){
+        $(this).popover('hide');
+    });
+JS
+);
 ?>
 
 <?php $form = ActiveForm::begin() ?>
 
 <div class="row">
     <div class="col-md-9">
-        <div class="box box-primary">
-            <div class="box-body">
-                <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
 
-                <?php if ($model->isNewRecord): ?>
-                    <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'description') ?>
-                <?php endif; ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'autofocus' => $model->isNewRecord ? true : false]) ?>
+
+                        <?php if ($model->isNewRecord): ?>
+                            <?= $form->field($model, 'name')->slugInput(['maxlength' => 64], 'description') ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <?php if (!$model->isNewRecord): ?>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <?= Yii::t('yee/user', 'Child roles') ?>
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <?= $form->field($dynamicModel, 'roles')->checkboxList(AuthRole::getRoles($model->name))->label(false) ?>
+
+
+                            <?php
+//                            Html::checkboxList('child_roles', ArrayHelper::map($childRoles, 'name', 'name'), AuthRole::getRoles($model->name), [
+//                                'item' => function ($index, $label, $name, $checked, $value) {
+//                                    $list = '<ul style="padding-left: 10px">';
+//                                    foreach (AuthRole::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
+//                                        $list .= $permissionDescription ? "<li>{$permissionDescription}</li>" : "<li>{$permissionName}</li>";
+//                                    }
+//                                    $list .= '</ul>';
+//
+//                                    $helpIcon = Html::beginTag('span', [
+//                                                'title' => Yii::t('yee/user', 'Permissions for "{role}" role', ['role' => $label]),
+//                                                'data-content' => $list,
+//                                                'data-html' => 'true',
+//                                                'role' => 'button',
+//                                                'style' => 'margin-bottom: 5px; padding: 0 5px',
+//                                                'class' => 'btn btn-sm btn-default role-help-btn',
+//                                    ]);
+//                                    $helpIcon .= '?';
+//                                    $helpIcon .= Html::endTag('span');
+//
+//                                    $checkbox = Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
+//                                    return "<div><div class='pull-left' style='margin-right: 15px;'>{$checkbox}</div><div>{$helpIcon}</div></div>";
+//                                },
+//                                    //'separator' => '<br>'
+//                                    ]
+//                            )
+                            ?>
+
+                        </div>
+                    </div>
+
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <?= Yii::t('yee/user', 'Active Filters') ?>
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <?= $form->field($dynamicModel, 'filters')->checkboxList(AuthFilter::getFilters())->label(false) ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <?= Yii::t('yee/user', 'Permissions') ?>
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <?= Html::hiddenInput('DynamicModel[permissions]') ?>
+                                <?php $permissions = AuthPermission::getGroupedPermissions(); ?>
+                                <?php foreach ($permissions as $group => $list): ?>
+                                    <div class="col-md-4">
+                                        <?= $form->field($dynamicModel, 'permissions')->checkboxList($list, ['unselect' => null])->label($group); ?>
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
+
 
     <div class="col-md-3">
         <div class="box box-primary">

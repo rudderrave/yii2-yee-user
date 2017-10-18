@@ -4,14 +4,12 @@ namespace yeesoft\user\controllers;
 
 use Yii;
 use yii\base\Model;
-use yii\rbac\DbManager;
-use yii\helpers\ArrayHelper;
-use yeesoft\controllers\CrudController;
+use yii\base\DynamicModel;
+use yeesoft\models\AuthRole;
 use yeesoft\helpers\AuthHelper;
 use yeesoft\models\AuthPermission;
-use yeesoft\models\AuthRole;
 use yeesoft\user\models\AuthRoleSearch;
-use yeesoft\models\AuthFilter;
+use yeesoft\controllers\CrudController;
 
 class RoleController extends CrudController
 {
@@ -25,6 +23,31 @@ class RoleController extends CrudController
      * @var AuthRoleSearch
      */
     public $modelSearchClass = 'yeesoft\user\models\AuthRoleSearch';
+
+    /**
+     * @inheritdoc
+     */
+    public $disabledActions = ['view', 'toggle-attribute', 'bulk-activate', 'bulk-deactivate'];
+
+    /**
+     * @inheritdoc
+     */
+    protected function getRedirectPage($action, $model = null)
+    {
+        switch ($action) {
+            case 'delete':
+                return ['index'];
+                break;
+            case 'update':
+                return ['update', 'id' => $model->{$this->modelPrimaryKey}];
+                break;
+            case 'create':
+                return ['update', 'id' => $model->{$this->modelPrimaryKey}];
+                break;
+            default:
+                return ['index'];
+        }
+    }
 
     /**
      * @inheritdoc
@@ -43,128 +66,80 @@ class RoleController extends CrudController
     }
 
     /**
-     * @param string $id
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function actionView($id)
+    public function actionUpdate($id)
     {
-        $role = $this->findModel($id);
+        /* @var $model \yeesoft\db\ActiveRecord */
+        $model = $this->findModel($id);
+        $model->scenario = $this->getActionScenario($this->action->id);
 
-        $authManager = new DbManager();
+        /* @var $authManager \yeesoft\rbac\DbManager */
+        $authManager = Yii::$app->authManager;
 
-        $allRoles = AuthRole::find()->asArray()
-                ->andWhere('name != :current_name', [':current_name' => $id])
-                ->all();
+        $filters = $model->getFilters()->select('name')->column();
 
-        $permissions = AuthPermission::find()
-                ->joinWith('groups')
-                ->all();
+        $childRoles = AuthHelper::getChildrenByType($model->name, AuthRole::TYPE_ROLE);
+        $roles = array_keys($childRoles);
 
-        $permissionsByGroup = [];
-        foreach ($permissions as $permission) {
-            $permissionsByGroup[@$permission->group->name][] = $permission;
-        }
+        $childPermissions = AuthHelper::getChildrenByType($model->name, AuthPermission::TYPE_PERMISSION);
+        $permissions = array_keys($childPermissions);
 
-        $childRoles = $authManager->getChildren($role->name);
+        $dynamicModel = new DynamicModel(['roles', 'permissions', 'filters']);
+        $dynamicModel->addRule(['roles', 'permissions', 'filters'], 'safe');
+        $dynamicModel->roles = $roles;
+        $dynamicModel->filters = $filters;
+        $dynamicModel->permissions = $permissions;
 
-        $currentRoutesAndPermissions = AuthHelper::separateRoutesAndPermissions($authManager->getPermissionsByRole($role->name));
 
-        $currentPermissions = $currentRoutesAndPermissions->permissions;
+        if ($model->load(Yii::$app->request->post()) AND $model->save()) {
 
-        $activeFilters = $models = AuthFilter::find()->asArray()->all();
-        $selecedActiveFilters = $role->getFilters()->asArray()->all();
+            $dynamicModel->load(Yii::$app->request->post());
+            $dynamicModel->roles = is_array($dynamicModel->roles) ? $dynamicModel->roles : [];
+            $dynamicModel->filters = is_array($dynamicModel->filters) ? $dynamicModel->filters : [];
+            $dynamicModel->permissions = is_array($dynamicModel->permissions) ? $dynamicModel->permissions : [];
 
-        return $this->renderIsAjax('view', compact('role', 'allRoles', 'childRoles', 'currentPermissions', 'permissionsByGroup', 'activeFilters', 'selecedActiveFilters'));
-    }
+            $role = $authManager->getRole($model->name);
 
-    /**
-     * Add or remove active filters.
-     *
-     * @param string $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionSetActiveFilters($id)
-    {
-        $role = $this->findModel($id);
+            //Filters
+            $filtersToAdd = array_diff($dynamicModel->filters, $filters);
+            $filtersToRemove = array_diff($filters, $dynamicModel->filters);
 
-        $selecedActiveFilters = $role->getFilters()->asArray()->all();
+            $authManager->addFilterToRole($model->name, $filtersToAdd);
+            $authManager->removeFilterFromRole($model->name, $filtersToRemove);
 
-        $newFilters = Yii::$app->request->post('filters', []);
-        $oldFilters = ArrayHelper::getColumn($selecedActiveFilters, 'id');
+            //Roles
+            $rolesToAdd = array_diff($dynamicModel->roles, $roles);
+            $rolesToRemove = array_diff($roles, $dynamicModel->roles);
 
-        $toRemove = array_diff($oldFilters, $newFilters);
-        $toAdd = array_diff($newFilters, $oldFilters);
-
-        $role->unlinkFilters($toRemove);
-        $role->linkFilters($toAdd);
-
-        Yii::$app->cache->flush(); //TODO: more accurate clear
-
-        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
-
-        return $this->redirect(['view', 'id' => $id]);
-    }
-
-    /**
-     * Add or remove child roles and return back to view
-     *
-     * @param string $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionSetChildRoles($id)
-    {
-        $role = $this->findModel($id);
-
-        $newChildRoles = Yii::$app->request->post('child_roles', []);
-
-        $children = (new DbManager())->getChildren($role->name);
-
-        $oldChildRoles = [];
-
-        foreach ($children as $child) {
-            if ($child->type == AuthRole::TYPE_ROLE) {
-                $oldChildRoles[$child->name] = $child->name;
+            foreach ($rolesToAdd as $roleName) {
+                $authManager->addChild($role, $authManager->getRole($roleName));
             }
+
+            foreach ($rolesToRemove as $roleName) {
+                $authManager->removeChild($role, $authManager->getRole($roleName));
+            }
+
+            //Permissions
+            $permissionsToAdd = array_diff($dynamicModel->permissions, $permissions);
+            $permissionsToRemove = array_diff($permissions, $dynamicModel->permissions);
+
+            foreach ($permissionsToAdd as $permissionName) {
+                $authManager->addChild($role, $authManager->getPermission($permissionName));
+            }
+
+            foreach ($permissionsToRemove as $permissionName) {
+                $authManager->removeChild($role, $authManager->getPermission($permissionName));
+            }
+
+
+            Yii::$app->cache->flush(); //TODO: more accurate clear
+
+            Yii::$app->session->setFlash('success', Yii::t('yee', 'Your item has been updated.'));
+            return $this->redirect($this->getRedirectPage('update', $model));
         }
 
-        $toRemove = array_diff($oldChildRoles, $newChildRoles);
-        $toAdd = array_diff($newChildRoles, $oldChildRoles);
-
-        AuthRole::addChildren($role->name, $toAdd);
-        AuthRole::removeChildren($role->name, $toRemove);
-
-        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
-
-        return $this->redirect(['view', 'id' => $id]);
-    }
-
-    /**
-     * Add or remove child permissions (including routes) and return back to view
-     *
-     * @param string $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionSetChildPermissions($id)
-    {
-        $role = $this->findModel($id);
-
-        $newChildPermissions = Yii::$app->request->post('child_permissions', []);
-
-        $oldChildPermissions = array_keys((new DbManager())->getPermissionsByRole($role->name));
-
-        $toRemove = array_diff($oldChildPermissions, $newChildPermissions);
-        $toAdd = array_diff($newChildPermissions, $oldChildPermissions);
-
-        AuthRole::addChildren($role->name, $toAdd);
-        AuthRole::removeChildren($role->name, $toRemove);
-
-        Yii::$app->session->setFlash('success', Yii::t('yii', 'Saved'));
-
-        return $this->redirect(['view', 'id' => $id]);
+        return $this->renderIsAjax($this->updateView, compact('model', 'dynamicModel'));
     }
 
 }

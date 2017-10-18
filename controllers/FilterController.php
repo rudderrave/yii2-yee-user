@@ -82,8 +82,8 @@ class FilterController extends CrudController
             $request = Yii::$app->request->post('authModel', []);
             $current = ArrayHelper::getColumn($currentAuthModels, 'name');
             
-            $authManager->removeFilterFromModel($model->name, array_diff($current, $request));
-            $authManager->addFilterToModel($model->name, array_diff($request, $current));
+            $authManager->removeModelFromFilter($model->name, array_diff($current, $request));
+            $authManager->addModelToFilter($model->name, array_diff($request, $current));
         }
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {

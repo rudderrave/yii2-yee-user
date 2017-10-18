@@ -33,23 +33,14 @@ $this->params['header-content'] = Html::a(Yii::t('yee', ' <div class="plus-sign"
                     'attribute' => 'description',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function (AuthRole $model) {
-                        return Html::a($model->description, ['view', 'id' => $model->name], ['data-pjax' => 0]);
+                        return Html::a($model->description, ['update', 'id' => $model->name], ['data-pjax' => 0]);
                     },
-                    'buttons' => [
-                        'view' => function ($url, $model, $key) {
-                            $options = array_merge([
-                                'title' => Yii::t('yee', 'Settings'),
-                                'aria-label' => Yii::t('yee', 'Settings'),
-                                'data-pjax' => '0',
-                            ]);
-                            return Html::a(Yii::t('yee', 'Settings'), $url, $options);
-                        }
-                    ],
+                    'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
                 [
                     'attribute' => 'name',
-                    'options' => ['style' => 'width:200px'],
+                    'options' => ['style' => 'width:50%'],
                 ],
             ],
         ]);
