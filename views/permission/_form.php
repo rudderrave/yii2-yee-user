@@ -5,19 +5,16 @@
  * @var yeesoft\models\AuthPermission $model
  */
 use yeesoft\helpers\Html;
-use yeesoft\models\AuthGroup;
-use yii\helpers\ArrayHelper;
-use yeesoft\widgets\ActiveForm;
 use yeesoft\models\AuthRule;
-use yeesoft\models\User;
-use yeesoft\user\assets\UserAsset;
+use yeesoft\models\AuthGroup;
+use yeesoft\models\AuthRoute;
+use yeesoft\models\AuthPermission;
+use yeesoft\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin() ?>
-
 <div class="row">
     <div class="col-md-9">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
@@ -33,8 +30,6 @@ use yeesoft\user\assets\UserAsset;
         </div>
 
         <?php if (!$model->isNewRecord): ?>
-
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="box box-primary">
@@ -44,17 +39,11 @@ use yeesoft\user\assets\UserAsset;
                             </h3>
                         </div>
                         <div class="box-body">
-                            <div class="row">
-                                <?php foreach ($permissions as $group => $permissions): ?>
-                                    <div class="col-sm-12">
-                                        <fieldset>
-                                            <legend><?= $group ?></legend>
-                                            <?= $form->field($dynamicModel, 'childPermissions')->checkboxList(ArrayHelper::map($permissions, 'name', 'description')); ?>
-                                        </fieldset>
-                                        <hr/>
-                                    </div>
-                                <?php endforeach ?>
-                            </div>
+                            <?= Html::hiddenInput('DynamicModel[childPermissions]') ?>
+                            <?php $permissions = AuthPermission::getGroupedPermissions([$model->name]); ?>
+                            <?php foreach ($permissions as $group => $list): ?>
+                                <?= $form->field($dynamicModel, 'childPermissions')->checkboxList($list, ['unselect' => null])->label($group); ?>
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </div>
@@ -67,52 +56,37 @@ use yeesoft\user\assets\UserAsset;
                             </h3>
                         </div>
                         <div class="box-body">
-                            <?=
-                            $form->field($dynamicModel, 'permissionRoutes')->checkboxList($routes, [
-                                'id' => 'routes-list',
-                                'separator' => '<div class="separator"></div>',
-                                'item' => function ($index, $label, $name, $checked, $value) {
-                                    return Html::checkbox($name, $checked, [
-                                                'value' => $value,
-                                                'label' => '<span class="route-text">' . $label . '</span>',
-                                                'labelOptions' => ['class' => 'route-label'],
-                                                'class' => 'route-checkbox',
-                                    ]);
-                                },
-                            ]);
-                            ?>
+                            <?= $form->field($dynamicModel, 'permissionRoutes')->checkboxList(AuthRoute::getRoutes())->label(false) ?>
                         </div>
                     </div>
                 </div>
             </div>
-
-<?php endif; ?>
-
-
+        <?php endif; ?>
     </div>
 
     <div class="col-md-3">
         <div class="box box-primary">
             <div class="box-body">
+
                 <?php if (!$model->isNewRecord): ?>
                     <?= $form->field($model, 'name')->value() ?>
                 <?php endif; ?>
 
-                <?= $form->field($model, 'groupName')->dropDownList(ArrayHelper::map(AuthGroup::find()->asArray()->all(), 'name', 'title')) ?>
+                <?= $form->field($model, 'groupName')->dropDownList(AuthGroup::getGroups()) ?>
 
-<?= $form->field($model, 'rule_name')->dropDownList(ArrayHelper::map(AuthRule::find()->asArray()->all(), 'name', 'name'), ['prompt' => '']) ?>
+                <?= $form->field($model, 'rule_name')->dropDownList(AuthRule::getRules(), ['prompt' => '']) ?>
 
                 <div class="row">
-                        <?php if ($model->isNewRecord): ?>
+                    <?php if ($model->isNewRecord): ?>
                         <div class="col-md-6">
-    <?= Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary btn-block']) ?>
+                            <?= Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary btn-block']) ?>
                         </div>
                         <div class="col-md-6">
-                        <?= Html::a(Yii::t('yee', 'Cancel'), ['index'], ['class' => 'btn btn-default btn-block']) ?>
+                            <?= Html::a(Yii::t('yee', 'Cancel'), ['index'], ['class' => 'btn btn-default btn-block']) ?>
                         </div>
-                        <?php else: ?>
+                    <?php else: ?>
                         <div class="col-md-6">
-    <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-block']) ?>
+                            <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-block']) ?>
                         </div>
                         <div class="col-md-6">
                             <?=
@@ -125,11 +99,10 @@ use yeesoft\user\assets\UserAsset;
                             ])
                             ?>
                         </div>
-<?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <?php ActiveForm::end(); ?>

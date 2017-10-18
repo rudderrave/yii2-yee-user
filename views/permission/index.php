@@ -37,18 +37,9 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'attribute' => 'description',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
-                        return Html::a($model->description, ['view', 'id' => $model->name], ['data-pjax' => 0]);
+                        return Html::a($model->description, ['update', 'id' => $model->name], ['data-pjax' => 0]);
                     },
-                    'buttons' => [
-                        'view' => function ($url, $model, $key) {
-                            $options = array_merge([
-                                'title' => Yii::t('yee', 'Settings'),
-                                'aria-label' => Yii::t('yee', 'Settings'),
-                                'data-pjax' => '0',
-                            ]);
-                            return Html::a(Yii::t('yee', 'Settings'), $url, $options);
-                        }
-                    ],
+                    'buttonsTemplate' => '{update} {delete}',
                     'filterOptions' => ['colspan' => 2],
                 ],
                 [

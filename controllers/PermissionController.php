@@ -4,11 +4,11 @@ namespace yeesoft\user\controllers;
 
 use Yii;
 use yii\base\Model;
-use yeesoft\controllers\CrudController;
-use yeesoft\helpers\AuthHelper;
+use yii\base\DynamicModel;
 use yeesoft\models\AuthItem;
 use yeesoft\models\AuthPermission;
-use yeesoft\models\AuthRoute;
+use yeesoft\helpers\AuthHelper;
+use yeesoft\controllers\CrudController;
 use yeesoft\user\models\AuthPermissionSearch;
 
 class PermissionController extends CrudController
@@ -83,54 +83,45 @@ class PermissionController extends CrudController
         /* @var $authManager \yeesoft\rbac\DbManager */
         $authManager = Yii::$app->authManager;
 
-        $routes = $this->getRoutes();
-        $permissions = $this->getPermissions($id);
+        $routes = $model->getRoutes()->select('id')->column();
+        $childPermissions = AuthHelper::getChildrenByType($model->name, AuthItem::TYPE_PERMISSION);
+        $permissions = array_keys($childPermissions);
 
-        $selectedRoutes = $model->getRoutes()->select('id')->column();
-        $selectedPermissions = AuthHelper::getChildrenByType($model->name, AuthItem::TYPE_PERMISSION);
-
-        $dynamicModel = new \yii\base\DynamicModel(['childPermissions', 'permissionRoutes']);
+        $dynamicModel = new DynamicModel(['childPermissions', 'permissionRoutes']);
         $dynamicModel->addRule(['childPermissions', 'permissionRoutes'], 'safe');
-        $dynamicModel->permissionRoutes = $selectedRoutes;
-        $dynamicModel->childPermissions = array_keys($selectedPermissions);
+        $dynamicModel->permissionRoutes = $routes;
+        $dynamicModel->childPermissions = $permissions;
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
             $dynamicModel->load(Yii::$app->request->post());
+            $dynamicModel->permissionRoutes = is_array($dynamicModel->permissionRoutes) ? $dynamicModel->permissionRoutes : [];
+            $dynamicModel->childPermissions = is_array($dynamicModel->childPermissions) ? $dynamicModel->childPermissions : [];
 
-            //Set Routes
-            $newRoutes = is_array($dynamicModel->permissionRoutes) ? $dynamicModel->permissionRoutes : [];
+            //Routes
+            $routesToAdd = array_diff($dynamicModel->permissionRoutes, $routes);
+            $routesToRemove = array_diff($routes, $dynamicModel->permissionRoutes);
 
-            $addRoutes = array_diff($newRoutes, $selectedRoutes);
-            $removeRoutes = array_diff($selectedRoutes, $newRoutes);
+            $authManager->addRoutesToPermission($model->name, $routesToAdd);
+            $authManager->removeRoutesFromPermission($model->name, $routesToRemove);
 
-            $authManager->addRoutesToPermission($model->name, $addRoutes);
-            $authManager->removeRoutesFromPermission($model->name, $removeRoutes);
-
-
-            //TODO: hidden checkbox input clear data from form
-            
-            //Set Child Permissions
-            $oldPermissions = array_keys($selectedPermissions);
-            $newPermissions = is_array($dynamicModel->childPermissions) ? $dynamicModel->childPermissions : [];
-
-            $toRemove = array_diff($oldPermissions, $newPermissions);
-            $toAdd = array_diff($newPermissions, $oldPermissions);
-
+            //Child Permissions
             $permission = $authManager->getPermission($model->name);
+            $permissionsToAdd = array_diff($dynamicModel->childPermissions, $permissions);
+            $permissionsToRemove = array_diff($permissions, $dynamicModel->childPermissions);
 
-            foreach ($toAdd as $name) {
-                $authManager->addChild($permission, $authManager->getPermission($name));
+            foreach ($permissionsToAdd as $permissionName) {
+                $authManager->addChild($permission, $authManager->getPermission($permissionName));
             }
 
-            foreach ($toRemove as $name) {
-                $authManager->removeChild($permission, $authManager->getPermission($name));
+            foreach ($permissionsToRemove as $permissionName) {
+                $authManager->removeChild($permission, $authManager->getPermission($permissionName));
             }
 
             Yii::$app->session->setFlash('success', Yii::t('yee', 'Your item has been updated.'));
             return $this->redirect($this->getRedirectPage('update', $model));
         }
 
-        return $this->renderIsAjax($this->updateView, compact('model', 'routes', 'permissions', 'selectedRoutes', 'selectedPermissions', 'dynamicModel'));
+        return $this->renderIsAjax($this->updateView, compact('model', 'dynamicModel'));
     }
 
     protected function flushCache($event)
@@ -138,35 +129,6 @@ class PermissionController extends CrudController
         if (in_array($event->action->id, ['set-permissions', 'set-routes'])) {
             Yii::$app->authManager->flushRouteCache();
         }
-    }
-
-    protected function getRoutes()
-    {
-        $result = [];
-        $routes = AuthRoute::find()
-                ->orderBy(['bundle' => SORT_ASC, 'controller' => SORT_ASC, 'action' => SORT_ASC])
-                ->all();
-
-        foreach ($routes as $route) {
-            $result[$route->id] = $route->name;
-        }
-
-        return $result;
-    }
-
-    protected function getPermissions($currentPermissionid)
-    {
-        $result = [];
-        $permissions = AuthPermission::find()
-                ->andWhere(['not in', Yii::$app->authManager->itemTable . '.name', [$currentPermissionid]])
-                ->joinWith('groups')
-                ->all();
-
-        foreach ($permissions as $permission) {
-            $result[@$permission->group->title][] = $permission;
-        }
-
-        return $result;
     }
 
 }
