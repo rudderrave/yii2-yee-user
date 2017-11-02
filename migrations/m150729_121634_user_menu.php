@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m150729_121634_add_user_menu_links extends Migration
+class m150729_121634_user_menu extends Migration
 {
 
     public function up()
@@ -22,6 +22,7 @@ class m150729_121634_add_user_menu_links extends Migration
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-permission', 'label' => 'Permissions', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-role', 'label' => 'Roles', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-rule', 'label' => 'Rules', 'language' => 'en-US']);
+        $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-route', 'label' => 'Routes', 'language' => 'en-US']);
         $this->insert('{{%menu_link_lang}}', ['link_id' => 'user-user', 'label' => 'Users', 'language' => 'en-US']);
     }
 

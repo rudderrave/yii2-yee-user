@@ -62,12 +62,12 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                 [
                     'attribute' => 'email',
                     'format' => 'raw',
-                    'visible' => User::hasPermission('viewUserEmail'),
+                    'visible' => User::hasPermission('view-user-email'),
                 ],
                 /* [
                   'class' => 'yeesoft\grid\columns\StatusColumn',
                   'attribute' => 'email_confirmed',
-                  'visible' => User::hasPermission('viewUserEmail'),
+                  'visible' => User::hasPermission('view-user-email'),
                   ], */
                 [
                     'attribute' => 'gridRoleSearch',
@@ -76,7 +76,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                         return implode(', ', ArrayHelper::map($model->roles, 'name', 'description'));
                     },
                     'format' => 'raw',
-                    'visible' => User::hasPermission('viewUserRoles'),
+                    'visible' => User::hasPermission('view-user-roles'),
                 ],
                 /*  [
                   'attribute' => 'registration_ip',
@@ -86,7 +86,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                   ["target" => "_blank"]);
                   },
                   'format' => 'raw',
-                  'visible' => User::hasPermission('viewRegistrationIp'),
+                  'visible' => User::hasPermission('view-user-ip'),
                   ], */
                 [
                     'class' => 'yeesoft\grid\columns\StatusColumn',

@@ -12,13 +12,13 @@ Installation
 Either run
 
 ```
-composer require --prefer-dist yeesoft/yii2-yee-user "~0.1.0"
+composer require --prefer-dist yeesoft/yii2-yee-user "~0.2.0"
 ```
 
 or add
 
 ```
-"yeesoft/yii2-yee-user": "~0.1.0"
+"yeesoft/yii2-yee-user": "~0.2.0"
 ```
 
 to the require section of your `composer.json` file.
