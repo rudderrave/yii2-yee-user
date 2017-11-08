@@ -49,7 +49,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
                 </div>
 
                 <hr/>
-                <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                <?php if (Yii::$app->user->can('manage-roles-and-permissions')): ?>
                     <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                 <?php endif; ?>
 
@@ -70,7 +70,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
 
                 <div class="row">
                     <div class="col-sm-3">
-                        <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                        <?php if (Yii::$app->user->can('manage-roles-and-permissions')): ?>
                             <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                         <?php endif; ?>
                     </div>
@@ -94,7 +94,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Edit'), ['update', 'id'
                 ?>
 
                 <hr/>
-                <?php if (User::hasPermission('manageRolesAndPermissions')): ?>
+                <?php if (Yii::$app->user->can('manage-roles-and-permissions')): ?>
                     <?= Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary btn-sm']) ?>
                 <?php endif; ?>
 

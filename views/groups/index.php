@@ -33,7 +33,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     'attribute' => 'title',
                     'class' => 'yeesoft\grid\columns\TitleActionColumn',
                     'title' => function ($model) {
-                        if (User::hasPermission('manageRolesAndPermissions')) {
+                        if (Yii::$app->user->can('manage-roles-and-permissions')) {
                             return Html::a($model->title, ['update', 'id' => $model->name], ['data-pjax' => 0]);
                         } else {
                             return $model->title;

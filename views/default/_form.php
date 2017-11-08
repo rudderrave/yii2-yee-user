@@ -25,7 +25,7 @@ use yeesoft\helpers\YeeHelper;
                     <?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                 <?php endif; ?>
 
-                <?php if (User::hasPermission('update-user-email')): ?>
+                <?php if (Yii::$app->user->can('update-user-email')): ?>
                     <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
                 <?php endif; ?>
 
@@ -67,7 +67,7 @@ use yeesoft\helpers\YeeHelper;
 
                 <?= $form->field($model->loadDefaultValues(), 'status')->dropDownList(User::getStatusList()) ?>
 
-                <?php if (User::hasPermission('update-user-email')): ?>
+                <?php if (Yii::$app->user->can('update-user-email')): ?>
                     <?= $form->field($model, 'email_confirmed')->checkbox() ?>
                 <?php endif; ?>
 
@@ -75,7 +75,7 @@ use yeesoft\helpers\YeeHelper;
 
                 <?= $form->field($model, 'phone')->textInput(['maxlength' => 24]) ?>
 
-                <?php if (User::hasPermission('bind-user-to-ip')): ?>
+                <?php if (Yii::$app->user->can('bind-user-to-ip')): ?>
                     <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example') . ' : 123.34.56.78, 234.123.89.78') ?>
                 <?php endif; ?>
 

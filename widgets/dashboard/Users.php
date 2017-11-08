@@ -32,7 +32,7 @@ class Users extends DashboardWidget
             $this->options = $this->getDefaultOptions();
         }
 
-        if (User::hasPermission('viewUsers')) {
+        if (Yii::$app->user->can('view-users')) {
 
             $searchModel = new UserSearch();
             $formName = $searchModel->formName();
