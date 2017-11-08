@@ -12,8 +12,7 @@ use yeesoft\controllers\CrudController;
 /**
  * DefaultController implements the CRUD actions for User model.
  */
-class DefaultController extends CrudController
-{
+class DefaultController extends CrudController {
 
     /**
      * @var User
@@ -33,8 +32,7 @@ class DefaultController extends CrudController
     /**
      * @inheritdoc
      */
-    protected function getRedirectPage($action, $model = null)
-    {
+    protected function getRedirectPage($action, $model = null) {
         switch ($action) {
             case 'delete':
                 return ['index'];
@@ -53,8 +51,7 @@ class DefaultController extends CrudController
     /**
      * @return mixed|string|\yii\web\Response
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new User(['scenario' => 'newUser']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -70,8 +67,7 @@ class DefaultController extends CrudController
      * @throws \yii\web\NotFoundHttpException
      * @return string
      */
-    public function actionChangePassword($id)
-    {
+    public function actionChangePassword($id) {
         $model = User::findOne($id);
 
         if (!$model) {
@@ -94,15 +90,15 @@ class DefaultController extends CrudController
      * @throws \yii\web\NotFoundHttpException
      * @return string
      */
-    public function actionPermissions($id)
-    {
+    public function actionPermissions($id) {
         if (!$user = User::findOne($id)) {
             throw new NotFoundHttpException(Yii::t('yee/user', 'User not found'));
         }
 
         $permissionsByGroup = [];
+        $permissionKeys = array_keys(Yii::$app->authManager->getPermissionsByUser($user->id));
         $permissions = AuthPermission::find()
-                ->andWhere([Yii::$app->authManager->itemTable . '.name' => array_keys(AuthPermission::getUserPermissions($user->id))])
+                ->andWhere([Yii::$app->authManager->itemTable . '.name' => $permissionKeys])
                 ->joinWith('groups')
                 ->all();
 
@@ -118,12 +114,14 @@ class DefaultController extends CrudController
      *
      * @return \yii\web\Response
      */
-    public function actionRoles($id)
-    {
+    public function actionRoles($id) {
         if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
             Yii::$app->session->setFlash('error', Yii::t('yee/user', 'You can not change own permissions'));
             return $this->redirect(['set', 'id' => $id]);
         }
+
+        /* @var $authManager \yeesoft\rbac\DbManager */
+        $authManager = Yii::$app->authManager;
 
         $oldAssignments = array_keys(AuthRole::getUserRoles($id));
 
@@ -134,11 +132,11 @@ class DefaultController extends CrudController
         $toRevoke = array_diff($oldAssignments, $newAssignments);
 
         foreach ($toRevoke as $role) {
-            User::revokeRole($id, $role);
+            $authManager->revoke($authManager->getRole($role), $id);
         }
 
         foreach ($toAssign as $role) {
-            User::assignRole($id, $role);
+            $authManager->assign($authManager->getRole($role), $id);
         }
 
         Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));

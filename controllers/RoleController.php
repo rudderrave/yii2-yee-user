@@ -3,11 +3,11 @@
 namespace yeesoft\user\controllers;
 
 use Yii;
+use yii\rbac\Role;
+use yii\rbac\Permission;
 use yii\base\Model;
 use yii\base\DynamicModel;
 use yeesoft\models\AuthRole;
-use yeesoft\helpers\AuthHelper;
-use yeesoft\models\AuthPermission;
 use yeesoft\user\models\AuthRoleSearch;
 use yeesoft\controllers\CrudController;
 
@@ -79,18 +79,21 @@ class RoleController extends CrudController
 
         $filters = $model->getFilters()->select('name')->column();
 
-        $childRoles = AuthHelper::getChildrenByType($model->name, AuthRole::TYPE_ROLE);
-        $roles = array_keys($childRoles);
-
-        $childPermissions = AuthHelper::getChildrenByType($model->name, AuthPermission::TYPE_PERMISSION);
-        $permissions = array_keys($childPermissions);
-
+        $roles = $permissions = [];
+        $children = $authManager->getChildren($model->name);
+        foreach ($children as $child) {
+            if($child->type == Role::TYPE_ROLE){
+                $roles[] = $child->name;
+            } elseif($child->type == Permission::TYPE_PERMISSION){
+                $permissions[] = $child->name;
+            } 
+        }
+        
         $dynamicModel = new DynamicModel(['roles', 'permissions', 'filters']);
         $dynamicModel->addRule(['roles', 'permissions', 'filters'], 'safe');
         $dynamicModel->roles = $roles;
         $dynamicModel->filters = $filters;
         $dynamicModel->permissions = $permissions;
-
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
 

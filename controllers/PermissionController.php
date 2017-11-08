@@ -5,9 +5,7 @@ namespace yeesoft\user\controllers;
 use Yii;
 use yii\base\Model;
 use yii\base\DynamicModel;
-use yeesoft\models\AuthItem;
 use yeesoft\models\AuthPermission;
-use yeesoft\helpers\AuthHelper;
 use yeesoft\controllers\CrudController;
 use yeesoft\user\models\AuthPermissionSearch;
 
@@ -82,9 +80,10 @@ class PermissionController extends CrudController
 
         /* @var $authManager \yeesoft\rbac\DbManager */
         $authManager = Yii::$app->authManager;
-
+        
         $routes = $model->getRoutes()->select('id')->column();
-        $childPermissions = AuthHelper::getChildrenByType($model->name, AuthItem::TYPE_PERMISSION);
+        $childPermissions = $authManager->getChildren($model->name);
+        
         $permissions = array_keys($childPermissions);
 
         $dynamicModel = new DynamicModel(['childPermissions', 'permissionRoutes']);

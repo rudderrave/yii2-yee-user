@@ -57,7 +57,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                         }
                     ],
                     'filterOptions' => ['colspan' => 2],
-                    'options' => ['style' => 'width:300px']
+//                    'options' => ['style' => 'width:300px']
                 ],
                 [
                     'attribute' => 'email',
