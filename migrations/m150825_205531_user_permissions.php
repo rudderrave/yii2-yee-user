@@ -126,6 +126,11 @@ class m150825_205531_user_permissions extends PermissionsMigration
                     'title' => 'View User Roles',
                     'roles' => [self::ROLE_ADMIN],
                 ],
+                'update-user-roles' => [
+                    'title' => 'Update User Roles',
+                    'child' => ['view-user-roles'],
+                    'roles' => [self::ROLE_ADMIN],
+                ],
             ],
         ];
     }

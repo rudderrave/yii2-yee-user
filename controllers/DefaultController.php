@@ -3,6 +3,7 @@
 namespace yeesoft\user\controllers;
 
 use Yii;
+use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yeesoft\models\User;
 use yeesoft\models\AuthRole;
@@ -12,7 +13,8 @@ use yeesoft\controllers\CrudController;
 /**
  * DefaultController implements the CRUD actions for User model.
  */
-class DefaultController extends CrudController {
+class DefaultController extends CrudController
+{
 
     /**
      * @var User
@@ -32,7 +34,8 @@ class DefaultController extends CrudController {
     /**
      * @inheritdoc
      */
-    protected function getRedirectPage($action, $model = null) {
+    protected function getRedirectPage($action, $model = null)
+    {
         switch ($action) {
             case 'delete':
                 return ['index'];
@@ -51,7 +54,8 @@ class DefaultController extends CrudController {
     /**
      * @return mixed|string|\yii\web\Response
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new User(['scenario' => 'newUser']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -62,12 +66,67 @@ class DefaultController extends CrudController {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function actionUpdate($id)
+    {
+        /* @var $model \yeesoft\db\ActiveRecord */
+        $model = $this->findModel($id);
+        $model->scenario = $this->getActionScenario($this->action->id);
+
+        /* @var $authManager \yeesoft\rbac\DbManager */
+        $authManager = Yii::$app->authManager;
+        $roles = array_keys($authManager->getRolesByUser($id));
+
+        $dynamicModel = new DynamicModel(['roles']);
+        $dynamicModel->addRule(['roles'], 'safe');
+        $dynamicModel->roles = $roles;
+
+        $groupedPermissions = [];
+        $permissionKeys = array_keys($authManager->getPermissionsByUser($id));
+        $permissions = AuthPermission::find()
+                ->andWhere([$authManager->itemTable . '.name' => $permissionKeys])
+                ->joinWith('groups')
+                ->all();
+
+        foreach ($permissions as $permission) {
+            $groupedPermissions[@$permission->group->title][] = $permission;
+        }
+
+        if ($model->load(Yii::$app->request->post()) AND $model->save()) {
+
+
+            if (Yii::$app->user->can('update-user-roles')) {
+                $dynamicModel->load(Yii::$app->request->post());
+                $dynamicModel->roles = is_array($dynamicModel->roles) ? $dynamicModel->roles : [];
+
+                $rolesToAdd = array_diff($dynamicModel->roles, $roles);
+                $rolesToRemove = array_diff($roles, $dynamicModel->roles);
+
+                foreach ($rolesToAdd as $role) {
+                    $authManager->assign((object) ['name' => $role], $model->id);
+                }
+
+                foreach ($rolesToRemove as $role) {
+                    $authManager->revoke((object) ['name' => $role], $model->id);
+                }
+            }
+
+            Yii::$app->session->setFlash('success', Yii::t('yee', 'Your item has been updated.'));
+            return $this->redirect($this->getRedirectPage('update', $model));
+        }
+
+        return $this->renderIsAjax($this->updateView, compact('model', 'dynamicModel', 'groupedPermissions', 'roles'));
+    }
+
+    /**
      * @param int $id User ID
      *
      * @throws \yii\web\NotFoundHttpException
      * @return string
      */
-    public function actionChangePassword($id) {
+    public function actionChangePassword($id)
+    {
         $model = User::findOne($id);
 
         if (!$model) {
@@ -82,66 +141,6 @@ class DefaultController extends CrudController {
         }
 
         return $this->renderIsAjax('changePassword', compact('model'));
-    }
-
-    /**
-     * @param int $id User ID
-     *
-     * @throws \yii\web\NotFoundHttpException
-     * @return string
-     */
-    public function actionPermissions($id) {
-        if (!$user = User::findOne($id)) {
-            throw new NotFoundHttpException(Yii::t('yee/user', 'User not found'));
-        }
-
-        $permissionsByGroup = [];
-        $permissionKeys = array_keys(Yii::$app->authManager->getPermissionsByUser($user->id));
-        $permissions = AuthPermission::find()
-                ->andWhere([Yii::$app->authManager->itemTable . '.name' => $permissionKeys])
-                ->joinWith('groups')
-                ->all();
-
-        foreach ($permissions as $permission) {
-            $permissionsByGroup[@$permission->group->name][] = $permission;
-        }
-
-        return $this->renderIsAjax('permissions', compact('user', 'permissionsByGroup'));
-    }
-
-    /**
-     * @param int $id - User ID
-     *
-     * @return \yii\web\Response
-     */
-    public function actionRoles($id) {
-        if (!Yii::$app->user->isSuperadmin AND Yii::$app->user->id == $id) {
-            Yii::$app->session->setFlash('error', Yii::t('yee/user', 'You can not change own permissions'));
-            return $this->redirect(['set', 'id' => $id]);
-        }
-
-        /* @var $authManager \yeesoft\rbac\DbManager */
-        $authManager = Yii::$app->authManager;
-
-        $oldAssignments = array_keys(AuthRole::getUserRoles($id));
-
-        // To be sure that user didn't attempt to assign himself some unavailable roles
-        $newAssignments = array_intersect(AuthRole::getAvailableRoles(Yii::$app->user->isSuperAdmin, true), Yii::$app->request->post('roles', []));
-
-        $toAssign = array_diff($newAssignments, $oldAssignments);
-        $toRevoke = array_diff($oldAssignments, $newAssignments);
-
-        foreach ($toRevoke as $role) {
-            $authManager->revoke($authManager->getRole($role), $id);
-        }
-
-        foreach ($toAssign as $role) {
-            $authManager->assign($authManager->getRole($role), $id);
-        }
-
-        Yii::$app->session->setFlash('success', Yii::t('yee', 'Saved'));
-
-        return $this->redirect(['permissions', 'id' => $id]);
     }
 
 }

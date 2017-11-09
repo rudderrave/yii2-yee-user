@@ -39,36 +39,29 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                             return $model->username;
                         }
                     },
-                    'buttonsTemplate' => '{update} {delete} {permissions} {password}',
+                    'buttonsTemplate' => '{update} {profile} {delete}',
                     'buttons' => [
-                        'permissions' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('yee/user', 'Permissions'), Url::to(['permissions', 'id' => $model->id]), [
-                                        'title' => Yii::t('yee/user', 'Permissions'),
-                                        'data-pjax' => '0'
-                                            ]
-                            );
-                        },
-                        'password' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('yee/user', 'Password'), Url::to(['default/change-password', 'id' => $model->id]), [
-                                        'title' => Yii::t('yee/user', 'Password'),
-                                        'data-pjax' => '0'
-                                            ]
-                            );
+                        'profile' => function ($url, $model, $key) {
+                            return Html::a(Yii::t('yee/user', 'Profile'), Url::to(['/auth/profile/index', 'id' => $model->id]), ['data-pjax' => '0']);
                         }
                     ],
                     'filterOptions' => ['colspan' => 2],
-//                    'options' => ['style' => 'width:300px']
+                    'options' => ['style' => 'width:20%']
                 ],
                 [
                     'attribute' => 'email',
                     'format' => 'raw',
                     'visible' => Yii::$app->user->can('view-user-email'),
+                    'options' => ['style' => 'width:20%']
                 ],
-                /* [
-                  'class' => 'yeesoft\grid\columns\StatusColumn',
-                  'attribute' => 'email_confirmed',
-                  'visible' => Yii::$app->user->can('view-user-email'),
-                  ], */
+                [
+                    'attribute' => 'first_name',
+                    'options' => ['style' => 'width:15%']
+                ],
+                [
+                    'attribute' => 'last_name',
+                    'options' => ['style' => 'width:15%']
+                ],
                 [
                     'attribute' => 'gridRoleSearch',
                     'filter' => ArrayHelper::map(AuthRole::getAvailableRoles(Yii::$app->user->isSuperAdmin), 'name', 'description'),
@@ -77,22 +70,19 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                     },
                     'format' => 'raw',
                     'visible' => Yii::$app->user->can('view-user-roles'),
+                    'options' => ['style' => 'width:20%']
                 ],
-                /*  [
-                  'attribute' => 'registration_ip',
-                  'value' => function(User $model) {
-                  return Html::a($model->registration_ip,
-                  "http://ipinfo.io/".$model->registration_ip,
-                  ["target" => "_blank"]);
-                  },
-                  'format' => 'raw',
-                  'visible' => Yii::$app->user->can('view-user-ip'),
-                  ], */
                 [
                     'class' => 'yeesoft\grid\columns\StatusColumn',
                     'attribute' => 'superadmin',
                     'visible' => Yii::$app->user->isSuperadmin,
-                    'options' => ['style' => 'width:60px']
+                    'options' => ['style' => 'width:80px']
+                ],
+                [
+                    'class' => 'yeesoft\grid\columns\StatusColumn',
+                    'attribute' => 'email_confirmed',
+                    'visible' => Yii::$app->user->can('view-user-email'),
+                    'options' => ['style' => 'width:80px']
                 ],
                 [
                     'class' => 'yeesoft\grid\columns\StatusColumn',
@@ -102,7 +92,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                         [User::STATUS_INACTIVE, Yii::t('yee', 'Inactive'), 'info'],
                         [User::STATUS_BANNED, Yii::t('yee', 'Banned'), 'default'],
                     ],
-                    'options' => ['style' => 'width:60px']
+                    'options' => ['style' => 'width:80px']
                 ],
             ],
         ]);

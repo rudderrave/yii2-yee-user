@@ -1,9 +1,11 @@
 <?php
 
-use yeesoft\helpers\Html;
+use yii\jui\DatePicker;
 use yeesoft\models\User;
+use yeesoft\helpers\Html;
 use yeesoft\widgets\ActiveForm;
-use yeesoft\helpers\YeeHelper;
+use yii\helpers\ArrayHelper;
+use yeesoft\models\AuthRole;
 
 /**
  * @var yii\web\View $this
@@ -18,53 +20,111 @@ use yeesoft\helpers\YeeHelper;
     <div class="col-md-9">
         <div class="box box-primary">
             <div class="box-body">
-                <?= $form->field($model, 'username')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'username')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+                    </div>
+                    <div class="col-md-6">
+                        <?php if (Yii::$app->user->can('update-user-email')): ?>
+                            <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
 
                 <?php if ($model->isNewRecord): ?>
-                    <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
-                    <?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
-                <?php endif; ?>
-
-                <?php if (Yii::$app->user->can('update-user-email')): ?>
-                    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+                        </div>
+                    </div>
                 <?php endif; ?>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'first_name')->textInput(['maxlength' => 124]) ?>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'last_name')->textInput(['maxlength' => 124]) ?>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'gender')->dropDownList(User::getGenderList()) ?>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-3">
-                        <?= $form->field($model, 'birth_day')->textInput(['maxlength' => 2]) ?>
-                    </div>
-                    <div class="col-md-4">
-                        <?= $form->field($model, 'birth_month')->dropDownList(YeeHelper::getMonthsList()) ?>
-                    </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'birth_year')->textInput(['maxlength' => 4]) ?>
+                        <?=
+                        $form->field($model, 'birthday')->widget(DatePicker::class, [
+                            'options' => ['class' => 'form-control'],
+                            'dateFormat' => 'yyyy-MM-dd'
+                        ])
+                        ?>
                     </div>
                 </div>
 
-                <?= $form->field($model, 'info')->textarea(['maxlength' => 255]) ?>
+                <?= $form->field($model, 'about')->textarea(['maxlength' => 255]) ?>
             </div>
         </div>
+
+        <?php if (!$model->isNewRecord && Yii::$app->user->can('view-user-roles')): ?>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <?= Yii::t('yee/user', 'Assigned Permissions') ?>
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <?php foreach ($groupedPermissions as $groupName => $permissions): ?>
+                        <div class="col-md-6 col-lg-4">
+                            <fieldset>
+                                <legend><?= $groupName ?></legend>
+                                <ul>
+                                    <?php foreach ($permissions as $permission): ?>
+                                        <li><?= $permission->description ?></li>
+                                    <?php endforeach ?>
+                                </ul>
+                            </fieldset>
+                            <br/>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div class="col-md-3">
+        <?php if (!$model->isNewRecord && Yii::$app->user->can('update-user-roles')): ?>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <?= Yii::t('yee/user', 'Roles') ?>
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <?=
+                    $form->field($dynamicModel, 'roles')->checkboxList(AuthRole::getRoles(), [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $help = Html::tag('span', '?', [
+                                        'title' => Yii::t('yee/user', 'Click to see permissions for "{role}" role', ['role' => $label]),
+                                        'style' => 'padding: 0; width: 20px; height: 20px;',
+                                        'class' => 'btn btn-sm btn-default',
+                            ]);
+
+                            //$checkbox = Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]); //for custom roles
+                            $checkbox = Html::radio($name, $checked, ['label' => $label, 'value' => $value]); //for system roles
+
+                            return "<div class='clearfix'><div class='pull-left' style='margin-right: 15px;'>{$checkbox}</div><div>{$help}</div></div>";
+                        }
+                    ])->label(false)
+                    ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="box box-primary">
             <div class="box-body">   
-
                 <?= $form->field($model->loadDefaultValues(), 'status')->dropDownList(User::getStatusList()) ?>
 
                 <?php if (Yii::$app->user->can('update-user-email')): ?>
@@ -78,7 +138,6 @@ use yeesoft\helpers\YeeHelper;
                 <?php if (Yii::$app->user->can('bind-user-to-ip')): ?>
                     <?= $form->field($model, 'bind_to_ip')->textInput(['maxlength' => 255])->hint(Yii::t('yee', 'For example') . ' : 123.34.56.78, 234.123.89.78') ?>
                 <?php endif; ?>
-
             </div>
         </div>
 
