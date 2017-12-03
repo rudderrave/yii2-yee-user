@@ -6,7 +6,6 @@ use Yii;
 use yii\base\DynamicModel;
 use yii\web\NotFoundHttpException;
 use yeesoft\models\User;
-use yeesoft\models\AuthRole;
 use yeesoft\models\AuthPermission;
 use yeesoft\controllers\CrudController;
 
@@ -82,16 +81,7 @@ class DefaultController extends CrudController
         $dynamicModel->addRule(['roles'], 'safe');
         $dynamicModel->roles = $roles;
 
-        $groupedPermissions = [];
-        $permissionKeys = array_keys($authManager->getPermissionsByUser($id));
-        $permissions = AuthPermission::find()
-                ->andWhere([$authManager->itemTable . '.name' => $permissionKeys])
-                ->joinWith('groups')
-                ->all();
-
-        foreach ($permissions as $permission) {
-            $groupedPermissions[@$permission->group->title][] = $permission;
-        }
+        $groupedPermissions = AuthPermission::getGroupedPermissions([], $model->id);
 
         if ($model->load(Yii::$app->request->post()) AND $model->save()) {
 

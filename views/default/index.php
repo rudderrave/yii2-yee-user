@@ -64,7 +64,7 @@ $this->params['header-content'] = Html::a(Yii::t('yee', 'Add New'), ['create'], 
                 ],
                 [
                     'attribute' => 'gridRoleSearch',
-                    'filter' => ArrayHelper::map(AuthRole::getAvailableRoles(Yii::$app->user->isSuperAdmin), 'name', 'description'),
+                    'filter' => AuthRole::getRoles(),
                     'value' => function (User $model) {
                         return implode(', ', ArrayHelper::map($model->roles, 'name', 'description'));
                     },

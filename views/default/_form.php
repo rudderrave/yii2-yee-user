@@ -81,7 +81,7 @@ use yeesoft\models\AuthRole;
                                 <legend><?= $groupName ?></legend>
                                 <ul>
                                     <?php foreach ($permissions as $permission): ?>
-                                        <li><?= $permission->description ?></li>
+                                        <li><?= $permission ?></li>
                                     <?php endforeach ?>
                                 </ul>
                             </fieldset>

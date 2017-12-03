@@ -56,36 +56,6 @@ JS
                         </div>
                         <div class="box-body">
                             <?= $form->field($dynamicModel, 'roles')->checkboxList(AuthRole::getRoles($model->name))->label(false) ?>
-
-
-                            <?php
-//                            Html::checkboxList('child_roles', ArrayHelper::map($childRoles, 'name', 'name'), AuthRole::getRoles($model->name), [
-//                                'item' => function ($index, $label, $name, $checked, $value) {
-//                                    $list = '<ul style="padding-left: 10px">';
-//                                    foreach (AuthRole::getPermissionsByRole($value) as $permissionName => $permissionDescription) {
-//                                        $list .= $permissionDescription ? "<li>{$permissionDescription}</li>" : "<li>{$permissionName}</li>";
-//                                    }
-//                                    $list .= '</ul>';
-//
-//                                    $helpIcon = Html::beginTag('span', [
-//                                                'title' => Yii::t('yee/user', 'Permissions for "{role}" role', ['role' => $label]),
-//                                                'data-content' => $list,
-//                                                'data-html' => 'true',
-//                                                'role' => 'button',
-//                                                'style' => 'margin-bottom: 5px; padding: 0 5px',
-//                                                'class' => 'btn btn-sm btn-default role-help-btn',
-//                                    ]);
-//                                    $helpIcon .= '?';
-//                                    $helpIcon .= Html::endTag('span');
-//
-//                                    $checkbox = Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
-//                                    return "<div><div class='pull-left' style='margin-right: 15px;'>{$checkbox}</div><div>{$helpIcon}</div></div>";
-//                                },
-//                                    //'separator' => '<br>'
-//                                    ]
-//                            )
-                            ?>
-
                         </div>
                     </div>
 
