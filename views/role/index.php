@@ -6,7 +6,7 @@ use yeesoft\models\AuthRole;
 use yii\widgets\Pjax;
 
 /**
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\RoleSearch $searchModel
  * @var yii\web\View $this
  */

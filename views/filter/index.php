@@ -2,12 +2,11 @@
 
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
-use yeesoft\models\User;
 use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\AuthFilterSearch $searchModel
  */
 $this->title = Yii::t('yee/user', 'Query Filters');

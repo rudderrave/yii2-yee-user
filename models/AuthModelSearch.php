@@ -4,7 +4,7 @@ namespace yeesoft\user\models;
 
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use yeesoft\data\ActiveDataProvider;
 use yeesoft\models\AuthModel;
 
 class AuthModelSearch extends AuthModel

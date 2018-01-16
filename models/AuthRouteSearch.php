@@ -5,7 +5,7 @@ namespace yeesoft\user\models;
 use yeesoft\models\AuthRoute;
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use yeesoft\data\ActiveDataProvider;
 
 class AuthRouteSearch extends AuthRoute
 {

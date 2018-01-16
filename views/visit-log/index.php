@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\UserVisitLogSearch $searchModel
  */
 $this->title = Yii::t('yee/user', 'Visit Log');

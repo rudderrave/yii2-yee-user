@@ -4,8 +4,8 @@ namespace yeesoft\user\models;
 
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
 use yeesoft\models\AuthFilter;
+use yeesoft\data\ActiveDataProvider;
 
 class AuthFilterSearch extends AuthFilter
 {

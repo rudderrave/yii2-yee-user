@@ -1,16 +1,14 @@
 <?php
 
-use yeesoft\grid\GridPageSize;
 use yeesoft\grid\GridView;
 use yeesoft\helpers\Html;
 use yeesoft\models\AuthGroup;
 use yeesoft\models\AuthPermission;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /**
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\AuthPermissionSearch $searchModel
  * @var yii\web\View $this
  */

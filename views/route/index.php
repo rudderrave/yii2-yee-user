@@ -5,7 +5,7 @@ use yeesoft\helpers\Html;
 use yii\widgets\Pjax;
 
 /**
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yeesoft\data\ActiveDataProvider $dataProvider
  * @var yeesoft\user\models\search\PermissionSearch $searchModel
  * @var yii\web\View $this
  */

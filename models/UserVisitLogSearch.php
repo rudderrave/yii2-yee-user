@@ -6,7 +6,7 @@ use yeesoft\models\User;
 use yeesoft\models\UserVisitLog;
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use yeesoft\data\ActiveDataProvider;
 
 /**
  * UserVisitLogSearch represents the model behind the search form about `yeesoft\models\UserVisitLog`.

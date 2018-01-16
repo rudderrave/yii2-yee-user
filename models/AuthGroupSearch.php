@@ -2,10 +2,10 @@
 
 namespace yeesoft\user\models;
 
-use yeesoft\models\AuthGroup;
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use yeesoft\models\AuthGroup;
+use yeesoft\data\ActiveDataProvider;
 
 /**
  * AuthGroupSearch represents the model behind the search form about `yeesoft\models\AuthGroup`.
