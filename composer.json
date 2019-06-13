@@ -1,16 +1,16 @@
 {
-  "name": "yeesoft/yii2-yee-user",
-  "description": "User Module For Yee CMS",
+  "name": "rudderrave/yii2-yee-user",
+  "description": "User Module For Yee CMS use rest",
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "Taras Makitra",
-      "email": "makitrataras@gmail.com"
+      "name": "Rave",
+      "email": "rudder.rave@gmail.com"
     }
   ],
   "require": {
-    "yeesoft/yii2-yee-core": "~0.1.0",
-    "yeesoft/yii2-yee-auth": "~0.1.0",
+    "rudderrave/yii2-yee-core": "dev-master",
+    "rudderrave/yii2-yee-auth": "dev-master",
     "webvimark/date-range-picker": "~1.0.2",
     "ikimea/browser": "~1.14"
   },
