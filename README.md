@@ -1,6 +1,6 @@
 # yii2-yee-user
 
-##Yee CMS - User Module
+##Yee CMS - User Module use in Yee-Core-Rest
 
 ####Backend module for managing users, roles, permissions, etc. 
 
@@ -12,13 +12,13 @@ Installation
 Either run
 
 ```
-composer require --prefer-dist yeesoft/yii2-yee-user "~0.1.0"
+composer require --prefer-dist rudderrave/yii2-yee-user "dev-master"
 ```
 
 or add
 
 ```
-"yeesoft/yii2-yee-user": "~0.1.0"
+"rudderrave/yii2-yee-user": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
@@ -26,7 +26,7 @@ to the require section of your `composer.json` file.
 Run migrations:
 
 ```php
-yii migrate --migrationPath=@vendor/yeesoft/yii2-yee-user/migrations/
+yii migrate --migrationPath=@vendor/rudderrave/yii2-yee-user/migrations/
 ```
 
 Configuration
@@ -50,8 +50,3 @@ Add this code in your control panel dashboard to display widget:
 ```php
 echo \yeesoft\user\widgets\dashboard\Users::widget();
 ```
-
-Screenshots
--------  
-
-[Flickr - Yee CMS User Module](https://www.flickr.com/photos/134050409@N07/sets/72157656671517306)
