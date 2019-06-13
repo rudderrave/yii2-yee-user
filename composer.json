@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "rudderrave/yii2-yee-core": "dev-master",
+    "rudderrave/yii2-yee-core-rest": "dev-master",
     "rudderrave/yii2-yee-auth": "dev-master",
     "webvimark/date-range-picker": "~1.0.2",
     "ikimea/browser": "~1.14"
